@@ -5,7 +5,6 @@ import { handleConversation } from "../services/conversation";
 import { sendMessages } from "../services/whatsapp";
 import { getKnowledge } from "../services/knowledge";
 import { generateReply } from "../services/openai";
-import { config } from "../config";
 
 export async function webhookRoutes(app: FastifyInstance) {
   app.get("/webhook", async (request, reply) => {
@@ -17,7 +16,7 @@ export async function webhookRoutes(app: FastifyInstance) {
 
     if (
       query["hub.mode"] === "subscribe" &&
-      query["hub.verify_token"] === config.verifyToken
+      query["hub.verify_token"] === "aswin123"
     ) {
       return reply.status(200).send(query["hub.challenge"]);
     }

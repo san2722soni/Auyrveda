@@ -1,27 +1,19 @@
 import OpenAI from "openai";
 import { config } from "../config";
 
-let openai: OpenAI | null = null;
-
-function getOpenAIClient(): OpenAI {
-  if (!config.openaiApiKey) {
-    throw new Error("OPENAI_API_KEY is missing");
-  }
-
-  if (!openai) {
-    openai = new OpenAI({
-      apiKey: config.openaiApiKey,
-    });
-  }
-
-  return openai;
+if (!config.openaiApiKey) {
+  throw new Error("OPENAI_API_KEY is missing");
 }
+
+const openai = new OpenAI({
+  apiKey: config.openaiApiKey,
+});
 
 export async function generateReply(
   message: string,
   knowledge: string
 ): Promise<string> {
-  const response = await getOpenAIClient().responses.create({
+  const response = await openai.responses.create({
     model: "gpt-5.4-nano",
 
     instructions: `

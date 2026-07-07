@@ -1,9 +1,6 @@
 import Fastify from "fastify";
 import { config } from "./config";
-import { adminRoutes } from "./routes/admin";
-import { appointmentRoutes } from "./routes/appointments";
 import { webhookRoutes } from "./routes/webhook";
-import { closeDatabase } from "./services/database";
 
 const app = Fastify({
     logger: true
@@ -17,23 +14,6 @@ app.get("/", async () => {
 });
 
 app.register(webhookRoutes);
-app.register(appointmentRoutes);
-app.register(adminRoutes);
-
-async function shutdown(signal: NodeJS.Signals): Promise<void> {
-    app.log.info({ signal }, "Shutting down");
-    await closeDatabase();
-    await app.close();
-    process.exit(0);
-}
-
-process.on("SIGINT", () => {
-    void shutdown("SIGINT");
-});
-
-process.on("SIGTERM", () => {
-    void shutdown("SIGTERM");
-});
 
 const start = async () => {
     try {
