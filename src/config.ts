@@ -9,4 +9,6 @@ export const config = {
   phoneNumberId: process.env.PHONE_NUMBER_ID,
   whatsappBusinessAccountId: process.env.WHATSAPP_BUSINESS_ACCOUNT_ID,
   verifyToken: process.env.VERIFY_TOKEN ?? "verify-token",
+  mongoUri: process.env.MONGODB_URI ?? "mongodb://127.0.0.1:27017",
+mongoDatabase: process.env.MONGODB_DATABASE ?? "ayurveda",
 };
