@@ -11,4 +11,5 @@ export const config = {
   verifyToken: process.env.VERIFY_TOKEN ?? "aswin123",
   mongoUri: process.env.MONGODB_URI ?? "mongodb://127.0.0.1:27017",
   mongoDatabase: process.env.MONGODB_DATABASE ?? "ayurveda",
+  frontendOrigin: process.env.FRONTEND_ORIGIN ?? "http://localhost:3001",
 };

@@ -1,0 +1,100 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 150 20% 98%;
+    --foreground: 164 20% 12%;
+    --card: 0 0% 100%;
+    --card-foreground: 164 20% 12%;
+    --primary: 164 38% 24%;
+    --primary-foreground: 150 25% 98%;
+    --secondary: 38 36% 92%;
+    --secondary-foreground: 164 26% 18%;
+    --muted: 150 18% 94%;
+    --muted-foreground: 164 9% 42%;
+    --accent: 170 28% 90%;
+    --accent-foreground: 164 36% 18%;
+    --destructive: 0 70% 48%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 154 15% 86%;
+    --input: 154 15% 86%;
+    --ring: 164 38% 34%;
+    --radius: 0.5rem;
+  }
+
+  .dark {
+    --background: 168 22% 8%;
+    --foreground: 150 20% 94%;
+    --card: 168 20% 11%;
+    --card-foreground: 150 20% 94%;
+    --primary: 156 43% 62%;
+    --primary-foreground: 168 24% 8%;
+    --secondary: 168 18% 16%;
+    --secondary-foreground: 150 20% 94%;
+    --muted: 168 17% 15%;
+    --muted-foreground: 155 10% 68%;
+    --accent: 166 18% 18%;
+    --accent-foreground: 150 20% 94%;
+    --destructive: 0 64% 55%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 168 15% 21%;
+    --input: 168 15% 21%;
+    --ring: 156 43% 62%;
+  }
+
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground antialiased;
+    letter-spacing: 0;
+  }
+}
+
+@layer components {
+  .markdown-preview h1,
+  .markdown-preview h2,
+  .markdown-preview h3 {
+    @apply mb-3 mt-5 font-semibold text-foreground;
+  }
+
+  .markdown-preview h1 {
+    @apply text-2xl;
+  }
+
+  .markdown-preview h2 {
+    @apply text-xl;
+  }
+
+  .markdown-preview h3 {
+    @apply text-lg;
+  }
+
+  .markdown-preview p {
+    @apply my-3 text-foreground;
+  }
+
+  .markdown-preview ul,
+  .markdown-preview ol {
+    @apply my-3 pl-6;
+  }
+
+  .markdown-preview ul {
+    @apply list-disc;
+  }
+
+  .markdown-preview ol {
+    @apply list-decimal;
+  }
+
+  .markdown-preview li {
+    @apply my-1;
+  }
+
+  .markdown-preview strong {
+    @apply font-semibold;
+  }
+}
