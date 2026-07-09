@@ -1,20 +1,21 @@
 import Fastify from "fastify";
 import { config } from "./config";
-import { webhookRoutes } from "./routes/webhook";
+import { API_PATHS } from "./constants/api";
+import { registerRoutes } from "./routes";
 import { connectDatabase } from "./services/database";
 
 const app = Fastify({
   logger: true,
 });
 
-app.get("/", async () => {
+app.get(API_PATHS.root, async () => {
   return {
     status: "ok",
     service: "WhatsApp AI Bot",
   };
 });
 
-app.register(webhookRoutes);
+app.register(registerRoutes);
 
 const start = async () => {
   try {

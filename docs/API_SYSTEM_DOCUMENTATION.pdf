@@ -1,0 +1,1271 @@
+%PDF-1.4
+1 0 obj
+<< /Type /Catalog /Pages 2 0 R >>
+endobj
+2 0 obj
+<< /Type /Pages /Kids [4 0 R 6 0 R 8 0 R 10 0 R 12 0 R 14 0 R 16 0 R 18 0 R 20 0 R 22 0 R] /Count 10 >>
+endobj
+3 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>
+endobj
+4 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F1 3 0 R >> >> /Contents 5 0 R >>
+endobj
+5 0 obj
+<< /Length 1961 >>
+stream
+BT
+/F1 9 Tf
+48 744 Td
+12 TL
+(Vishwavrinda Ayurveda Backend API And System Design) Tj
+T*
+() Tj
+T*
+(Generated for the Fastify + TypeScript WhatsApp AI backend.) Tj
+T*
+() Tj
+T*
+(Project Structure) Tj
+T*
+() Tj
+T*
+(text) Tj
+T*
+(src/) Tj
+T*
+(  constants/   Shared API paths, pagination limits, collection names, indexes, and messages) Tj
+T*
+(  lib/         Shared helpers for pagination, ObjectId validation, regex escaping, and request) Tj
+T*
+(body checks) Tj
+T*
+(  parsers/     Meta WhatsApp webhook payload parsing) Tj
+T*
+(  routes/      Fastify route registration and endpoint handlers) Tj
+T*
+(  services/    Business logic, MongoDB access, OpenAI, WhatsApp, and knowledge file operations) Tj
+T*
+(  types/       Shared TypeScript data models) Tj
+T*
+() Tj
+T*
+() Tj
+T*
+(System Design) Tj
+T*
+() Tj
+T*
+(text) Tj
+T*
+(Incoming WhatsApp Message) Tj
+T*
+(  |) Tj
+T*
+(  v) Tj
+T*
+(POST /webhook) Tj
+T*
+(  |) Tj
+T*
+(  v) Tj
+T*
+(src/parsers/whatsapp.ts) Tj
+T*
+(  |) Tj
+T*
+(  v) Tj
+T*
+(src/services/conversation.ts) Tj
+T*
+(  |) Tj
+T*
+(  +--> upsertUser\(\) ---------------------> MongoDB users) Tj
+T*
+(  |) Tj
+T*
+(  +--> createMessage\(role=user\) ----------> MongoDB messages) Tj
+T*
+(  |) Tj
+T*
+(  +--> getKnowledge\(\) --------------------> knowledge.md) Tj
+T*
+(  |) Tj
+T*
+(  +--> generateReply\(\) -------------------> OpenAI Responses API) Tj
+T*
+(  |) Tj
+T*
+(  +--> AIResult type=message) Tj
+T*
+(  |       |) Tj
+T*
+(  |       v) Tj
+T*
+(  |     sendAndStoreMessage\(\)) Tj
+T*
+(  |       |) Tj
+T*
+(  |       +--> sendMessages\(\) ------------> WhatsApp Cloud API) Tj
+T*
+(  |       |) Tj
+T*
+(  |       +--> createMessage\(role=assistant\) after successful send) Tj
+T*
+(  |) Tj
+T*
+(  +--> AIResult type=appointment) Tj
+T*
+(          |) Tj
+T*
+(          v) Tj
+T*
+(        createAppointment\(\) --------------> MongoDB appointments) Tj
+T*
+(          |) Tj
+T*
+(          v) Tj
+T*
+(        sendAndStoreMessage\(server confirmation\)) Tj
+T*
+() Tj
+T*
+() Tj
+T*
+(Data Storage) Tj
+T*
+ET
+endstream
+endobj
+6 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F1 3 0 R >> >> /Contents 7 0 R >>
+endobj
+7 0 obj
+<< /Length 1211 >>
+stream
+BT
+/F1 9 Tf
+48 744 Td
+12 TL
+() Tj
+T*
+(MongoDB collections:) Tj
+T*
+() Tj
+T*
+(  - users) Tj
+T*
+(  - messages) Tj
+T*
+(  - appointments) Tj
+T*
+() Tj
+T*
+(File storage:) Tj
+T*
+() Tj
+T*
+(  - knowledge.md remains file-based and is not stored in MongoDB.) Tj
+T*
+() Tj
+T*
+(Indexes created during database initialization:) Tj
+T*
+() Tj
+T*
+(  - users: phoneNumber unique, lastActiveAt, firstSeenAt) Tj
+T*
+(  - messages: phoneNumber + createdAt) Tj
+T*
+(  - appointments: createdAt, isCompleted + createdAt, phoneNumber) Tj
+T*
+() Tj
+T*
+(Shared Rules) Tj
+T*
+() Tj
+T*
+(Pagination defaults:) Tj
+T*
+() Tj
+T*
+(  - page = 1) Tj
+T*
+(  - limit = 20) Tj
+T*
+(  - maximum limit = 100) Tj
+T*
+() Tj
+T*
+(Paginated response format:) Tj
+T*
+() Tj
+T*
+(json) Tj
+T*
+({) Tj
+T*
+(  "data": [],) Tj
+T*
+(  "pagination": {) Tj
+T*
+(    "page": 1,) Tj
+T*
+(    "limit": 20,) Tj
+T*
+(    "total": 0,) Tj
+T*
+(    "totalPages": 0) Tj
+T*
+(  }) Tj
+T*
+(}) Tj
+T*
+() Tj
+T*
+() Tj
+T*
+(API Documentation) Tj
+T*
+() Tj
+T*
+(GET /) Tj
+T*
+() Tj
+T*
+(File:) Tj
+T*
+() Tj
+T*
+(  - src/index.ts) Tj
+T*
+() Tj
+T*
+(Purpose:) Tj
+T*
+() Tj
+T*
+(  - Health check endpoint.) Tj
+T*
+() Tj
+T*
+(Parameters:) Tj
+T*
+() Tj
+T*
+(  - None.) Tj
+T*
+() Tj
+T*
+(Returns:) Tj
+T*
+() Tj
+T*
+(json) Tj
+T*
+ET
+endstream
+endobj
+8 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F1 3 0 R >> >> /Contents 9 0 R >>
+endobj
+9 0 obj
+<< /Length 1369 >>
+stream
+BT
+/F1 9 Tf
+48 744 Td
+12 TL
+({) Tj
+T*
+(  "status": "ok",) Tj
+T*
+(  "service": "WhatsApp AI Bot") Tj
+T*
+(}) Tj
+T*
+() Tj
+T*
+() Tj
+T*
+(GET /webhook) Tj
+T*
+() Tj
+T*
+(Files:) Tj
+T*
+() Tj
+T*
+(  - src/routes/webhook.ts) Tj
+T*
+(  - src/config.ts) Tj
+T*
+() Tj
+T*
+(Purpose:) Tj
+T*
+() Tj
+T*
+(  - Meta WhatsApp webhook verification.) Tj
+T*
+() Tj
+T*
+(Query parameters:) Tj
+T*
+() Tj
+T*
+(  - hub.mode: expected subscribe) Tj
+T*
+(  - hub.verify_token: must match VERIFY_TOKEN) Tj
+T*
+(  - hub.challenge: returned to Meta when verification succeeds) Tj
+T*
+() Tj
+T*
+(Returns:) Tj
+T*
+() Tj
+T*
+(  - 200 with the challenge string when valid.) Tj
+T*
+(  - 403 with Verification failed when invalid.) Tj
+T*
+() Tj
+T*
+(POST /webhook) Tj
+T*
+() Tj
+T*
+(Files:) Tj
+T*
+() Tj
+T*
+(  - src/routes/webhook.ts) Tj
+T*
+(  - src/parsers/whatsapp.ts) Tj
+T*
+(  - src/services/conversation.ts) Tj
+T*
+() Tj
+T*
+(Purpose:) Tj
+T*
+() Tj
+T*
+(  - Receives incoming WhatsApp webhook events, parses the incoming message, and starts the AI) Tj
+T*
+(conversation flow.) Tj
+T*
+() Tj
+T*
+(Body:) Tj
+T*
+() Tj
+T*
+(  - Meta WhatsApp webhook payload.) Tj
+T*
+() Tj
+T*
+(Returns:) Tj
+T*
+() Tj
+T*
+(json) Tj
+T*
+({) Tj
+T*
+(  "success": true) Tj
+T*
+(}) Tj
+T*
+() Tj
+T*
+() Tj
+T*
+(Side effects:) Tj
+T*
+() Tj
+T*
+(  - Creates or updates a user in users.) Tj
+T*
+(  - Stores incoming user message in messages.) Tj
+T*
+(  - Calls OpenAI.) Tj
+T*
+ET
+endstream
+endobj
+10 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F1 3 0 R >> >> /Contents 11 0 R >>
+endobj
+11 0 obj
+<< /Length 1222 >>
+stream
+BT
+/F1 9 Tf
+48 744 Td
+12 TL
+(  - Sends WhatsApp reply.) Tj
+T*
+(  - Stores assistant reply only after WhatsApp send succeeds.) Tj
+T*
+(  - Creates appointment when AIResult returns a complete appointment.) Tj
+T*
+() Tj
+T*
+(GET /test-whatsapp) Tj
+T*
+() Tj
+T*
+(File:) Tj
+T*
+() Tj
+T*
+(  - src/routes/webhook.ts) Tj
+T*
+() Tj
+T*
+(Purpose:) Tj
+T*
+() Tj
+T*
+(  - Sends a fixed WhatsApp test message using the configured WhatsApp sender.) Tj
+T*
+() Tj
+T*
+(Parameters:) Tj
+T*
+() Tj
+T*
+(  - None.) Tj
+T*
+() Tj
+T*
+(Returns:) Tj
+T*
+() Tj
+T*
+(json) Tj
+T*
+({) Tj
+T*
+(  "success": true) Tj
+T*
+(}) Tj
+T*
+() Tj
+T*
+() Tj
+T*
+(GET /test-ai) Tj
+T*
+() Tj
+T*
+(Files:) Tj
+T*
+() Tj
+T*
+(  - src/routes/webhook.ts) Tj
+T*
+(  - src/services/knowledge.ts) Tj
+T*
+(  - src/services/openai.ts) Tj
+T*
+() Tj
+T*
+(Purpose:) Tj
+T*
+() Tj
+T*
+(  - Loads knowledge.md and asks the AI a fixed test question.) Tj
+T*
+() Tj
+T*
+(Parameters:) Tj
+T*
+() Tj
+T*
+(  - None.) Tj
+T*
+() Tj
+T*
+(Returns:) Tj
+T*
+() Tj
+T*
+(json) Tj
+T*
+({) Tj
+T*
+(  "success": true,) Tj
+T*
+(  "reply": {) Tj
+T*
+(    "type": "message",) Tj
+T*
+(    "reply": "string",) Tj
+T*
+(    "appointment": null) Tj
+T*
+(  }) Tj
+T*
+(}) Tj
+T*
+() Tj
+T*
+() Tj
+T*
+(GET /api/dashboard/stats) Tj
+T*
+() Tj
+T*
+(Files:) Tj
+T*
+ET
+endstream
+endobj
+12 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F1 3 0 R >> >> /Contents 13 0 R >>
+endobj
+13 0 obj
+<< /Length 1558 >>
+stream
+BT
+/F1 9 Tf
+48 744 Td
+12 TL
+() Tj
+T*
+(  - src/routes/dashboard.ts) Tj
+T*
+(  - src/services/dashboard.ts) Tj
+T*
+() Tj
+T*
+(Purpose:) Tj
+T*
+() Tj
+T*
+(  - Returns dashboard counters calculated from existing MongoDB collections.) Tj
+T*
+() Tj
+T*
+(Parameters:) Tj
+T*
+() Tj
+T*
+(  - None.) Tj
+T*
+() Tj
+T*
+(Returns:) Tj
+T*
+() Tj
+T*
+(json) Tj
+T*
+({) Tj
+T*
+(  "totalUsers": 0,) Tj
+T*
+(  "newUsersThisWeek": 0,) Tj
+T*
+(  "newUsersThisMonth": 0,) Tj
+T*
+(  "totalMessages": 0,) Tj
+T*
+(  "totalAppointments": 0,) Tj
+T*
+(  "pendingAppointments": 0,) Tj
+T*
+(  "completedAppointments": 0,) Tj
+T*
+(  "appointmentsThisWeek": 0,) Tj
+T*
+(  "appointmentsThisMonth": 0) Tj
+T*
+(}) Tj
+T*
+() Tj
+T*
+() Tj
+T*
+(GET /api/appointments) Tj
+T*
+() Tj
+T*
+(Files:) Tj
+T*
+() Tj
+T*
+(  - src/routes/appointments.ts) Tj
+T*
+(  - src/services/appointments.ts) Tj
+T*
+() Tj
+T*
+(Purpose:) Tj
+T*
+() Tj
+T*
+(  - Returns paginated appointment requests for dashboard management.) Tj
+T*
+() Tj
+T*
+(Query parameters:) Tj
+T*
+() Tj
+T*
+(  - page: optional positive integer, default 1) Tj
+T*
+(  - limit: optional positive integer, default 20, max 100) Tj
+T*
+(  - status: optional pending, done, or all, default all) Tj
+T*
+(  - search: optional text search across patientName and phoneNumber) Tj
+T*
+() Tj
+T*
+(Returns:) Tj
+T*
+() Tj
+T*
+(json) Tj
+T*
+({) Tj
+T*
+(  "data": [) Tj
+T*
+(    {) Tj
+T*
+(      "_id": "string",) Tj
+T*
+(      "patientName": "string",) Tj
+T*
+(      "phoneNumber": "string",) Tj
+T*
+(      "preferredDate": "string",) Tj
+T*
+(      "preferredTime": "string",) Tj
+T*
+(      "reason": "string",) Tj
+T*
+ET
+endstream
+endobj
+14 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F1 3 0 R >> >> /Contents 15 0 R >>
+endobj
+15 0 obj
+<< /Length 1369 >>
+stream
+BT
+/F1 9 Tf
+48 744 Td
+12 TL
+(      "preferredContactMethod": "call",) Tj
+T*
+(      "source": "whatsapp",) Tj
+T*
+(      "isCompleted": false,) Tj
+T*
+(      "createdAt": "date",) Tj
+T*
+(      "updatedAt": "date",) Tj
+T*
+(      "completedAt": "date") Tj
+T*
+(    }) Tj
+T*
+(  ],) Tj
+T*
+(  "pagination": {) Tj
+T*
+(    "page": 1,) Tj
+T*
+(    "limit": 20,) Tj
+T*
+(    "total": 1,) Tj
+T*
+(    "totalPages": 1) Tj
+T*
+(  }) Tj
+T*
+(}) Tj
+T*
+() Tj
+T*
+() Tj
+T*
+(Errors:) Tj
+T*
+() Tj
+T*
+(  - 400 for invalid pagination.) Tj
+T*
+(  - 400 for invalid appointment status.) Tj
+T*
+(  - 500 for unexpected database errors.) Tj
+T*
+() Tj
+T*
+(PATCH /api/appointments/:id) Tj
+T*
+() Tj
+T*
+(Files:) Tj
+T*
+() Tj
+T*
+(  - src/routes/appointments.ts) Tj
+T*
+(  - src/services/appointments.ts) Tj
+T*
+() Tj
+T*
+(Purpose:) Tj
+T*
+() Tj
+T*
+(  - Updates only the appointment completion status.) Tj
+T*
+() Tj
+T*
+(Path parameters:) Tj
+T*
+() Tj
+T*
+(  - id: MongoDB ObjectId string.) Tj
+T*
+() Tj
+T*
+(Body:) Tj
+T*
+() Tj
+T*
+(json) Tj
+T*
+({) Tj
+T*
+(  "isCompleted": true) Tj
+T*
+(}) Tj
+T*
+() Tj
+T*
+() Tj
+T*
+(Returns:) Tj
+T*
+() Tj
+T*
+(json) Tj
+T*
+({) Tj
+T*
+(  "success": true,) Tj
+T*
+(  "data": {) Tj
+T*
+(    "_id": "string",) Tj
+T*
+(    "patientName": "string",) Tj
+T*
+(    "phoneNumber": "string",) Tj
+T*
+(    "preferredDate": "string",) Tj
+T*
+(    "preferredTime": "string",) Tj
+T*
+(    "reason": "string",) Tj
+T*
+ET
+endstream
+endobj
+16 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F1 3 0 R >> >> /Contents 17 0 R >>
+endobj
+17 0 obj
+<< /Length 1572 >>
+stream
+BT
+/F1 9 Tf
+48 744 Td
+12 TL
+(    "preferredContactMethod": "call",) Tj
+T*
+(    "source": "whatsapp",) Tj
+T*
+(    "isCompleted": true,) Tj
+T*
+(    "createdAt": "date",) Tj
+T*
+(    "updatedAt": "date",) Tj
+T*
+(    "completedAt": "date") Tj
+T*
+(  }) Tj
+T*
+(}) Tj
+T*
+() Tj
+T*
+() Tj
+T*
+(Rules:) Tj
+T*
+() Tj
+T*
+(  - When isCompleted is true, completedAt is set.) Tj
+T*
+(  - When isCompleted is false, completedAt is removed.) Tj
+T*
+(  - No appointment details can be edited by this endpoint.) Tj
+T*
+() Tj
+T*
+(Errors:) Tj
+T*
+() Tj
+T*
+(  - 400 for invalid ObjectId.) Tj
+T*
+(  - 400 for invalid body or extra fields.) Tj
+T*
+(  - 404 when appointment is not found.) Tj
+T*
+(  - 500 for unexpected database errors.) Tj
+T*
+() Tj
+T*
+(GET /api/users) Tj
+T*
+() Tj
+T*
+(Files:) Tj
+T*
+() Tj
+T*
+(  - src/routes/users.ts) Tj
+T*
+(  - src/services/users.ts) Tj
+T*
+() Tj
+T*
+(Purpose:) Tj
+T*
+() Tj
+T*
+(  - Returns paginated WhatsApp users.) Tj
+T*
+() Tj
+T*
+(Query parameters:) Tj
+T*
+() Tj
+T*
+(  - page: optional positive integer, default 1) Tj
+T*
+(  - limit: optional positive integer, default 20, max 100) Tj
+T*
+(  - search: optional phone number search) Tj
+T*
+() Tj
+T*
+(Returns:) Tj
+T*
+() Tj
+T*
+(json) Tj
+T*
+({) Tj
+T*
+(  "data": [) Tj
+T*
+(    {) Tj
+T*
+(      "phoneNumber": "string",) Tj
+T*
+(      "firstSeenAt": "date",) Tj
+T*
+(      "lastActiveAt": "date",) Tj
+T*
+(      "totalMessages": 1,) Tj
+T*
+(      "createdAt": "date",) Tj
+T*
+(      "updatedAt": "date") Tj
+T*
+(    }) Tj
+T*
+(  ],) Tj
+T*
+(  "pagination": {) Tj
+T*
+(    "page": 1,) Tj
+T*
+(    "limit": 20,) Tj
+T*
+(    "total": 1,) Tj
+T*
+ET
+endstream
+endobj
+18 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F1 3 0 R >> >> /Contents 19 0 R >>
+endobj
+19 0 obj
+<< /Length 1354 >>
+stream
+BT
+/F1 9 Tf
+48 744 Td
+12 TL
+(    "totalPages": 1) Tj
+T*
+(  }) Tj
+T*
+(}) Tj
+T*
+() Tj
+T*
+() Tj
+T*
+(Errors:) Tj
+T*
+() Tj
+T*
+(  - 400 for invalid pagination.) Tj
+T*
+(  - 500 for unexpected database errors.) Tj
+T*
+() Tj
+T*
+(GET /api/users/:phoneNumber/messages) Tj
+T*
+() Tj
+T*
+(Files:) Tj
+T*
+() Tj
+T*
+(  - src/routes/users.ts) Tj
+T*
+(  - src/services/messages.ts) Tj
+T*
+() Tj
+T*
+(Purpose:) Tj
+T*
+() Tj
+T*
+(  - Returns paginated conversation history for one WhatsApp phone number.) Tj
+T*
+() Tj
+T*
+(Path parameters:) Tj
+T*
+() Tj
+T*
+(  - phoneNumber: WhatsApp phone number.) Tj
+T*
+() Tj
+T*
+(Query parameters:) Tj
+T*
+() Tj
+T*
+(  - page: optional positive integer, default 1) Tj
+T*
+(  - limit: optional positive integer, default 20, max 100) Tj
+T*
+() Tj
+T*
+(Returns:) Tj
+T*
+() Tj
+T*
+(json) Tj
+T*
+({) Tj
+T*
+(  "data": [) Tj
+T*
+(    {) Tj
+T*
+(      "phoneNumber": "string",) Tj
+T*
+(      "role": "user",) Tj
+T*
+(      "content": "string",) Tj
+T*
+(      "createdAt": "date") Tj
+T*
+(    }) Tj
+T*
+(  ],) Tj
+T*
+(  "pagination": {) Tj
+T*
+(    "page": 1,) Tj
+T*
+(    "limit": 20,) Tj
+T*
+(    "total": 1,) Tj
+T*
+(    "totalPages": 1) Tj
+T*
+(  }) Tj
+T*
+(}) Tj
+T*
+() Tj
+T*
+() Tj
+T*
+(Errors:) Tj
+T*
+() Tj
+T*
+(  - 400 for invalid pagination.) Tj
+T*
+(  - 400 for invalid phone number.) Tj
+T*
+(  - 500 for unexpected database errors.) Tj
+T*
+() Tj
+T*
+(GET /api/knowledge) Tj
+T*
+ET
+endstream
+endobj
+20 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F1 3 0 R >> >> /Contents 21 0 R >>
+endobj
+21 0 obj
+<< /Length 1153 >>
+stream
+BT
+/F1 9 Tf
+48 744 Td
+12 TL
+() Tj
+T*
+(Files:) Tj
+T*
+() Tj
+T*
+(  - src/routes/knowledge.ts) Tj
+T*
+(  - src/services/knowledge.ts) Tj
+T*
+() Tj
+T*
+(Purpose:) Tj
+T*
+() Tj
+T*
+(  - Reads the current file-based clinic knowledge.) Tj
+T*
+() Tj
+T*
+(Parameters:) Tj
+T*
+() Tj
+T*
+(  - None.) Tj
+T*
+() Tj
+T*
+(Returns:) Tj
+T*
+() Tj
+T*
+(json) Tj
+T*
+({) Tj
+T*
+(  "content": "markdown content") Tj
+T*
+(}) Tj
+T*
+() Tj
+T*
+() Tj
+T*
+(Errors:) Tj
+T*
+() Tj
+T*
+(  - 500 for unexpected filesystem errors.) Tj
+T*
+() Tj
+T*
+(PUT /api/knowledge) Tj
+T*
+() Tj
+T*
+(Files:) Tj
+T*
+() Tj
+T*
+(  - src/routes/knowledge.ts) Tj
+T*
+(  - src/services/knowledge.ts) Tj
+T*
+() Tj
+T*
+(Purpose:) Tj
+T*
+() Tj
+T*
+(  - Replaces knowledge.md using a temporary file followed by rename.) Tj
+T*
+() Tj
+T*
+(Body:) Tj
+T*
+() Tj
+T*
+(json) Tj
+T*
+({) Tj
+T*
+(  "content": "updated markdown content") Tj
+T*
+(}) Tj
+T*
+() Tj
+T*
+() Tj
+T*
+(Validation:) Tj
+T*
+() Tj
+T*
+(  - content must be a string.) Tj
+T*
+(  - content must not be empty after trimming.) Tj
+T*
+(  - content must be at most 100000 characters.) Tj
+T*
+() Tj
+T*
+(Returns:) Tj
+T*
+() Tj
+T*
+(json) Tj
+T*
+({) Tj
+T*
+(  "success": true) Tj
+T*
+(}) Tj
+T*
+() Tj
+T*
+ET
+endstream
+endobj
+22 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F1 3 0 R >> >> /Contents 23 0 R >>
+endobj
+23 0 obj
+<< /Length 1385 >>
+stream
+BT
+/F1 9 Tf
+48 744 Td
+12 TL
+() Tj
+T*
+(Errors:) Tj
+T*
+() Tj
+T*
+(  - 400 for invalid knowledge content.) Tj
+T*
+(  - 500 for unexpected filesystem errors.) Tj
+T*
+() Tj
+T*
+(Important Files By Responsibility) Tj
+T*
+() Tj
+T*
+(  - Route registration: src/routes/index.ts) Tj
+T*
+(  - API path constants: src/constants/api.ts) Tj
+T*
+(  - Database collection and index constants: src/constants/database.ts) Tj
+T*
+(  - Pagination constants: src/constants/pagination.ts) Tj
+T*
+(  - Appointment constants: src/constants/appointments.ts) Tj
+T*
+(  - Knowledge constants: src/constants/knowledge.ts) Tj
+T*
+(  - Pagination helper: src/lib/pagination.ts) Tj
+T*
+(  - ObjectId helper: src/lib/object-id.ts) Tj
+T*
+(  - Request body validators: src/lib/request-body.ts) Tj
+T*
+(  - Regex escaping helper: src/lib/regex.ts) Tj
+T*
+(  - WhatsApp parser: src/parsers/whatsapp.ts) Tj
+T*
+(  - WhatsApp sender: src/services/whatsapp.ts) Tj
+T*
+(  - OpenAI service: src/services/openai.ts) Tj
+T*
+(  - Conversation orchestrator: src/services/conversation.ts) Tj
+T*
+(  - Appointment persistence and dashboard operations: src/services/appointments.ts) Tj
+T*
+(  - User persistence and listing: src/services/users.ts) Tj
+T*
+(  - Message persistence and history: src/services/messages.ts) Tj
+T*
+(  - Dashboard stats: src/services/dashboard.ts) Tj
+T*
+(  - Knowledge file service: src/services/knowledge.ts) Tj
+T*
+() Tj
+T*
+ET
+endstream
+endobj
+xref
+0 24
+0000000000 65535 f 
+0000000009 00000 n 
+0000000058 00000 n 
+0000000177 00000 n 
+0000000247 00000 n 
+0000000373 00000 n 
+0000002386 00000 n 
+0000002512 00000 n 
+0000003775 00000 n 
+0000003901 00000 n 
+0000005322 00000 n 
+0000005450 00000 n 
+0000006725 00000 n 
+0000006853 00000 n 
+0000008464 00000 n 
+0000008592 00000 n 
+0000010014 00000 n 
+0000010142 00000 n 
+0000011767 00000 n 
+0000011895 00000 n 
+0000013302 00000 n 
+0000013430 00000 n 
+0000014636 00000 n 
+0000014764 00000 n 
+trailer
+<< /Size 24 /Root 1 0 R >>
+startxref
+16202
+%%EOF

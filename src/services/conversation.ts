@@ -1,12 +1,23 @@
 import { WhatsAppMessage } from "../types/whatsapp";
+import { APPOINTMENT_CONFIRMATION_MESSAGE } from "../constants/appointments";
 import { getKnowledge } from "./knowledge";
 import { generateReply } from "./openai";
-import { sendMessages } from "./whatsapp";
 import { createAppointment } from "./appointments";
+import { createMessage } from "./messages";
+import { sendAndStoreMessage } from "./messaging";
+import { upsertUser } from "./users";
 
 export async function handleConversation(
   incoming: WhatsAppMessage
 ): Promise<void> {
+  await upsertUser(incoming.from);
+
+  await createMessage({
+    phoneNumber: incoming.from,
+    role: "user",
+    content: incoming.text,
+  });
+
   const knowledge = await getKnowledge();
 
   const result = await generateReply(
@@ -15,7 +26,7 @@ export async function handleConversation(
   );
 
   if (result.type === "message") {
-    await sendMessages(incoming.from, result.reply);
+    await sendAndStoreMessage(incoming.from, result.reply);
     return;
   }
 
@@ -25,9 +36,9 @@ export async function handleConversation(
       phoneNumber: incoming.from,
     });
 
-    await sendMessages(
+    await sendAndStoreMessage(
       incoming.from,
-      "Your appointment request has been submitted successfully. The clinic team will contact you soon."
+      APPOINTMENT_CONFIRMATION_MESSAGE
     );
   }
 }

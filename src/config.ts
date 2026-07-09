@@ -8,7 +8,7 @@ export const config = {
   whatsappToken: process.env.WHATSAPP_TOKEN,
   phoneNumberId: process.env.PHONE_NUMBER_ID,
   whatsappBusinessAccountId: process.env.WHATSAPP_BUSINESS_ACCOUNT_ID,
-  verifyToken: process.env.VERIFY_TOKEN ?? "verify-token",
+  verifyToken: process.env.VERIFY_TOKEN ?? "aswin123",
   mongoUri: process.env.MONGODB_URI ?? "mongodb://127.0.0.1:27017",
-mongoDatabase: process.env.MONGODB_DATABASE ?? "ayurveda",
+  mongoDatabase: process.env.MONGODB_DATABASE ?? "ayurveda",
 };
