@@ -1,12 +1,13 @@
 "use client";
 
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { useState } from "react";
 import {
   BookOpen,
   CalendarDays,
   LayoutDashboard,
+  LogOut,
   Menu,
   MessageSquareText,
   PanelLeftClose,
@@ -16,6 +17,7 @@ import {
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { ThemeToggle } from "@/components/theme-toggle";
+import { clearAuthToken } from "@/lib/auth";
 import { cn } from "@/lib/utils";
 
 const navigation = [
@@ -62,9 +64,34 @@ function NavLinks({
   );
 }
 
+function LogoutButton({ compact = false }: { compact?: boolean }) {
+  const router = useRouter();
+
+  return (
+    <Button
+      type="button"
+      variant="ghost"
+      className={cn("w-full", compact ? "px-0" : "justify-start")}
+      title={compact ? "Logout" : undefined}
+      onClick={() => {
+        clearAuthToken();
+        router.replace("/login");
+      }}
+    >
+      <LogOut className="h-4 w-4" />
+      {!compact && <span>Logout</span>}
+    </Button>
+  );
+}
+
 export function AppShell({ children }: { children: React.ReactNode }) {
   const [collapsed, setCollapsed] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
+  const pathname = usePathname();
+
+  if (pathname === "/login") {
+    return <div className="min-h-screen bg-background">{children}</div>;
+  }
 
   return (
     <div className="min-h-screen bg-background">
@@ -99,7 +126,10 @@ export function AppShell({ children }: { children: React.ReactNode }) {
           <NavLinks collapsed={collapsed} />
         </div>
         <div className="border-t p-3">
-          <ThemeToggle compact={collapsed} />
+          <div className="space-y-2">
+            <ThemeToggle compact={collapsed} />
+            <LogoutButton compact={collapsed} />
+          </div>
         </div>
       </aside>
 
@@ -131,7 +161,10 @@ export function AppShell({ children }: { children: React.ReactNode }) {
               <NavLinks onNavigate={() => setMobileOpen(false)} />
             </div>
             <div className="border-t p-3">
-              <ThemeToggle />
+              <div className="space-y-2">
+                <ThemeToggle />
+                <LogoutButton />
+              </div>
             </div>
           </div>
         </div>
@@ -151,7 +184,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
           <div className="text-sm font-semibold">Vishwavrinda Ayurveda</div>
           <ThemeToggle compact />
         </header>
-        <main className="mx-auto w-full max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
+        <main className="mx-auto w-full max-w-none px-3 py-6 sm:px-5 lg:px-6">
           {children}
         </main>
       </div>

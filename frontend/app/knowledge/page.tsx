@@ -2,7 +2,7 @@
 
 import { useEffect, useMemo, useState } from "react";
 import ReactMarkdown from "react-markdown";
-import { BookOpen, Save } from "lucide-react";
+import { BookOpen, Copy, Save } from "lucide-react";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
 import { getKnowledge, updateKnowledge } from "@/lib/api/knowledge";
@@ -70,20 +70,40 @@ export default function KnowledgePage() {
     [content, dirty, saveMutation.isPending]
   );
 
+  async function copyKnowledge() {
+    try {
+      await navigator.clipboard.writeText(content);
+      toast.success("Knowledge copied.");
+    } catch {
+      toast.error("Could not copy knowledge.");
+    }
+  }
+
   return (
     <div className="space-y-6">
       <PageHeader
         title="Knowledge"
         description="Manage the clinic information used by the AI assistant."
         actions={
-          <Button
-            type="button"
-            disabled={!canSave}
-            onClick={() => saveMutation.mutate(content)}
-          >
-            <Save className="h-4 w-4" />
-            {saveMutation.isPending ? "Saving" : "Save Changes"}
-          </Button>
+          <div className="flex flex-col gap-2 sm:flex-row">
+            <Button
+              type="button"
+              variant="outline"
+              disabled={!content}
+              onClick={copyKnowledge}
+            >
+              <Copy className="h-4 w-4" />
+              Copy
+            </Button>
+            <Button
+              type="button"
+              disabled={!canSave}
+              onClick={() => saveMutation.mutate(content)}
+            >
+              <Save className="h-4 w-4" />
+              {saveMutation.isPending ? "Saving" : "Save Changes"}
+            </Button>
+          </div>
         }
       />
 

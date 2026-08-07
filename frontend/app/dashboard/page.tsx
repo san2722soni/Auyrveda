@@ -1,21 +1,38 @@
 "use client";
 
-import Link from "next/link";
+import { useState } from "react";
 import {
-  Activity,
   CalendarCheck,
   CalendarClock,
+  ChevronDown,
   MessageSquareText,
   Users,
 } from "lucide-react";
 import { useQuery } from "@tanstack/react-query";
+import {
+  Area,
+  AreaChart,
+  CartesianGrid,
+  ResponsiveContainer,
+  Tooltip,
+  XAxis,
+  YAxis,
+} from "recharts";
 import { getDashboardStats } from "@/lib/api/dashboard";
+import { DashboardStats, DashboardTrendPeriod } from "@/types/dashboard";
 import { PageHeader } from "@/components/page-header";
 import { StatCard } from "@/components/stat-card";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { ChartContainer } from "@/components/ui/chart";
+import {
+  DropdownMenu,
+  DropdownMenuCheckboxItem,
+  DropdownMenuContent,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 import { Skeleton } from "@/components/ui/skeleton";
 import { ErrorState } from "@/components/error-state";
-import { buttonClassName } from "@/components/ui/button";
+import { Button } from "@/components/ui/button";
 import { formatNumber } from "@/lib/format";
 
 function DashboardSkeleton() {
@@ -34,15 +51,99 @@ function DashboardSkeleton() {
           </Card>
         ))}
       </div>
-      <Skeleton className="h-48 w-full" />
+      <div className="grid gap-4 xl:grid-cols-2">
+        <Skeleton className="h-96 w-full" />
+        <Skeleton className="h-96 w-full" />
+      </div>
     </div>
   );
 }
 
+function MetricChart({
+  title,
+  description,
+  stats,
+  dataKey,
+  color,
+}: {
+  title: string;
+  description: string;
+  stats: DashboardStats;
+  dataKey: "users" | "appointments";
+  color: string;
+}) {
+  const latestValue = stats.trend.points.at(-1)?.[dataKey] ?? 0;
+
+  return (
+    <Card className="shadow-lg shadow-emerald-950/10">
+      <CardHeader className="flex flex-col gap-2 sm:flex-row sm:items-start sm:justify-between">
+        <div>
+          <CardTitle className="text-base text-foreground">{title}</CardTitle>
+          <p className="mt-1 text-sm text-muted-foreground">{description}</p>
+        </div>
+        <div className="rounded-md border bg-background/70 px-3 py-2 text-right">
+          <div className="text-xs text-muted-foreground">Current total</div>
+          <div className="text-lg font-semibold">{formatNumber(latestValue)}</div>
+        </div>
+      </CardHeader>
+      <CardContent>
+        <ChartContainer>
+          <ResponsiveContainer width="100%" height="100%">
+            <AreaChart
+              data={stats.trend.points}
+              margin={{ left: 0, right: 14, top: 16, bottom: 0 }}
+            >
+              <defs>
+                <linearGradient id={`${dataKey}-fill`} x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="5%" stopColor={color} stopOpacity={0.34} />
+                  <stop offset="95%" stopColor={color} stopOpacity={0.04} />
+                </linearGradient>
+              </defs>
+              <CartesianGrid strokeDasharray="3 3" vertical={false} />
+              <XAxis
+                dataKey="label"
+                tickLine={false}
+                axisLine={false}
+                tickMargin={10}
+                minTickGap={18}
+              />
+              <YAxis
+                tickLine={false}
+                axisLine={false}
+                tickMargin={8}
+                width={36}
+              />
+              <Tooltip
+                formatter={(value) => formatNumber(Number(value))}
+                labelClassName="text-foreground"
+                contentStyle={{
+                  borderRadius: 8,
+                  border: "1px solid hsl(var(--border))",
+                  background: "hsl(var(--card))",
+                }}
+              />
+              <Area
+                type="monotone"
+                dataKey={dataKey}
+                stroke={color}
+                strokeWidth={3}
+                fill={`url(#${dataKey}-fill)`}
+                activeDot={{ r: 5 }}
+              />
+            </AreaChart>
+          </ResponsiveContainer>
+        </ChartContainer>
+      </CardContent>
+    </Card>
+  );
+}
+
 export default function DashboardPage() {
+  const [period, setPeriod] = useState<DashboardTrendPeriod>("week");
+  const periodLabel = period === "week" ? "This Week" : "This Month";
   const statsQuery = useQuery({
-    queryKey: ["dashboard", "stats"],
-    queryFn: getDashboardStats,
+    queryKey: ["dashboard", "stats", { period }],
+    queryFn: () => getDashboardStats({ period }),
   });
 
   return (
@@ -50,6 +151,30 @@ export default function DashboardPage() {
       <PageHeader
         title="Overview"
         description="A quick look at your clinic's WhatsApp activity."
+        actions={
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button type="button" variant="outline" className="w-full sm:w-40">
+                {periodLabel}
+                <ChevronDown className="h-4 w-4" />
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="end" className="w-40">
+              <DropdownMenuCheckboxItem
+                checked={period === "week"}
+                onCheckedChange={() => setPeriod("week")}
+              >
+                This Week
+              </DropdownMenuCheckboxItem>
+              <DropdownMenuCheckboxItem
+                checked={period === "month"}
+                onCheckedChange={() => setPeriod("month")}
+              >
+                This Month
+              </DropdownMenuCheckboxItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
+        }
       />
 
       {statsQuery.isLoading && <DashboardSkeleton />}
@@ -69,109 +194,46 @@ export default function DashboardPage() {
               value={statsQuery.data.totalUsers}
               helper={`+${formatNumber(statsQuery.data.newUsersThisMonth)} this month`}
               icon={Users}
+              tone="emerald"
             />
             <StatCard
               title="Total Messages"
               value={statsQuery.data.totalMessages}
               helper="WhatsApp conversations"
               icon={MessageSquareText}
+              tone="sky"
             />
             <StatCard
               title="Pending Appointments"
               value={statsQuery.data.pendingAppointments}
               helper="Need clinic follow-up"
               icon={CalendarClock}
+              tone="amber"
             />
             <StatCard
               title="Completed Appointments"
               value={statsQuery.data.completedAppointments}
               helper="Marked done by staff"
               icon={CalendarCheck}
+              tone="rose"
             />
           </div>
 
-          <div className="grid gap-4 lg:grid-cols-[1fr_320px]">
-            <Card>
-              <CardHeader>
-                <CardTitle className="text-base text-foreground">
-                  Activity Summary
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
-                  <div className="rounded-md border p-4">
-                    <div className="text-sm text-muted-foreground">
-                      New users this week
-                    </div>
-                    <div className="mt-2 text-xl font-semibold">
-                      {formatNumber(statsQuery.data.newUsersThisWeek)}
-                    </div>
-                  </div>
-                  <div className="rounded-md border p-4">
-                    <div className="text-sm text-muted-foreground">
-                      Appointments this week
-                    </div>
-                    <div className="mt-2 text-xl font-semibold">
-                      {formatNumber(statsQuery.data.appointmentsThisWeek)}
-                    </div>
-                  </div>
-                  <div className="rounded-md border p-4">
-                    <div className="text-sm text-muted-foreground">
-                      Appointments this month
-                    </div>
-                    <div className="mt-2 text-xl font-semibold">
-                      {formatNumber(statsQuery.data.appointmentsThisMonth)}
-                    </div>
-                  </div>
-                  <div className="rounded-md border p-4">
-                    <div className="text-sm text-muted-foreground">
-                      Total appointments
-                    </div>
-                    <div className="mt-2 text-xl font-semibold">
-                      {formatNumber(statsQuery.data.totalAppointments)}
-                    </div>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-
-            <Card>
-              <CardHeader>
-                <CardTitle className="flex items-center gap-2 text-base text-foreground">
-                  <Activity className="h-4 w-4" />
-                  Quick Actions
-                </CardTitle>
-              </CardHeader>
-              <CardContent className="space-y-2">
-                <Link
-                  href="/appointments?status=pending"
-                  className={buttonClassName({
-                    variant: "outline",
-                    className: "w-full justify-start",
-                  })}
-                >
-                  View Pending Appointments
-                </Link>
-                <Link
-                  href="/users"
-                  className={buttonClassName({
-                    variant: "outline",
-                    className: "w-full justify-start",
-                  })}
-                >
-                  View Users
-                </Link>
-                <Link
-                  href="/knowledge"
-                  className={buttonClassName({
-                    variant: "outline",
-                    className: "w-full justify-start",
-                  })}
-                >
-                  Edit Knowledge
-                </Link>
-              </CardContent>
-            </Card>
+          <div className="grid gap-4 xl:grid-cols-2">
+            <MetricChart
+              title="Users"
+              description={`${period === "week" ? "Weekly" : "Monthly"} user growth`}
+              stats={statsQuery.data}
+              dataKey="users"
+              color="#059669"
+            />
+            <MetricChart
+              title="Appointments"
+              description={`${period === "week" ? "Weekly" : "Monthly"} appointment growth`}
+              stats={statsQuery.data}
+              dataKey="appointments"
+              color="#f59e0b"
+            />
           </div>
         </>
       )}

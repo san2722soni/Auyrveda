@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { CalendarDays, Search } from "lucide-react";
+import { CalendarDays, ChevronDown, Search } from "lucide-react";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
 import {
@@ -15,6 +15,12 @@ import { Select } from "@/components/ui/select";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import {
+  DropdownMenu,
+  DropdownMenuCheckboxItem,
+  DropdownMenuContent,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 import {
   Table,
   TableBody,
@@ -31,6 +37,7 @@ import { useDebouncedValue } from "@/hooks/use-debounced-value";
 import { formatDateTime } from "@/lib/format";
 
 const LIMIT = 20;
+type DateCategory = "all" | "today" | "upcoming" | "past";
 
 function getAppointmentId(appointment: Appointment) {
   return appointment._id ?? `${appointment.phoneNumber}-${appointment.createdAt}`;
@@ -48,24 +55,92 @@ function ContactMethodBadge({ method }: { method: Appointment["preferredContactM
   return <Badge variant="secondary">{method === "call" ? "Call" : "WhatsApp"}</Badge>;
 }
 
+async function copyPhoneNumber(phoneNumber: string) {
+  try {
+    await navigator.clipboard.writeText(phoneNumber);
+    toast.success("Phone number copied.");
+  } catch {
+    toast.error("Could not copy phone number.");
+  }
+}
+
+function PhoneNumberCell({ phoneNumber }: { phoneNumber: string }) {
+  return (
+    <button
+      type="button"
+      title="Click to copy the number"
+      onClick={() => copyPhoneNumber(phoneNumber)}
+      className="rounded-md px-2 py-1 font-medium transition-shadow hover:bg-background hover:shadow-md hover:shadow-emerald-950/20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+    >
+      {phoneNumber}
+    </button>
+  );
+}
+
+function AppointmentStatusSelect({
+  appointment,
+  pending,
+  onChange,
+}: {
+  appointment: Appointment;
+  pending: boolean;
+  onChange: (isCompleted: boolean) => void;
+}) {
+  return (
+    <DropdownMenu>
+      <DropdownMenuTrigger asChild>
+        <Button
+          type="button"
+          size="sm"
+          variant="outline"
+          disabled={pending || !appointment._id}
+          className="min-w-32 justify-between"
+        >
+          {appointment.isCompleted ? "Done" : "Not Done"}
+          <ChevronDown className="h-4 w-4" />
+        </Button>
+      </DropdownMenuTrigger>
+      <DropdownMenuContent align="end" className="w-36">
+        <DropdownMenuCheckboxItem
+          checked={!appointment.isCompleted}
+          onCheckedChange={() => onChange(false)}
+        >
+          Not Done
+        </DropdownMenuCheckboxItem>
+        <DropdownMenuCheckboxItem
+          checked={appointment.isCompleted}
+          onCheckedChange={() => onChange(true)}
+        >
+          Done
+        </DropdownMenuCheckboxItem>
+      </DropdownMenuContent>
+    </DropdownMenu>
+  );
+}
+
 export default function AppointmentsPage() {
   const queryClient = useQueryClient();
   const [page, setPage] = useState(1);
   const [status, setStatus] = useState<AppointmentStatus>("all");
+  const [dateCategory, setDateCategory] = useState<DateCategory>("all");
   const [search, setSearch] = useState("");
   const debouncedSearch = useDebouncedValue(search);
 
   useEffect(() => {
     setPage(1);
-  }, [debouncedSearch, status]);
+  }, [dateCategory, debouncedSearch, status]);
 
   const appointmentsQuery = useQuery({
-    queryKey: ["appointments", { page, limit: LIMIT, status, search: debouncedSearch }],
+    queryKey: [
+      "appointments",
+      { page, limit: LIMIT, status, dateCategory, search: debouncedSearch },
+    ],
     queryFn: () =>
       getAppointments({
         page,
         limit: LIMIT,
         status,
+        dateCategory,
         search: debouncedSearch,
       }),
   });
@@ -94,7 +169,9 @@ export default function AppointmentsPage() {
 
   const appointmentsPage = appointmentsQuery.data;
   const appointments = appointmentsPage?.data ?? [];
-  const hasFilters = Boolean(debouncedSearch || status !== "all");
+  const hasFilters = Boolean(
+    debouncedSearch || status !== "all" || dateCategory !== "all"
+  );
 
   return (
     <div className="space-y-6">
@@ -104,8 +181,8 @@ export default function AppointmentsPage() {
       />
 
       <Card>
-        <div className="flex flex-col gap-3 border-b p-4 md:flex-row md:items-center md:justify-between">
-          <div className="relative w-full md:max-w-sm">
+        <div className="grid gap-3 border-b p-4 lg:grid-cols-[minmax(280px,1fr)_180px_180px]">
+          <div className="relative w-full">
             <Search className="pointer-events-none absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
             <Input
               aria-label="Search appointments"
@@ -121,8 +198,18 @@ export default function AppointmentsPage() {
             onChange={(event) => setStatus(event.target.value as AppointmentStatus)}
           >
             <option value="all">All</option>
-            <option value="pending">Pending</option>
+            <option value="pending">Not Done</option>
             <option value="done">Done</option>
+          </Select>
+          <Select
+            aria-label="Filter requested date"
+            value={dateCategory}
+            onChange={(event) => setDateCategory(event.target.value as DateCategory)}
+          >
+            <option value="all">All Dates</option>
+            <option value="today">Today</option>
+            <option value="upcoming">Upcoming</option>
+            <option value="past">Past</option>
           </Select>
         </div>
 
@@ -174,13 +261,26 @@ export default function AppointmentsPage() {
                     const pending =
                       statusMutation.isPending &&
                       statusMutation.variables?.id === id;
+                    const updateStatus = (isCompleted: boolean) => {
+                      if (
+                        appointment._id &&
+                        isCompleted !== appointment.isCompleted
+                      ) {
+                        statusMutation.mutate({
+                          id: appointment._id,
+                          isCompleted,
+                        });
+                      }
+                    };
 
                     return (
                       <TableRow key={id}>
                         <TableCell className="font-medium">
                           {appointment.patientName}
                         </TableCell>
-                        <TableCell>{appointment.phoneNumber}</TableCell>
+                        <TableCell>
+                          <PhoneNumberCell phoneNumber={appointment.phoneNumber} />
+                        </TableCell>
                         <TableCell>{appointment.preferredDate}</TableCell>
                         <TableCell>{appointment.preferredTime}</TableCell>
                         <TableCell>
@@ -197,25 +297,11 @@ export default function AppointmentsPage() {
                         </TableCell>
                         <TableCell>{formatDateTime(appointment.createdAt)}</TableCell>
                         <TableCell>
-                          <Button
-                            type="button"
-                            size="sm"
-                            variant={appointment.isCompleted ? "outline" : "default"}
-                            disabled={pending || !appointment._id}
-                            onClick={() =>
-                              appointment._id &&
-                              statusMutation.mutate({
-                                id: appointment._id,
-                                isCompleted: !appointment.isCompleted,
-                              })
-                            }
-                          >
-                            {pending
-                              ? "Updating"
-                              : appointment.isCompleted
-                                ? "Mark Pending"
-                                : "Mark Done"}
-                          </Button>
+                          <AppointmentStatusSelect
+                            appointment={appointment}
+                            pending={pending}
+                            onChange={updateStatus}
+                          />
                         </TableCell>
                       </TableRow>
                     );
@@ -229,15 +315,24 @@ export default function AppointmentsPage() {
                 const id = getAppointmentId(appointment);
                 const pending =
                   statusMutation.isPending && statusMutation.variables?.id === id;
+                const updateStatus = (isCompleted: boolean) => {
+                  if (
+                    appointment._id &&
+                    isCompleted !== appointment.isCompleted
+                  ) {
+                    statusMutation.mutate({
+                      id: appointment._id,
+                      isCompleted,
+                    });
+                  }
+                };
 
                 return (
                   <div key={id} className="rounded-lg border p-4">
                     <div className="flex items-start justify-between gap-3">
                       <div>
                         <div className="font-medium">{appointment.patientName}</div>
-                        <div className="text-sm text-muted-foreground">
-                          {appointment.phoneNumber}
-                        </div>
+                        <PhoneNumberCell phoneNumber={appointment.phoneNumber} />
                       </div>
                       <AppointmentStatusBadge appointment={appointment} />
                     </div>
@@ -263,25 +358,11 @@ export default function AppointmentsPage() {
                         {formatDateTime(appointment.createdAt)}
                       </div>
                     </div>
-                    <Button
-                      type="button"
-                      className="mt-4 w-full"
-                      variant={appointment.isCompleted ? "outline" : "default"}
-                      disabled={pending || !appointment._id}
-                      onClick={() =>
-                        appointment._id &&
-                        statusMutation.mutate({
-                          id: appointment._id,
-                          isCompleted: !appointment.isCompleted,
-                        })
-                      }
-                    >
-                      {pending
-                        ? "Updating"
-                        : appointment.isCompleted
-                          ? "Mark Pending"
-                          : "Mark Done"}
-                    </Button>
+                    <AppointmentStatusSelect
+                      appointment={appointment}
+                      pending={pending}
+                      onChange={updateStatus}
+                    />
                   </div>
                 );
               })}

@@ -1,14 +1,21 @@
 "use client";
 
-import Link from "next/link";
 import { useEffect, useState } from "react";
-import { MessageSquareText, Search, Users } from "lucide-react";
+import { useRouter } from "next/navigation";
+import { ChevronDown, Copy, MessageSquareText, Search, Users } from "lucide-react";
 import { useQuery } from "@tanstack/react-query";
+import { toast } from "sonner";
 import { getUsers } from "@/lib/api/users";
 import { PageHeader } from "@/components/page-header";
 import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
-import { buttonClassName } from "@/components/ui/button";
+import { Button } from "@/components/ui/button";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 import {
   Table,
   TableBody,
@@ -27,6 +34,7 @@ import { formatDateTime, formatNumber } from "@/lib/format";
 const LIMIT = 20;
 
 export default function UsersPage() {
+  const router = useRouter();
   const [page, setPage] = useState(1);
   const [search, setSearch] = useState("");
   const debouncedSearch = useDebouncedValue(search);
@@ -47,6 +55,52 @@ export default function UsersPage() {
 
   const usersPage = usersQuery.data;
   const users = usersPage?.data ?? [];
+
+  async function handleUserAction(action: string, phoneNumber: string) {
+    if (action === "copy") {
+      try {
+        await navigator.clipboard.writeText(phoneNumber);
+        toast.success("Phone number copied.");
+      } catch {
+        toast.error("Could not copy phone number.");
+      }
+      return;
+    }
+
+    if (action === "conversation") {
+      router.push(`/conversations?phoneNumber=${encodeURIComponent(phoneNumber)}`);
+    }
+  }
+
+  function UserActions({ phoneNumber }: { phoneNumber: string }) {
+    return (
+      <DropdownMenu>
+        <DropdownMenuTrigger asChild>
+          <Button
+            type="button"
+            variant="outline"
+            size="sm"
+            className="min-w-40 justify-between"
+          >
+            Actions
+            <ChevronDown className="h-4 w-4" />
+          </Button>
+        </DropdownMenuTrigger>
+        <DropdownMenuContent align="end" className="w-48">
+          <DropdownMenuItem onSelect={() => handleUserAction("copy", phoneNumber)}>
+            <Copy className="h-4 w-4" />
+            Copy Number
+          </DropdownMenuItem>
+          <DropdownMenuItem
+            onSelect={() => handleUserAction("conversation", phoneNumber)}
+          >
+            <MessageSquareText className="h-4 w-4" />
+            View Conversation
+          </DropdownMenuItem>
+        </DropdownMenuContent>
+      </DropdownMenu>
+    );
+  }
 
   return (
     <div className="space-y-6">
@@ -104,7 +158,7 @@ export default function UsersPage() {
                     <TableHead>Total Messages</TableHead>
                     <TableHead>First Seen</TableHead>
                     <TableHead>Last Active</TableHead>
-                    <TableHead>Action</TableHead>
+                    <TableHead>Actions</TableHead>
                   </TableRow>
                 </TableHeader>
                 <TableBody>
@@ -117,16 +171,7 @@ export default function UsersPage() {
                       <TableCell>{formatDateTime(user.firstSeenAt)}</TableCell>
                       <TableCell>{formatDateTime(user.lastActiveAt)}</TableCell>
                       <TableCell>
-                        <Link
-                          href={`/conversations?phoneNumber=${user.phoneNumber}`}
-                          className={buttonClassName({
-                            variant: "outline",
-                            size: "sm",
-                          })}
-                        >
-                          <MessageSquareText className="h-4 w-4" />
-                          View Conversation
-                        </Link>
+                        <UserActions phoneNumber={user.phoneNumber} />
                       </TableCell>
                     </TableRow>
                   ))}
@@ -137,7 +182,10 @@ export default function UsersPage() {
             <div className="grid gap-3 p-4 md:hidden">
               {users.map((user) => (
                 <div key={user.phoneNumber} className="rounded-lg border p-4">
-                  <div className="font-medium">{user.phoneNumber}</div>
+                  <div className="flex items-center gap-2 font-medium">
+                    <Copy className="h-4 w-4 text-muted-foreground" />
+                    {user.phoneNumber}
+                  </div>
                   <div className="mt-3 grid gap-2 text-sm">
                     <div>
                       <span className="text-muted-foreground">Messages:</span>{" "}
@@ -152,16 +200,9 @@ export default function UsersPage() {
                       {formatDateTime(user.lastActiveAt)}
                     </div>
                   </div>
-                  <Link
-                    href={`/conversations?phoneNumber=${user.phoneNumber}`}
-                    className={buttonClassName({
-                      variant: "outline",
-                      className: "mt-4 w-full",
-                    })}
-                  >
-                    <MessageSquareText className="h-4 w-4" />
-                    View Conversation
-                  </Link>
+                  <div className="mt-4">
+                    <UserActions phoneNumber={user.phoneNumber} />
+                  </div>
                 </div>
               ))}
             </div>

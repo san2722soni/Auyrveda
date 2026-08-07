@@ -1,0 +1,7 @@
+{
+  "compilerOptions": {
+    "skipLibCheck": true,
+    "types": ["node"]
+  },
+  "exclude": ["frontend", "node_modules"]
+}

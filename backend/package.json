@@ -1,0 +1,29 @@
+{
+  "name": "auryvedic",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "tsx watch src/index.ts",
+    "start": "tsx src/index.ts",
+    "local": "./dev.sh",
+    "typecheck": "tsc --noEmit"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "dependencies": {
+    "@fastify/jwt": "^10.2.0",
+    "axios": "^1.18.1",
+    "dotenv": "^17.4.2",
+    "fastify": "^5.8.5",
+    "mongodb": "^7.4.0",
+    "openai": "^6.45.0",
+    "typescript": "^6.0.3"
+  },
+  "devDependencies": {
+    "@types/node": "^26.0.1",
+    "tsx": "^4.22.4"
+  }
+}

@@ -1,9 +1,9 @@
 "use client";
 
-import { Suspense, useEffect, useState } from "react";
+import { Suspense, UIEvent, useEffect, useMemo, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
-import { ArrowLeft, MessageSquareText, Search, Users } from "lucide-react";
-import { useQuery } from "@tanstack/react-query";
+import { ArrowLeft, Bot, MessageSquareText, Search, User, Users } from "lucide-react";
+import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
 import { getMessagesByPhoneNumber, getUsers } from "@/lib/api/users";
 import { PageHeader } from "@/components/page-header";
 import { Card } from "@/components/ui/card";
@@ -24,17 +24,10 @@ const MESSAGE_LIMIT = 50;
 function ConversationsContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const initialPhoneNumber = searchParams.get("phoneNumber") ?? "";
-  const [selectedPhoneNumber, setSelectedPhoneNumber] = useState(initialPhoneNumber);
+  const selectedPhoneNumber = searchParams.get("phoneNumber") ?? "";
   const [userPage, setUserPage] = useState(1);
-  const [messagePage, setMessagePage] = useState(1);
   const [search, setSearch] = useState("");
   const debouncedSearch = useDebouncedValue(search);
-
-  useEffect(() => {
-    setSelectedPhoneNumber(initialPhoneNumber);
-    setMessagePage(1);
-  }, [initialPhoneNumber]);
 
   useEffect(() => {
     setUserPage(1);
@@ -50,31 +43,48 @@ function ConversationsContent() {
       }),
   });
 
-  const messagesQuery = useQuery({
-    queryKey: [
-      "messages",
-      selectedPhoneNumber,
-      { page: messagePage, limit: MESSAGE_LIMIT },
-    ],
-    queryFn: () =>
+  const messagesQuery = useInfiniteQuery({
+    queryKey: ["messages", selectedPhoneNumber, { limit: MESSAGE_LIMIT }],
+    queryFn: ({ pageParam }) =>
       getMessagesByPhoneNumber({
         phoneNumber: selectedPhoneNumber,
-        page: messagePage,
+        page: pageParam,
         limit: MESSAGE_LIMIT,
       }),
+    initialPageParam: 1,
+    getNextPageParam: (lastPage) =>
+      lastPage.pagination.page < lastPage.pagination.totalPages
+        ? lastPage.pagination.page + 1
+        : undefined,
     enabled: Boolean(selectedPhoneNumber),
   });
 
   function selectUser(phoneNumber: string) {
-    setSelectedPhoneNumber(phoneNumber);
-    setMessagePage(1);
-    router.push(`/conversations?phoneNumber=${phoneNumber}`);
+    router.push(`/conversations?phoneNumber=${encodeURIComponent(phoneNumber)}`);
+  }
+
+  function handleMessageScroll(event: UIEvent<HTMLDivElement>) {
+    const target = event.currentTarget;
+
+    if (
+      target.scrollTop < 80 &&
+      messagesQuery.hasNextPage &&
+      !messagesQuery.isFetchingNextPage
+    ) {
+      messagesQuery.fetchNextPage();
+    }
   }
 
   const usersPage = usersQuery.data;
-  const messagesPage = messagesQuery.data;
   const users = usersPage?.data ?? [];
-  const messages = messagesPage?.data ?? [];
+  const messages = useMemo(
+    () =>
+      messagesQuery.data?.pages
+        .slice()
+        .reverse()
+        .flatMap((page) => page.data) ?? [],
+    [messagesQuery.data]
+  );
   const showConversationOnMobile = Boolean(selectedPhoneNumber);
 
   return (
@@ -84,8 +94,8 @@ function ConversationsContent() {
         description="Inspect stored WhatsApp conversation history."
       />
 
-      <div className="grid gap-4 lg:grid-cols-[360px_1fr]">
-        <Card className={cn("overflow-hidden", showConversationOnMobile && "hidden lg:block")}>
+      <div className="grid gap-4 xl:grid-cols-[420px_1fr]">
+        <Card className={cn("overflow-hidden", showConversationOnMobile && "hidden xl:block")}>
           <div className="border-b p-4">
             <div className="relative">
               <Search className="pointer-events-none absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
@@ -169,9 +179,9 @@ function ConversationsContent() {
           )}
         </Card>
 
-        <Card className={cn("min-h-[620px] overflow-hidden", !showConversationOnMobile && "hidden lg:block")}>
+        <Card className={cn("min-h-[680px] overflow-hidden shadow-lg", !showConversationOnMobile && "hidden xl:block")}>
           {!selectedPhoneNumber && (
-            <div className="flex h-full min-h-[620px] items-center justify-center p-6">
+            <div className="flex h-full min-h-[680px] items-center justify-center p-6">
               <EmptyState
                 icon={MessageSquareText}
                 title="No conversation selected"
@@ -181,20 +191,17 @@ function ConversationsContent() {
           )}
 
           {selectedPhoneNumber && (
-            <div className="flex min-h-[620px] flex-col">
-              <div className="flex items-center justify-between gap-3 border-b p-4">
+            <div className="flex min-h-[680px] flex-col">
+              <div className="flex items-center justify-between gap-3 border-b bg-gradient-to-r from-emerald-500/10 to-amber-500/10 p-4">
                 <div className="min-w-0">
                   <div className="flex items-center gap-2">
                     <Button
                       type="button"
                       variant="ghost"
                       size="icon"
-                      className="lg:hidden"
+                      className="xl:hidden"
                       aria-label="Back to user list"
-                      onClick={() => {
-                        setSelectedPhoneNumber("");
-                        router.push("/conversations");
-                      }}
+                      onClick={() => router.push("/conversations")}
                     >
                       <ArrowLeft className="h-4 w-4" />
                     </Button>
@@ -203,14 +210,23 @@ function ConversationsContent() {
                         {selectedPhoneNumber}
                       </div>
                       <div className="text-xs text-muted-foreground">
-                        Stored WhatsApp messages
+                        Scroll upward to load older messages
                       </div>
                     </div>
                   </div>
                 </div>
               </div>
 
-              <div className="flex-1 space-y-4 overflow-y-auto p-4">
+              <div
+                className="flex max-h-[calc(100vh-230px)] min-h-[560px] flex-1 flex-col gap-4 overflow-y-auto p-4"
+                onScroll={handleMessageScroll}
+              >
+                {messagesQuery.isFetchingNextPage && (
+                  <div className="mx-auto rounded-md border bg-card px-3 py-1 text-xs text-muted-foreground">
+                    Loading older messages
+                  </div>
+                )}
+
                 {messagesQuery.isLoading && (
                   <div className="space-y-4">
                     {Array.from({ length: 6 }).map((_, index) => (
@@ -242,45 +258,55 @@ function ConversationsContent() {
 
                 {messages.map((message, index) => {
                   const isAssistant = message.role === "assistant";
+                  const Icon = isAssistant ? Bot : User;
 
                   return (
                     <div
                       key={`${message.createdAt}-${index}`}
-                      className={cn("flex", isAssistant ? "justify-end" : "justify-start")}
+                      className={cn("flex gap-2", isAssistant ? "justify-end" : "justify-start")}
                     >
+                      {!isAssistant && (
+                        <div className="mt-1 flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-sky-500/15 text-sky-700 dark:text-sky-300">
+                          <Icon className="h-4 w-4" />
+                        </div>
+                      )}
                       <div
                         className={cn(
-                          "max-w-[86%] rounded-lg border px-4 py-3",
+                          "max-w-[86%] rounded-2xl border px-4 py-3 shadow-sm",
                           isAssistant
-                            ? "bg-primary text-primary-foreground"
-                            : "bg-muted text-foreground"
+                            ? "bg-emerald-600 text-white"
+                            : "bg-card text-foreground"
                         )}
                       >
-                        <div className="whitespace-pre-wrap break-words text-sm">
+                        <div
+                          className={cn(
+                            "mb-1 text-[11px] font-semibold uppercase",
+                            isAssistant ? "text-white/75" : "text-muted-foreground"
+                          )}
+                        >
+                          {isAssistant ? "AI Assistant" : "Patient"}
+                        </div>
+                        <div className="whitespace-pre-wrap break-words text-sm leading-6">
                           {message.content || "(empty message)"}
                         </div>
                         <div
                           className={cn(
                             "mt-2 text-[11px]",
-                            isAssistant
-                              ? "text-primary-foreground/75"
-                              : "text-muted-foreground"
+                            isAssistant ? "text-white/75" : "text-muted-foreground"
                           )}
                         >
                           {formatDateTime(message.createdAt)}
                         </div>
                       </div>
+                      {isAssistant && (
+                        <div className="mt-1 flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-emerald-500/15 text-emerald-700 dark:text-emerald-300">
+                          <Icon className="h-4 w-4" />
+                        </div>
+                      )}
                     </div>
                   );
                 })}
               </div>
-
-              {messagesPage && (
-                <DataPagination
-                  pagination={messagesPage.pagination}
-                  onPageChange={setMessagePage}
-                />
-              )}
             </div>
           )}
         </Card>

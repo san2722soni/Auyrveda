@@ -20,7 +20,7 @@ If you run the dashboard from another origin, set `FRONTEND_ORIGIN` in the backe
 
 ## Development
 
-Start the backend from the repo root, then run:
+Start the backend from `../backend`, then run:
 
 ```bash
 npm run dev

@@ -1,3 +1,5 @@
+import { clearAuthToken, getAuthToken } from "@/lib/auth";
+
 export class ApiError extends Error {
   status: number;
 
@@ -43,6 +45,15 @@ async function parseResponse<T>(response: Response): Promise<T> {
         ? String((data as { error: unknown }).error)
         : "Request failed. Please try again.";
 
+    if (
+      response.status === 401 &&
+      typeof window !== "undefined" &&
+      window.location.pathname !== "/login"
+    ) {
+      clearAuthToken();
+      window.location.assign("/login");
+    }
+
     throw new ApiError(message, response.status);
   }
 
@@ -54,10 +65,12 @@ export async function apiRequest<T>(
   options: ApiRequestOptions = {}
 ): Promise<T> {
   const { query, headers, ...init } = options;
+  const token = getAuthToken();
   const response = await fetch(buildUrl(path, query), {
     ...init,
     headers: {
       "Content-Type": "application/json",
+      ...(token ? { Authorization: `Bearer ${token}` } : {}),
       ...headers,
     },
   });

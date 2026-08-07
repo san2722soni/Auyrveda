@@ -6,6 +6,7 @@ export interface AppointmentListParams {
   page: number;
   limit: number;
   status: AppointmentStatus;
+  dateCategory?: "all" | "today" | "upcoming" | "past";
   search?: string;
 }
 
@@ -15,6 +16,7 @@ export function getAppointments(params: AppointmentListParams) {
       page: params.page,
       limit: params.limit,
       status: params.status,
+      dateCategory: params.dateCategory,
       search: params.search,
     },
   });
