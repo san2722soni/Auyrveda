@@ -3,6 +3,7 @@ export const API_PATHS = {
   webhook: "/webhook",
   testWhatsApp: "/test-whatsapp",
   testAi: "/test-ai",
+  aiTest: "/api/ai/test",
   authLogin: "/api/auth/login",
   appointments: "/api/appointments",
   appointmentById: "/api/appointments/:id",

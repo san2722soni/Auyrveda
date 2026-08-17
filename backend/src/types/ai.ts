@@ -14,6 +14,6 @@ export type AIResult =
     }
   | {
       type: "appointment";
-      reply: null;
+      reply: string | null;
       appointment: AppointmentData;
     };

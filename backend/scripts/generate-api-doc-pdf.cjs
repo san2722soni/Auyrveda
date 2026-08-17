@@ -2,7 +2,7 @@ const { mkdirSync, readFileSync, writeFileSync } = require("node:fs");
 const { dirname, resolve } = require("node:path");
 
 const sourcePath = resolve(__dirname, "../docs/API_SYSTEM_DOCUMENTATION.md");
-const outputPath = resolve(__dirname, "../API_SYSTEM_DOCUMENTATION.pdf");
+const outputPath = resolve(__dirname, "../docs/API_SYSTEM_DOCUMENTATION.pdf");
 
 const pageWidth = 612;
 const pageHeight = 792;

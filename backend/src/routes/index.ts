@@ -1,4 +1,5 @@
 import { FastifyInstance } from "fastify";
+import { aiRoutes } from "./ai";
 import { appointmentRoutes } from "./appointments";
 import { authRoutes } from "./auth";
 import { dashboardRoutes } from "./dashboard";
@@ -9,6 +10,7 @@ import { webhookRoutes } from "./webhook";
 export async function registerRoutes(app: FastifyInstance): Promise<void> {
   await app.register(webhookRoutes);
   await app.register(authRoutes);
+  await app.register(aiRoutes);
   await app.register(appointmentRoutes);
   await app.register(userRoutes);
   await app.register(dashboardRoutes);

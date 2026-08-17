@@ -97,18 +97,6 @@ Core appointment details required by the current WhatsApp AI workflow:
 
 The system uses the patient's WhatsApp sender number as the appointment phone number.
 
-Additional registration details that clinic staff may collect:
-
-- Mobile number
-- Age
-- Gender
-- City
-- Preferred clinic: Kalyan or Thane
-- Preferred doctor
-- Previous reports, optional upload
-
-If the patient gives additional registration details in the same message, include them in the appointment reason or notes where possible.
-
 If the patient only says they want to book an appointment, ask them to send all core appointment details together in one message.
 
 If any core appointment detail is missing, do not create an appointment. Ask the patient to send all core appointment details together again.

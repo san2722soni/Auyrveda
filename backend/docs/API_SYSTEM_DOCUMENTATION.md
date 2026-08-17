@@ -43,6 +43,7 @@ Dev-only protected backend routes, registered only when `ENABLE_TEST_ENDPOINTS=t
 - `GET /test-ai`
 
 Protected backend routes:
+- `POST /api/ai/test`
 - `GET /api/dashboard/stats`
 - `GET /api/appointments`
 - `PATCH /api/appointments/:id`
@@ -255,8 +256,8 @@ Body:
 
 ```json
 {
-  "username": "Test",
-  "password": "1247"
+  "username": "admin",
+  "password": "<admin password>"
 }
 ```
 
@@ -398,6 +399,70 @@ Returns:
   }
 }
 ```
+
+### POST /api/ai/test
+
+Files:
+
+- `backend/src/routes/ai.ts`
+- `backend/src/services/knowledge.ts`
+- `backend/src/services/openai.ts`
+
+Auth:
+
+- Admin JWT required
+
+Purpose:
+
+- Tests the AI response flow from an admin/API client without sending a WhatsApp message.
+- Loads `backend/knowledge.md`, calls OpenAI, and returns the structured AI result.
+- Does not create users, messages, or appointments in MongoDB.
+
+Body:
+
+```json
+{
+  "message": "What is the consultation fee?"
+}
+```
+
+Returns:
+
+```json
+{
+  "success": true,
+  "result": {
+    "type": "message",
+    "reply": "The consultation fee is Rs. 350...",
+    "appointment": null
+  }
+}
+```
+
+Appointment result shape:
+
+```json
+{
+  "success": true,
+  "result": {
+    "type": "appointment",
+    "reply": "Thanks. The clinic team will contact you soon.",
+    "appointment": {
+      "patientName": "Raj Sharma",
+      "preferredDate": "2026-08-15",
+      "preferredTime": "5 PM",
+      "preferredContactMethod": "whatsapp",
+      "reason": "Acidity"
+    }
+  }
+}
+```
+
+Errors:
+
+- `400` when message is missing or empty.
+- `401` when JWT is missing or invalid.
+- `502` when the AI request fails.
 
 ### GET /api/dashboard/stats
 
@@ -783,3 +848,29 @@ Errors:
 - Frontend API client: `frontend/lib/api-client.ts`
 - Frontend login page: `frontend/app/login/page.tsx`
 - Frontend protected route proxy: `frontend/proxy.ts`
+
+## Final Local Test Report
+
+Date:
+
+- 2026-08-11
+
+Result:
+
+- Backend route/security sweep: `26/26` passed.
+- Backend typecheck: passed.
+- Frontend typecheck: passed with `--incremental false`.
+- Frontend lint: passed.
+- Backend npm audit: `0 vulnerabilities`.
+- Frontend npm audit: `0 vulnerabilities`.
+- WhatsApp E2E simulation: passed.
+
+Verified route behavior:
+
+- Public health endpoint returns `200`.
+- Webhook verification accepts the correct `VERIFY_TOKEN` and rejects invalid tokens.
+- Login returns a JWT for valid admin credentials and rejects invalid credentials.
+- Protected `/api/*` routes reject missing JWT with `401`.
+- Validation errors return `400` for bad AI body, bad pagination, bad dashboard filters, bad appointment status/date filter, bad appointment update body, invalid appointment id, and invalid knowledge content.
+- AI test answers clinic fee questions from `knowledge.md`.
+- WhatsApp E2E simulation saved the user, stored user and assistant messages, sent WhatsApp replies, created an appointment, and updated dashboard counts.
