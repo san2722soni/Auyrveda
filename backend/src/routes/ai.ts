@@ -7,6 +7,8 @@ interface AiTestBody {
   message?: unknown;
 }
 
+//random change
+
 export async function aiRoutes(app: FastifyInstance) {
   app.post<{ Body: AiTestBody }>(API_PATHS.aiTest, async (request, reply) => {
     const message =
