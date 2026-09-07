@@ -36,3 +36,36 @@ export function getMessagesByPhoneNumber(params: MessageListParams) {
     }
   );
 }
+
+export function updateUserReplyMode(
+  phoneNumber: string,
+  replyMode: User["replyMode"]
+) {
+  return apiRequest<{ success: boolean; data: User }>(
+    `/api/users/${encodeURIComponent(phoneNumber)}/reply-mode`,
+    {
+      method: "PATCH",
+      body: JSON.stringify({ replyMode }),
+    }
+  );
+}
+
+export function sendUserMessage(phoneNumber: string, message: string) {
+  return apiRequest<{ success: boolean; data: User }>(
+    `/api/users/${encodeURIComponent(phoneNumber)}/messages/send`,
+    {
+      method: "POST",
+      body: JSON.stringify({ message }),
+    }
+  );
+}
+
+export function startAppointmentBooking(phoneNumber: string) {
+  return apiRequest<{ success: boolean; data: User }>(
+    `/api/users/${encodeURIComponent(phoneNumber)}/appointments/start`,
+    {
+      method: "POST",
+      body: JSON.stringify({}),
+    }
+  );
+}

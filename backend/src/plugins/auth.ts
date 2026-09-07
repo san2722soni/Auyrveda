@@ -48,6 +48,7 @@ export function registerAuth(app: FastifyInstance): void {
         };
       } catch {
         await reply.status(401).send({ error: "Authentication required" });
+        return;
       }
     }
   );
@@ -58,5 +59,9 @@ export function registerAuth(app: FastifyInstance): void {
     }
 
     await app.requireAdmin(request, reply);
+
+    if (reply.sent) {
+      return reply;
+    }
   });
 }

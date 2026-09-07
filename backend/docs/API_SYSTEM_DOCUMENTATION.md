@@ -49,6 +49,9 @@ Protected backend routes:
 - `PATCH /api/appointments/:id`
 - `GET /api/users`
 - `GET /api/users/:phoneNumber/messages`
+- `PATCH /api/users/:phoneNumber/reply-mode`
+- `POST /api/users/:phoneNumber/messages/send`
+- `POST /api/users/:phoneNumber/appointments/start`
 - `GET /api/knowledge`
 - `PUT /api/knowledge`
 
@@ -141,6 +144,25 @@ backend/src/services/conversation.ts
           |
           v
         MongoDB appointments
+```
+
+Staff mode:
+
+```text
+Staff enables manual mode from dashboard
+  |
+  v
+Incoming patient messages are stored, but general AI replies are paused
+  |
+  +--> Staff can send manual WhatsApp replies from dashboard
+  |
+  +--> Staff can click Book Appointment
+          |
+          v
+        System asks patient for 5 required appointment details
+          |
+          v
+        Next complete appointment message creates appointment
 ```
 
 ## Admin Dashboard Flow
@@ -675,6 +697,8 @@ Returns:
       "firstSeenAt": "2026-07-01T10:00:00.000Z",
       "lastActiveAt": "2026-07-09T10:00:00.000Z",
       "totalMessages": 4,
+      "replyMode": "ai",
+      "appointmentAssistantActive": false,
       "createdAt": "2026-07-01T10:00:00.000Z",
       "updatedAt": "2026-07-09T10:00:00.000Z"
     }
@@ -726,12 +750,14 @@ Returns:
     {
       "phoneNumber": "+919880000001",
       "role": "user",
+      "sentBy": "patient",
       "content": "Namaste, I need an appointment.",
       "createdAt": "2026-07-09T10:00:00.000Z"
     },
     {
       "phoneNumber": "+919880000001",
       "role": "assistant",
+      "sentBy": "ai",
       "content": "Please share your preferred date and time.",
       "createdAt": "2026-07-09T10:01:00.000Z"
     }
@@ -751,6 +777,147 @@ Errors:
 - `400` for invalid phone number.
 - `401` when JWT is missing or invalid.
 - `500` for unexpected database errors.
+
+### PATCH /api/users/:phoneNumber/reply-mode
+
+Files:
+
+- `backend/src/routes/users.ts`
+- `backend/src/services/users.ts`
+
+Auth:
+
+- Admin JWT required
+
+Purpose:
+
+- Switches one conversation between AI mode and staff/manual mode.
+
+Body:
+
+```json
+{
+  "replyMode": "manual"
+}
+```
+
+Allowed values:
+
+- `ai`: AI replies normally.
+- `manual`: AI general replies pause for this patient.
+
+Returns:
+
+```json
+{
+  "success": true,
+  "data": {
+    "phoneNumber": "916200855270",
+    "replyMode": "manual",
+    "manualUntil": "2026-08-17T06:30:00.000Z",
+    "appointmentAssistantActive": false
+  }
+}
+```
+
+Errors:
+
+- `400` for invalid phone number or reply mode.
+- `401` when JWT is missing or invalid.
+- `404` when user is not found.
+- `500` for unexpected database errors.
+
+### POST /api/users/:phoneNumber/messages/send
+
+Files:
+
+- `backend/src/routes/users.ts`
+- `backend/src/services/users.ts`
+- `backend/src/services/messaging.ts`
+
+Auth:
+
+- Admin JWT required
+
+Purpose:
+
+- Sends a manual staff WhatsApp reply from the dashboard.
+- Stores the message in MongoDB with `role=assistant` and `sentBy=staff`.
+- Moves that patient to staff/manual mode.
+
+Body:
+
+```json
+{
+  "message": "Doctor will call you soon."
+}
+```
+
+Returns:
+
+```json
+{
+  "success": true,
+  "data": {
+    "phoneNumber": "916200855270",
+    "replyMode": "manual"
+  }
+}
+```
+
+Errors:
+
+- `400` for invalid phone number or empty message.
+- `401` when JWT is missing or invalid.
+- `404` when user is not found.
+- `502` when WhatsApp sending fails.
+
+### POST /api/users/:phoneNumber/appointments/start
+
+Files:
+
+- `backend/src/routes/users.ts`
+- `backend/src/services/users.ts`
+- `backend/src/services/conversation.ts`
+
+Auth:
+
+- Admin JWT required
+
+Purpose:
+
+- Staff starts appointment collection from dashboard.
+- System sends the patient a WhatsApp message asking for the 5 required fields.
+- Enables staff/manual mode with appointment assistant active.
+- General AI chat remains paused; only appointment collection runs.
+
+Required patient details:
+
+- Full name
+- Preferred date
+- Preferred time
+- Reason/problem
+- Preferred contact method: call or WhatsApp
+
+Returns:
+
+```json
+{
+  "success": true,
+  "data": {
+    "phoneNumber": "916200855270",
+    "replyMode": "manual",
+    "appointmentAssistantActive": true
+  }
+}
+```
+
+Errors:
+
+- `400` for invalid phone number.
+- `401` when JWT is missing or invalid.
+- `404` when user is not found.
+- `502` when WhatsApp sending fails.
 
 ### GET /api/knowledge
 
@@ -849,11 +1016,21 @@ Errors:
 - Frontend login page: `frontend/app/login/page.tsx`
 - Frontend protected route proxy: `frontend/proxy.ts`
 
+## Staff Mode Rules
+
+- AI mode: AI can answer normal questions and create appointments.
+- Staff mode: AI general replies are paused for that patient.
+- Staff manual replies are sent from dashboard and saved as `sentBy=staff`.
+- Book Appointment button sends the patient the 5-field appointment request.
+- While appointment assistant is active, the backend only collects appointment details.
+- When all appointment details are present, the backend creates the appointment and sends the normal appointment confirmation.
+- Staff can return the conversation to AI mode from dashboard.
+
 ## Final Local Test Report
 
 Date:
 
-- 2026-08-11
+- 2026-08-17
 
 Result:
 
@@ -861,9 +1038,11 @@ Result:
 - Backend typecheck: passed.
 - Frontend typecheck: passed with `--incremental false`.
 - Frontend lint: passed.
+- Frontend production build: passed.
 - Backend npm audit: `0 vulnerabilities`.
 - Frontend npm audit: `0 vulnerabilities`.
 - WhatsApp E2E simulation: passed.
+- Staff mode route smoke test: passed.
 
 Verified route behavior:
 
@@ -871,6 +1050,8 @@ Verified route behavior:
 - Webhook verification accepts the correct `VERIFY_TOKEN` and rejects invalid tokens.
 - Login returns a JWT for valid admin credentials and rejects invalid credentials.
 - Protected `/api/*` routes reject missing JWT with `401`.
+- Staff reply mode rejects missing JWT with `401`, rejects invalid modes with `400`, and switches `manual`/`ai` successfully.
+- Staff manual reply route rejects empty messages with `400`.
 - Validation errors return `400` for bad AI body, bad pagination, bad dashboard filters, bad appointment status/date filter, bad appointment update body, invalid appointment id, and invalid knowledge content.
 - AI test answers clinic fee questions from `knowledge.md`.
 - WhatsApp E2E simulation saved the user, stored user and assistant messages, sent WhatsApp replies, created an appointment, and updated dashboard counts.

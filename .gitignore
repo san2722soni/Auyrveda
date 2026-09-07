@@ -38,3 +38,7 @@ coverage/
 
 # ngrok
 .ngrok2/
+
+.agents
+.git
+netlify-legal-pages

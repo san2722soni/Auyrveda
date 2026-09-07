@@ -3,7 +3,7 @@
 << /Type /Catalog /Pages 2 0 R >>
 endobj
 2 0 obj
-<< /Type /Pages /Kids [6 0 R 8 0 R 10 0 R 12 0 R 14 0 R 16 0 R 18 0 R 20 0 R 22 0 R 24 0 R 26 0 R 28 0 R 30 0 R 32 0 R 34 0 R 36 0 R] /Count 16 >>
+<< /Type /Pages /Kids [6 0 R 8 0 R 10 0 R 12 0 R 14 0 R 16 0 R 18 0 R 20 0 R 22 0 R 24 0 R 26 0 R 28 0 R 30 0 R 32 0 R 34 0 R 36 0 R 38 0 R 40 0 R 42 0 R] /Count 19 >>
 endobj
 3 0 obj
 << /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>
@@ -278,7 +278,7 @@ ET
 BT
 /F3 8 Tf
 506.00 28.00 Td
-(Page 1 of 16) Tj
+(Page 1 of 19) Tj
 ET
 endstream
 endobj
@@ -286,117 +286,112 @@ endobj
 << /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F3 3 0 R /F4 4 0 R /F5 5 0 R >> >> /Contents 9 0 R >>
 endobj
 9 0 obj
-<< /Length 3124 >>
+<< /Length 3188 >>
 stream
 BT
 /F3 9.5 Tf
 64.00 737.00 Td
-(- `GET /api/knowledge`) Tj
+(- `PATCH /api/users/:phoneNumber/reply-mode`) Tj
 ET
 BT
 /F3 9.5 Tf
 64.00 722.00 Td
+(- `POST /api/users/:phoneNumber/messages/send`) Tj
+ET
+BT
+/F3 9.5 Tf
+64.00 707.00 Td
+(- `POST /api/users/:phoneNumber/appointments/start`) Tj
+ET
+BT
+/F3 9.5 Tf
+64.00 692.00 Td
+(- `GET /api/knowledge`) Tj
+ET
+BT
+/F3 9.5 Tf
+64.00 677.00 Td
 (- `PUT /api/knowledge`) Tj
 ET
 BT
 /F3 9.5 Tf
-48.00 708.00 Td
+48.00 663.00 Td
 () Tj
 ET
 BT
 /F3 9.5 Tf
-48.00 698.00 Td
+48.00 653.00 Td
 (Admin credentials are read from environment variables:) Tj
 ET
 BT
 /F3 9.5 Tf
-48.00 683.00 Td
+48.00 638.00 Td
 () Tj
 ET
 BT
 /F5 8.5 Tf
-58.00 674.00 Td
+58.00 629.00 Td
 (ADMIN_USERNAME) Tj
 ET
 BT
 /F5 8.5 Tf
-58.00 663.00 Td
+58.00 618.00 Td
 (ADMIN_PASSWORD) Tj
-ET
-BT
-/F5 8.5 Tf
-58.00 652.00 Td
-(role: admin) Tj
-ET
-BT
-/F3 9.5 Tf
-48.00 641.00 Td
-() Tj
-ET
-BT
-/F3 9.5 Tf
-48.00 631.00 Td
-(Required backend environment variables:) Tj
-ET
-BT
-/F3 9.5 Tf
-48.00 616.00 Td
-() Tj
 ET
 BT
 /F5 8.5 Tf
 58.00 607.00 Td
+(role: admin) Tj
+ET
+BT
+/F3 9.5 Tf
+48.00 596.00 Td
+() Tj
+ET
+BT
+/F3 9.5 Tf
+48.00 586.00 Td
+(Required backend environment variables:) Tj
+ET
+BT
+/F3 9.5 Tf
+48.00 571.00 Td
+() Tj
+ET
+BT
+/F5 8.5 Tf
+58.00 562.00 Td
 (VERIFY_TOKEN) Tj
 ET
 BT
 /F5 8.5 Tf
-58.00 596.00 Td
+58.00 551.00 Td
 (JWT_SECRET) Tj
 ET
 BT
 /F5 8.5 Tf
-58.00 585.00 Td
+58.00 540.00 Td
 (ADMIN_USERNAME) Tj
 ET
 BT
 /F5 8.5 Tf
-58.00 574.00 Td
+58.00 529.00 Td
 (ADMIN_PASSWORD) Tj
 ET
 BT
 /F5 8.5 Tf
-58.00 563.00 Td
+58.00 518.00 Td
 (OPENAI_API_KEY) Tj
 ET
 BT
 /F5 8.5 Tf
-58.00 552.00 Td
+58.00 507.00 Td
 (WHATSAPP_TOKEN) Tj
 ET
 BT
 /F5 8.5 Tf
-58.00 541.00 Td
-(PHONE_NUMBER_ID) Tj
-ET
-BT
-/F3 9.5 Tf
-48.00 530.00 Td
-() Tj
-ET
-BT
-/F3 9.5 Tf
-48.00 520.00 Td
-(Authenticated requests must include:) Tj
-ET
-BT
-/F3 9.5 Tf
-48.00 505.00 Td
-() Tj
-ET
-BT
-/F5 8.5 Tf
 58.00 496.00 Td
-(Authorization: Bearer <jwt>) Tj
+(PHONE_NUMBER_ID) Tj
 ET
 BT
 /F3 9.5 Tf
@@ -406,7 +401,7 @@ ET
 BT
 /F3 9.5 Tf
 48.00 475.00 Td
-(Relevant files:) Tj
+(Authenticated requests must include:) Tj
 ET
 BT
 /F3 9.5 Tf
@@ -414,164 +409,164 @@ BT
 () Tj
 ET
 BT
-/F3 9.5 Tf
-64.00 450.00 Td
-(- `backend/src/plugins/auth.ts`) Tj
+/F5 8.5 Tf
+58.00 451.00 Td
+(Authorization: Bearer <jwt>) Tj
 ET
 BT
 /F3 9.5 Tf
-64.00 435.00 Td
-(- `backend/src/routes/auth.ts`) Tj
+48.00 440.00 Td
+() Tj
 ET
 BT
 /F3 9.5 Tf
-64.00 420.00 Td
-(- `backend/src/constants/auth.ts`) Tj
+48.00 430.00 Td
+(Relevant files:) Tj
+ET
+BT
+/F3 9.5 Tf
+48.00 415.00 Td
+() Tj
 ET
 BT
 /F3 9.5 Tf
 64.00 405.00 Td
-(- `backend/src/types/auth.ts`) Tj
+(- `backend/src/plugins/auth.ts`) Tj
 ET
 BT
 /F3 9.5 Tf
 64.00 390.00 Td
-(- `frontend/app/login/page.tsx`) Tj
+(- `backend/src/routes/auth.ts`) Tj
 ET
 BT
 /F3 9.5 Tf
 64.00 375.00 Td
-(- `frontend/proxy.ts`) Tj
+(- `backend/src/constants/auth.ts`) Tj
 ET
 BT
 /F3 9.5 Tf
 64.00 360.00 Td
+(- `backend/src/types/auth.ts`) Tj
+ET
+BT
+/F3 9.5 Tf
+64.00 345.00 Td
+(- `frontend/app/login/page.tsx`) Tj
+ET
+BT
+/F3 9.5 Tf
+64.00 330.00 Td
+(- `frontend/proxy.ts`) Tj
+ET
+BT
+/F3 9.5 Tf
+64.00 315.00 Td
 (- `frontend/lib/api-client.ts`) Tj
 ET
 BT
 /F3 9.5 Tf
-48.00 346.00 Td
+48.00 301.00 Td
 () Tj
 ET
 BT
 /F4 14 Tf
-48.00 327.00 Td
+48.00 282.00 Td
 (System Flow) Tj
 ET
 BT
 /F3 9.5 Tf
-48.00 302.00 Td
+48.00 257.00 Td
 () Tj
 ET
 BT
 /F5 8.5 Tf
-58.00 293.00 Td
+58.00 248.00 Td
 (Patient on WhatsApp) Tj
 ET
 BT
 /F5 8.5 Tf
-58.00 282.00 Td
+58.00 237.00 Td
 (|) Tj
 ET
 BT
 /F5 8.5 Tf
-58.00 271.00 Td
+58.00 226.00 Td
 (v) Tj
 ET
 BT
 /F5 8.5 Tf
-58.00 260.00 Td
+58.00 215.00 Td
 (Meta WhatsApp Cloud API) Tj
 ET
 BT
 /F5 8.5 Tf
-58.00 249.00 Td
+58.00 204.00 Td
 (|) Tj
 ET
 BT
 /F5 8.5 Tf
-58.00 238.00 Td
+58.00 193.00 Td
 (v) Tj
 ET
 BT
 /F5 8.5 Tf
-58.00 227.00 Td
+58.00 182.00 Td
 (POST /webhook) Tj
 ET
 BT
 /F5 8.5 Tf
-58.00 216.00 Td
+58.00 171.00 Td
 (|) Tj
 ET
 BT
 /F5 8.5 Tf
-58.00 205.00 Td
+58.00 160.00 Td
 (v) Tj
 ET
 BT
 /F5 8.5 Tf
-58.00 194.00 Td
+58.00 149.00 Td
 (backend/src/parsers/whatsapp.ts) Tj
 ET
 BT
 /F5 8.5 Tf
-58.00 183.00 Td
+58.00 138.00 Td
 (|) Tj
 ET
 BT
 /F5 8.5 Tf
-58.00 172.00 Td
+58.00 127.00 Td
 (v) Tj
 ET
 BT
 /F5 8.5 Tf
-58.00 161.00 Td
+58.00 116.00 Td
 (backend/src/services/conversation.ts) Tj
 ET
 BT
 /F5 8.5 Tf
-58.00 150.00 Td
+58.00 105.00 Td
 (|) Tj
 ET
 BT
 /F5 8.5 Tf
-58.00 139.00 Td
+58.00 94.00 Td
 (+--> upsertUser\(phoneNumber\)) Tj
 ET
 BT
 /F5 8.5 Tf
-58.00 128.00 Td
+58.00 83.00 Td
 (| |) Tj
 ET
 BT
 /F5 8.5 Tf
-58.00 117.00 Td
+58.00 72.00 Td
 (| v) Tj
 ET
 BT
 /F5 8.5 Tf
-58.00 106.00 Td
+58.00 61.00 Td
 (| MongoDB users) Tj
-ET
-BT
-/F5 8.5 Tf
-58.00 95.00 Td
-(|) Tj
-ET
-BT
-/F5 8.5 Tf
-58.00 84.00 Td
-(+--> createMessage\(role=user\)) Tj
-ET
-BT
-/F5 8.5 Tf
-58.00 73.00 Td
-(| |) Tj
-ET
-BT
-/F5 8.5 Tf
-58.00 62.00 Td
-(| v) Tj
 ET
 BT
 /F3 8 Tf
@@ -581,7 +576,7 @@ ET
 BT
 /F3 8 Tf
 506.00 28.00 Td
-(Page 2 of 16) Tj
+(Page 2 of 19) Tj
 ET
 endstream
 endobj
@@ -589,37 +584,355 @@ endobj
 << /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F3 3 0 R /F4 4 0 R /F5 5 0 R >> >> /Contents 11 0 R >>
 endobj
 11 0 obj
-<< /Length 3020 >>
+<< /Length 3315 >>
 stream
 BT
 /F5 8.5 Tf
 58.00 738.00 Td
-(| MongoDB messages) Tj
-ET
-BT
-/F5 8.5 Tf
-58.00 727.00 Td
 (|) Tj
 ET
 BT
 /F5 8.5 Tf
-58.00 716.00 Td
-(+--> getKnowledge\(\)) Tj
+58.00 727.00 Td
+(+--> createMessage\(role=user\)) Tj
 ET
 BT
 /F5 8.5 Tf
-58.00 705.00 Td
+58.00 716.00 Td
 (| |) Tj
 ET
 BT
 /F5 8.5 Tf
-58.00 694.00 Td
+58.00 705.00 Td
 (| v) Tj
 ET
 BT
 /F5 8.5 Tf
+58.00 694.00 Td
+(| MongoDB messages) Tj
+ET
+BT
+/F5 8.5 Tf
 58.00 683.00 Td
+(|) Tj
+ET
+BT
+/F5 8.5 Tf
+58.00 672.00 Td
+(+--> getKnowledge\(\)) Tj
+ET
+BT
+/F5 8.5 Tf
+58.00 661.00 Td
+(| |) Tj
+ET
+BT
+/F5 8.5 Tf
+58.00 650.00 Td
+(| v) Tj
+ET
+BT
+/F5 8.5 Tf
+58.00 639.00 Td
 (| backend/knowledge.md) Tj
+ET
+BT
+/F5 8.5 Tf
+58.00 628.00 Td
+(|) Tj
+ET
+BT
+/F5 8.5 Tf
+58.00 617.00 Td
+(+--> generateReply\(\)) Tj
+ET
+BT
+/F5 8.5 Tf
+58.00 606.00 Td
+(| |) Tj
+ET
+BT
+/F5 8.5 Tf
+58.00 595.00 Td
+(| v) Tj
+ET
+BT
+/F5 8.5 Tf
+58.00 584.00 Td
+(| OpenAI) Tj
+ET
+BT
+/F5 8.5 Tf
+58.00 573.00 Td
+(|) Tj
+ET
+BT
+/F5 8.5 Tf
+58.00 562.00 Td
+(+--> AIResult type=message) Tj
+ET
+BT
+/F5 8.5 Tf
+58.00 551.00 Td
+(| |) Tj
+ET
+BT
+/F5 8.5 Tf
+58.00 540.00 Td
+(| v) Tj
+ET
+BT
+/F5 8.5 Tf
+58.00 529.00 Td
+(| sendAndStoreMessage\(\)) Tj
+ET
+BT
+/F5 8.5 Tf
+58.00 518.00 Td
+(| |) Tj
+ET
+BT
+/F5 8.5 Tf
+58.00 507.00 Td
+(| +--> sendMessages\(\) to WhatsApp) Tj
+ET
+BT
+/F5 8.5 Tf
+58.00 496.00 Td
+(| |) Tj
+ET
+BT
+/F5 8.5 Tf
+58.00 485.00 Td
+(| +--> createMessage\(role=assistant\) only after successful send) Tj
+ET
+BT
+/F5 8.5 Tf
+58.00 474.00 Td
+(|) Tj
+ET
+BT
+/F5 8.5 Tf
+58.00 463.00 Td
+(+--> AIResult type=appointment) Tj
+ET
+BT
+/F5 8.5 Tf
+58.00 452.00 Td
+(|) Tj
+ET
+BT
+/F5 8.5 Tf
+58.00 441.00 Td
+(v) Tj
+ET
+BT
+/F5 8.5 Tf
+58.00 430.00 Td
+(createAppointment\(\)) Tj
+ET
+BT
+/F5 8.5 Tf
+58.00 419.00 Td
+(|) Tj
+ET
+BT
+/F5 8.5 Tf
+58.00 408.00 Td
+(v) Tj
+ET
+BT
+/F5 8.5 Tf
+58.00 397.00 Td
+(MongoDB appointments) Tj
+ET
+BT
+/F3 9.5 Tf
+48.00 386.00 Td
+() Tj
+ET
+BT
+/F3 9.5 Tf
+48.00 376.00 Td
+(Staff mode:) Tj
+ET
+BT
+/F3 9.5 Tf
+48.00 361.00 Td
+() Tj
+ET
+BT
+/F5 8.5 Tf
+58.00 352.00 Td
+(Staff enables manual mode from dashboard) Tj
+ET
+BT
+/F5 8.5 Tf
+58.00 341.00 Td
+(|) Tj
+ET
+BT
+/F5 8.5 Tf
+58.00 330.00 Td
+(v) Tj
+ET
+BT
+/F5 8.5 Tf
+58.00 319.00 Td
+(Incoming patient messages are stored, but general AI replies are paused) Tj
+ET
+BT
+/F5 8.5 Tf
+58.00 308.00 Td
+(|) Tj
+ET
+BT
+/F5 8.5 Tf
+58.00 297.00 Td
+(+--> Staff can send manual WhatsApp replies from dashboard) Tj
+ET
+BT
+/F5 8.5 Tf
+58.00 286.00 Td
+(|) Tj
+ET
+BT
+/F5 8.5 Tf
+58.00 275.00 Td
+(+--> Staff can click Book Appointment) Tj
+ET
+BT
+/F5 8.5 Tf
+58.00 264.00 Td
+(|) Tj
+ET
+BT
+/F5 8.5 Tf
+58.00 253.00 Td
+(v) Tj
+ET
+BT
+/F5 8.5 Tf
+58.00 242.00 Td
+(System asks patient for 5 required appointment details) Tj
+ET
+BT
+/F5 8.5 Tf
+58.00 231.00 Td
+(|) Tj
+ET
+BT
+/F5 8.5 Tf
+58.00 220.00 Td
+(v) Tj
+ET
+BT
+/F5 8.5 Tf
+58.00 209.00 Td
+(Next complete appointment message creates appointment) Tj
+ET
+BT
+/F3 9.5 Tf
+48.00 198.00 Td
+() Tj
+ET
+BT
+/F4 14 Tf
+48.00 179.00 Td
+(Admin Dashboard Flow) Tj
+ET
+BT
+/F3 9.5 Tf
+48.00 154.00 Td
+() Tj
+ET
+BT
+/F5 8.5 Tf
+58.00 145.00 Td
+(Admin Browser) Tj
+ET
+BT
+/F5 8.5 Tf
+58.00 134.00 Td
+(|) Tj
+ET
+BT
+/F5 8.5 Tf
+58.00 123.00 Td
+(v) Tj
+ET
+BT
+/F5 8.5 Tf
+58.00 112.00 Td
+(frontend/proxy.ts checks JWT cookie) Tj
+ET
+BT
+/F5 8.5 Tf
+58.00 101.00 Td
+(|) Tj
+ET
+BT
+/F5 8.5 Tf
+58.00 90.00 Td
+(+--> no valid token -> /login) Tj
+ET
+BT
+/F5 8.5 Tf
+58.00 79.00 Td
+(|) Tj
+ET
+BT
+/F5 8.5 Tf
+58.00 68.00 Td
+(+--> valid admin token -> dashboard page) Tj
+ET
+BT
+/F3 8 Tf
+48.00 28.00 Td
+(Vishwavrinda Ayurveda API Documentation) Tj
+ET
+BT
+/F3 8 Tf
+506.00 28.00 Td
+(Page 3 of 19) Tj
+ET
+endstream
+endobj
+12 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F3 3 0 R /F4 4 0 R /F5 5 0 R >> >> /Contents 13 0 R >>
+endobj
+13 0 obj
+<< /Length 2787 >>
+stream
+BT
+/F5 8.5 Tf
+58.00 738.00 Td
+(|) Tj
+ET
+BT
+/F5 8.5 Tf
+58.00 727.00 Td
+(v) Tj
+ET
+BT
+/F5 8.5 Tf
+58.00 716.00 Td
+(frontend/lib/api-client.ts adds Authorization header) Tj
+ET
+BT
+/F5 8.5 Tf
+58.00 705.00 Td
+(|) Tj
+ET
+BT
+/F5 8.5 Tf
+58.00 694.00 Td
+(v) Tj
+ET
+BT
+/F5 8.5 Tf
+58.00 683.00 Td
+(Fastify preHandler verifies JWT and role=admin) Tj
 ET
 BT
 /F5 8.5 Tf
@@ -629,227 +942,480 @@ ET
 BT
 /F5 8.5 Tf
 58.00 661.00 Td
-(+--> generateReply\(\)) Tj
+(v) Tj
 ET
 BT
 /F5 8.5 Tf
 58.00 650.00 Td
-(| |) Tj
-ET
-BT
-/F5 8.5 Tf
-58.00 639.00 Td
-(| v) Tj
-ET
-BT
-/F5 8.5 Tf
-58.00 628.00 Td
-(| OpenAI) Tj
-ET
-BT
-/F5 8.5 Tf
-58.00 617.00 Td
-(|) Tj
-ET
-BT
-/F5 8.5 Tf
-58.00 606.00 Td
-(+--> AIResult type=message) Tj
-ET
-BT
-/F5 8.5 Tf
-58.00 595.00 Td
-(| |) Tj
-ET
-BT
-/F5 8.5 Tf
-58.00 584.00 Td
-(| v) Tj
-ET
-BT
-/F5 8.5 Tf
-58.00 573.00 Td
-(| sendAndStoreMessage\(\)) Tj
-ET
-BT
-/F5 8.5 Tf
-58.00 562.00 Td
-(| |) Tj
-ET
-BT
-/F5 8.5 Tf
-58.00 551.00 Td
-(| +--> sendMessages\(\) to WhatsApp) Tj
-ET
-BT
-/F5 8.5 Tf
-58.00 540.00 Td
-(| |) Tj
-ET
-BT
-/F5 8.5 Tf
-58.00 529.00 Td
-(| +--> createMessage\(role=assistant\) only after successful send) Tj
-ET
-BT
-/F5 8.5 Tf
-58.00 518.00 Td
-(|) Tj
-ET
-BT
-/F5 8.5 Tf
-58.00 507.00 Td
-(+--> AIResult type=appointment) Tj
-ET
-BT
-/F5 8.5 Tf
-58.00 496.00 Td
-(|) Tj
-ET
-BT
-/F5 8.5 Tf
-58.00 485.00 Td
-(v) Tj
-ET
-BT
-/F5 8.5 Tf
-58.00 474.00 Td
-(createAppointment\(\)) Tj
-ET
-BT
-/F5 8.5 Tf
-58.00 463.00 Td
-(|) Tj
-ET
-BT
-/F5 8.5 Tf
-58.00 452.00 Td
-(v) Tj
-ET
-BT
-/F5 8.5 Tf
-58.00 441.00 Td
-(MongoDB appointments) Tj
-ET
-BT
-/F3 9.5 Tf
-48.00 430.00 Td
-() Tj
-ET
-BT
-/F4 14 Tf
-48.00 411.00 Td
-(Admin Dashboard Flow) Tj
-ET
-BT
-/F3 9.5 Tf
-48.00 386.00 Td
-() Tj
-ET
-BT
-/F5 8.5 Tf
-58.00 377.00 Td
-(Admin Browser) Tj
-ET
-BT
-/F5 8.5 Tf
-58.00 366.00 Td
-(|) Tj
-ET
-BT
-/F5 8.5 Tf
-58.00 355.00 Td
-(v) Tj
-ET
-BT
-/F5 8.5 Tf
-58.00 344.00 Td
-(frontend/proxy.ts checks JWT cookie) Tj
-ET
-BT
-/F5 8.5 Tf
-58.00 333.00 Td
-(|) Tj
-ET
-BT
-/F5 8.5 Tf
-58.00 322.00 Td
-(+--> no valid token -> /login) Tj
-ET
-BT
-/F5 8.5 Tf
-58.00 311.00 Td
-(|) Tj
-ET
-BT
-/F5 8.5 Tf
-58.00 300.00 Td
-(+--> valid admin token -> dashboard page) Tj
-ET
-BT
-/F5 8.5 Tf
-58.00 289.00 Td
-(|) Tj
-ET
-BT
-/F5 8.5 Tf
-58.00 278.00 Td
-(v) Tj
-ET
-BT
-/F5 8.5 Tf
-58.00 267.00 Td
-(frontend/lib/api-client.ts adds Authorization header) Tj
-ET
-BT
-/F5 8.5 Tf
-58.00 256.00 Td
-(|) Tj
-ET
-BT
-/F5 8.5 Tf
-58.00 245.00 Td
-(v) Tj
-ET
-BT
-/F5 8.5 Tf
-58.00 234.00 Td
-(Fastify preHandler verifies JWT and role=admin) Tj
-ET
-BT
-/F5 8.5 Tf
-58.00 223.00 Td
-(|) Tj
-ET
-BT
-/F5 8.5 Tf
-58.00 212.00 Td
-(v) Tj
-ET
-BT
-/F5 8.5 Tf
-58.00 201.00 Td
 (backend route handler) Tj
 ET
 BT
 /F3 9.5 Tf
-48.00 190.00 Td
+48.00 639.00 Td
 () Tj
 ET
 BT
 /F4 14 Tf
-48.00 171.00 Td
+48.00 620.00 Td
 (Data Stores) Tj
 ET
 BT
 /F3 9.5 Tf
-48.00 146.00 Td
+48.00 595.00 Td
 () Tj
 ET
 BT
 /F3 9.5 Tf
-48.00 136.00 Td
+48.00 585.00 Td
 (MongoDB collections:) Tj
+ET
+BT
+/F3 9.5 Tf
+48.00 570.00 Td
+() Tj
+ET
+BT
+/F3 9.5 Tf
+64.00 560.00 Td
+(- `users`) Tj
+ET
+BT
+/F3 9.5 Tf
+64.00 545.00 Td
+(- `messages`) Tj
+ET
+BT
+/F3 9.5 Tf
+64.00 530.00 Td
+(- `appointments`) Tj
+ET
+BT
+/F3 9.5 Tf
+48.00 516.00 Td
+() Tj
+ET
+BT
+/F3 9.5 Tf
+48.00 506.00 Td
+(File storage:) Tj
+ET
+BT
+/F3 9.5 Tf
+48.00 491.00 Td
+() Tj
+ET
+BT
+/F3 9.5 Tf
+64.00 481.00 Td
+(- `backend/knowledge.md`) Tj
+ET
+BT
+/F3 9.5 Tf
+48.00 467.00 Td
+() Tj
+ET
+BT
+/F3 9.5 Tf
+48.00 457.00 Td
+(Indexes created on startup:) Tj
+ET
+BT
+/F3 9.5 Tf
+48.00 442.00 Td
+() Tj
+ET
+BT
+/F3 9.5 Tf
+64.00 432.00 Td
+(- `users.phoneNumber` unique) Tj
+ET
+BT
+/F3 9.5 Tf
+64.00 417.00 Td
+(- `users.lastActiveAt`) Tj
+ET
+BT
+/F3 9.5 Tf
+64.00 402.00 Td
+(- `users.firstSeenAt`) Tj
+ET
+BT
+/F3 9.5 Tf
+64.00 387.00 Td
+(- `messages.phoneNumber + createdAt`) Tj
+ET
+BT
+/F3 9.5 Tf
+64.00 372.00 Td
+(- `appointments.createdAt`) Tj
+ET
+BT
+/F3 9.5 Tf
+64.00 357.00 Td
+(- `appointments.isCompleted + createdAt`) Tj
+ET
+BT
+/F3 9.5 Tf
+64.00 342.00 Td
+(- `appointments.phoneNumber`) Tj
+ET
+BT
+/F3 9.5 Tf
+48.00 328.00 Td
+() Tj
+ET
+BT
+/F4 14 Tf
+48.00 309.00 Td
+(Common Pagination) Tj
+ET
+BT
+/F3 9.5 Tf
+48.00 284.00 Td
+() Tj
+ET
+BT
+/F3 9.5 Tf
+48.00 274.00 Td
+(Query parameters:) Tj
+ET
+BT
+/F3 9.5 Tf
+48.00 259.00 Td
+() Tj
+ET
+BT
+/F3 9.5 Tf
+64.00 249.00 Td
+(- `page`: positive integer, default `1`) Tj
+ET
+BT
+/F3 9.5 Tf
+64.00 234.00 Td
+(- `limit`: positive integer, default `20`, maximum `100`) Tj
+ET
+BT
+/F3 9.5 Tf
+48.00 220.00 Td
+() Tj
+ET
+BT
+/F3 9.5 Tf
+48.00 210.00 Td
+(Response shape:) Tj
+ET
+BT
+/F3 9.5 Tf
+48.00 195.00 Td
+() Tj
+ET
+BT
+/F5 8.5 Tf
+58.00 186.00 Td
+({) Tj
+ET
+BT
+/F5 8.5 Tf
+58.00 175.00 Td
+("data": [],) Tj
+ET
+BT
+/F5 8.5 Tf
+58.00 164.00 Td
+("pagination": {) Tj
+ET
+BT
+/F5 8.5 Tf
+58.00 153.00 Td
+("page": 1,) Tj
+ET
+BT
+/F5 8.5 Tf
+58.00 142.00 Td
+("limit": 20,) Tj
+ET
+BT
+/F5 8.5 Tf
+58.00 131.00 Td
+("total": 0,) Tj
+ET
+BT
+/F5 8.5 Tf
+58.00 120.00 Td
+("totalPages": 0) Tj
+ET
+BT
+/F5 8.5 Tf
+58.00 109.00 Td
+(}) Tj
+ET
+BT
+/F5 8.5 Tf
+58.00 98.00 Td
+(}) Tj
+ET
+BT
+/F3 9.5 Tf
+48.00 87.00 Td
+() Tj
+ET
+BT
+/F3 8 Tf
+48.00 28.00 Td
+(Vishwavrinda Ayurveda API Documentation) Tj
+ET
+BT
+/F3 8 Tf
+506.00 28.00 Td
+(Page 4 of 19) Tj
+ET
+endstream
+endobj
+14 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F3 3 0 R /F4 4 0 R /F5 5 0 R >> >> /Contents 15 0 R >>
+endobj
+15 0 obj
+<< /Length 2632 >>
+stream
+BT
+/F4 14 Tf
+48.00 728.00 Td
+(API Reference) Tj
+ET
+BT
+/F3 9.5 Tf
+48.00 703.00 Td
+() Tj
+ET
+BT
+/F4 11 Tf
+48.00 687.00 Td
+(GET /) Tj
+ET
+BT
+/F3 9.5 Tf
+48.00 669.00 Td
+() Tj
+ET
+BT
+/F3 9.5 Tf
+48.00 659.00 Td
+(File:) Tj
+ET
+BT
+/F3 9.5 Tf
+48.00 644.00 Td
+() Tj
+ET
+BT
+/F3 9.5 Tf
+64.00 634.00 Td
+(- `backend/src/index.ts`) Tj
+ET
+BT
+/F3 9.5 Tf
+48.00 620.00 Td
+() Tj
+ET
+BT
+/F3 9.5 Tf
+48.00 610.00 Td
+(Auth:) Tj
+ET
+BT
+/F3 9.5 Tf
+48.00 595.00 Td
+() Tj
+ET
+BT
+/F3 9.5 Tf
+64.00 585.00 Td
+(- Public) Tj
+ET
+BT
+/F3 9.5 Tf
+48.00 571.00 Td
+() Tj
+ET
+BT
+/F3 9.5 Tf
+48.00 561.00 Td
+(Purpose:) Tj
+ET
+BT
+/F3 9.5 Tf
+48.00 546.00 Td
+() Tj
+ET
+BT
+/F3 9.5 Tf
+64.00 536.00 Td
+(- Health check endpoint.) Tj
+ET
+BT
+/F3 9.5 Tf
+48.00 522.00 Td
+() Tj
+ET
+BT
+/F3 9.5 Tf
+48.00 512.00 Td
+(Parameters:) Tj
+ET
+BT
+/F3 9.5 Tf
+48.00 497.00 Td
+() Tj
+ET
+BT
+/F3 9.5 Tf
+64.00 487.00 Td
+(- None) Tj
+ET
+BT
+/F3 9.5 Tf
+48.00 473.00 Td
+() Tj
+ET
+BT
+/F3 9.5 Tf
+48.00 463.00 Td
+(Returns:) Tj
+ET
+BT
+/F3 9.5 Tf
+48.00 448.00 Td
+() Tj
+ET
+BT
+/F5 8.5 Tf
+58.00 439.00 Td
+({) Tj
+ET
+BT
+/F5 8.5 Tf
+58.00 428.00 Td
+("status": "ok",) Tj
+ET
+BT
+/F5 8.5 Tf
+58.00 417.00 Td
+("service": "WhatsApp AI Bot") Tj
+ET
+BT
+/F5 8.5 Tf
+58.00 406.00 Td
+(}) Tj
+ET
+BT
+/F3 9.5 Tf
+48.00 395.00 Td
+() Tj
+ET
+BT
+/F4 11 Tf
+48.00 379.00 Td
+(POST /api/auth/login) Tj
+ET
+BT
+/F3 9.5 Tf
+48.00 361.00 Td
+() Tj
+ET
+BT
+/F3 9.5 Tf
+48.00 351.00 Td
+(Files:) Tj
+ET
+BT
+/F3 9.5 Tf
+48.00 336.00 Td
+() Tj
+ET
+BT
+/F3 9.5 Tf
+64.00 326.00 Td
+(- `backend/src/routes/auth.ts`) Tj
+ET
+BT
+/F3 9.5 Tf
+64.00 311.00 Td
+(- `backend/src/plugins/auth.ts`) Tj
+ET
+BT
+/F3 9.5 Tf
+48.00 297.00 Td
+() Tj
+ET
+BT
+/F3 9.5 Tf
+48.00 287.00 Td
+(Auth:) Tj
+ET
+BT
+/F3 9.5 Tf
+48.00 272.00 Td
+() Tj
+ET
+BT
+/F3 9.5 Tf
+64.00 262.00 Td
+(- Public) Tj
+ET
+BT
+/F3 9.5 Tf
+48.00 248.00 Td
+() Tj
+ET
+BT
+/F3 9.5 Tf
+48.00 238.00 Td
+(Purpose:) Tj
+ET
+BT
+/F3 9.5 Tf
+48.00 223.00 Td
+() Tj
+ET
+BT
+/F3 9.5 Tf
+64.00 213.00 Td
+(- Login for the single hardcoded admin user.) Tj
+ET
+BT
+/F3 9.5 Tf
+48.00 199.00 Td
+() Tj
+ET
+BT
+/F3 9.5 Tf
+48.00 189.00 Td
+(Body:) Tj
+ET
+BT
+/F3 9.5 Tf
+48.00 174.00 Td
+() Tj
+ET
+BT
+/F5 8.5 Tf
+58.00 165.00 Td
+({) Tj
+ET
+BT
+/F5 8.5 Tf
+58.00 154.00 Td
+("username": "admin",) Tj
+ET
+BT
+/F5 8.5 Tf
+58.00 143.00 Td
+("password": "<admin password>") Tj
+ET
+BT
+/F5 8.5 Tf
+58.00 132.00 Td
+(}) Tj
 ET
 BT
 /F3 9.5 Tf
@@ -858,354 +1424,86 @@ BT
 ET
 BT
 /F3 9.5 Tf
-64.00 111.00 Td
-(- `users`) Tj
-ET
-BT
-/F3 9.5 Tf
-64.00 96.00 Td
-(- `messages`) Tj
-ET
-BT
-/F3 9.5 Tf
-64.00 81.00 Td
-(- `appointments`) Tj
-ET
-BT
-/F3 9.5 Tf
-48.00 67.00 Td
-() Tj
-ET
-BT
-/F3 8 Tf
-48.00 28.00 Td
-(Vishwavrinda Ayurveda API Documentation) Tj
-ET
-BT
-/F3 8 Tf
-506.00 28.00 Td
-(Page 3 of 16) Tj
-ET
-endstream
-endobj
-12 0 obj
-<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F3 3 0 R /F4 4 0 R /F5 5 0 R >> >> /Contents 13 0 R >>
-endobj
-13 0 obj
-<< /Length 2695 >>
-stream
-BT
-/F3 9.5 Tf
-48.00 737.00 Td
-(File storage:) Tj
-ET
-BT
-/F3 9.5 Tf
-48.00 722.00 Td
-() Tj
-ET
-BT
-/F3 9.5 Tf
-64.00 712.00 Td
-(- `backend/knowledge.md`) Tj
-ET
-BT
-/F3 9.5 Tf
-48.00 698.00 Td
-() Tj
-ET
-BT
-/F3 9.5 Tf
-48.00 688.00 Td
-(Indexes created on startup:) Tj
-ET
-BT
-/F3 9.5 Tf
-48.00 673.00 Td
-() Tj
-ET
-BT
-/F3 9.5 Tf
-64.00 663.00 Td
-(- `users.phoneNumber` unique) Tj
-ET
-BT
-/F3 9.5 Tf
-64.00 648.00 Td
-(- `users.lastActiveAt`) Tj
-ET
-BT
-/F3 9.5 Tf
-64.00 633.00 Td
-(- `users.firstSeenAt`) Tj
-ET
-BT
-/F3 9.5 Tf
-64.00 618.00 Td
-(- `messages.phoneNumber + createdAt`) Tj
-ET
-BT
-/F3 9.5 Tf
-64.00 603.00 Td
-(- `appointments.createdAt`) Tj
-ET
-BT
-/F3 9.5 Tf
-64.00 588.00 Td
-(- `appointments.isCompleted + createdAt`) Tj
-ET
-BT
-/F3 9.5 Tf
-64.00 573.00 Td
-(- `appointments.phoneNumber`) Tj
-ET
-BT
-/F3 9.5 Tf
-48.00 559.00 Td
-() Tj
-ET
-BT
-/F4 14 Tf
-48.00 540.00 Td
-(Common Pagination) Tj
-ET
-BT
-/F3 9.5 Tf
-48.00 515.00 Td
-() Tj
-ET
-BT
-/F3 9.5 Tf
-48.00 505.00 Td
-(Query parameters:) Tj
-ET
-BT
-/F3 9.5 Tf
-48.00 490.00 Td
-() Tj
-ET
-BT
-/F3 9.5 Tf
-64.00 480.00 Td
-(- `page`: positive integer, default `1`) Tj
-ET
-BT
-/F3 9.5 Tf
-64.00 465.00 Td
-(- `limit`: positive integer, default `20`, maximum `100`) Tj
-ET
-BT
-/F3 9.5 Tf
-48.00 451.00 Td
-() Tj
-ET
-BT
-/F3 9.5 Tf
-48.00 441.00 Td
-(Response shape:) Tj
-ET
-BT
-/F3 9.5 Tf
-48.00 426.00 Td
-() Tj
-ET
-BT
-/F5 8.5 Tf
-58.00 417.00 Td
-({) Tj
-ET
-BT
-/F5 8.5 Tf
-58.00 406.00 Td
-("data": [],) Tj
-ET
-BT
-/F5 8.5 Tf
-58.00 395.00 Td
-("pagination": {) Tj
-ET
-BT
-/F5 8.5 Tf
-58.00 384.00 Td
-("page": 1,) Tj
-ET
-BT
-/F5 8.5 Tf
-58.00 373.00 Td
-("limit": 20,) Tj
-ET
-BT
-/F5 8.5 Tf
-58.00 362.00 Td
-("total": 0,) Tj
-ET
-BT
-/F5 8.5 Tf
-58.00 351.00 Td
-("totalPages": 0) Tj
-ET
-BT
-/F5 8.5 Tf
-58.00 340.00 Td
-(}) Tj
-ET
-BT
-/F5 8.5 Tf
-58.00 329.00 Td
-(}) Tj
-ET
-BT
-/F3 9.5 Tf
-48.00 318.00 Td
-() Tj
-ET
-BT
-/F4 14 Tf
-48.00 299.00 Td
-(API Reference) Tj
-ET
-BT
-/F3 9.5 Tf
-48.00 274.00 Td
-() Tj
-ET
-BT
-/F4 11 Tf
-48.00 258.00 Td
-(GET /) Tj
-ET
-BT
-/F3 9.5 Tf
-48.00 240.00 Td
-() Tj
-ET
-BT
-/F3 9.5 Tf
-48.00 230.00 Td
-(File:) Tj
-ET
-BT
-/F3 9.5 Tf
-48.00 215.00 Td
-() Tj
-ET
-BT
-/F3 9.5 Tf
-64.00 205.00 Td
-(- `backend/src/index.ts`) Tj
-ET
-BT
-/F3 9.5 Tf
-48.00 191.00 Td
-() Tj
-ET
-BT
-/F3 9.5 Tf
-48.00 181.00 Td
-(Auth:) Tj
-ET
-BT
-/F3 9.5 Tf
-48.00 166.00 Td
-() Tj
-ET
-BT
-/F3 9.5 Tf
-64.00 156.00 Td
-(- Public) Tj
-ET
-BT
-/F3 9.5 Tf
-48.00 142.00 Td
-() Tj
-ET
-BT
-/F3 9.5 Tf
-48.00 132.00 Td
-(Purpose:) Tj
-ET
-BT
-/F3 9.5 Tf
-48.00 117.00 Td
-() Tj
-ET
-BT
-/F3 9.5 Tf
-64.00 107.00 Td
-(- Health check endpoint.) Tj
-ET
-BT
-/F3 9.5 Tf
-48.00 93.00 Td
-() Tj
-ET
-BT
-/F3 9.5 Tf
-48.00 83.00 Td
-(Parameters:) Tj
-ET
-BT
-/F3 9.5 Tf
-48.00 68.00 Td
-() Tj
-ET
-BT
-/F3 8 Tf
-48.00 28.00 Td
-(Vishwavrinda Ayurveda API Documentation) Tj
-ET
-BT
-/F3 8 Tf
-506.00 28.00 Td
-(Page 4 of 16) Tj
-ET
-endstream
-endobj
-14 0 obj
-<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F3 3 0 R /F4 4 0 R /F5 5 0 R >> >> /Contents 15 0 R >>
-endobj
-15 0 obj
-<< /Length 2789 >>
-stream
-BT
-/F3 9.5 Tf
-64.00 737.00 Td
-(- None) Tj
-ET
-BT
-/F3 9.5 Tf
-48.00 723.00 Td
-() Tj
-ET
-BT
-/F3 9.5 Tf
-48.00 713.00 Td
+48.00 111.00 Td
 (Returns:) Tj
 ET
 BT
 /F3 9.5 Tf
-48.00 698.00 Td
+48.00 96.00 Td
 () Tj
 ET
 BT
 /F5 8.5 Tf
-58.00 689.00 Td
+58.00 87.00 Td
 ({) Tj
 ET
 BT
 /F5 8.5 Tf
-58.00 678.00 Td
-("status": "ok",) Tj
+58.00 76.00 Td
+("token": "jwt-token",) Tj
 ET
 BT
 /F5 8.5 Tf
-58.00 667.00 Td
-("service": "WhatsApp AI Bot") Tj
+58.00 65.00 Td
+("user": {) Tj
+ET
+BT
+/F3 8 Tf
+48.00 28.00 Td
+(Vishwavrinda Ayurveda API Documentation) Tj
+ET
+BT
+/F3 8 Tf
+506.00 28.00 Td
+(Page 5 of 19) Tj
+ET
+endstream
+endobj
+16 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F3 3 0 R /F4 4 0 R /F5 5 0 R >> >> /Contents 17 0 R >>
+endobj
+17 0 obj
+<< /Length 2992 >>
+stream
+BT
+/F5 8.5 Tf
+58.00 738.00 Td
+("username": "admin",) Tj
 ET
 BT
 /F5 8.5 Tf
-58.00 656.00 Td
+58.00 727.00 Td
+("role": "admin") Tj
+ET
+BT
+/F5 8.5 Tf
+58.00 716.00 Td
 (}) Tj
+ET
+BT
+/F5 8.5 Tf
+58.00 705.00 Td
+(}) Tj
+ET
+BT
+/F3 9.5 Tf
+48.00 694.00 Td
+() Tj
+ET
+BT
+/F3 9.5 Tf
+48.00 684.00 Td
+(Errors:) Tj
+ET
+BT
+/F3 9.5 Tf
+48.00 669.00 Td
+() Tj
+ET
+BT
+/F3 9.5 Tf
+64.00 659.00 Td
+(- `401` when username or password is incorrect.) Tj
 ET
 BT
 /F3 9.5 Tf
@@ -1215,7 +1513,7 @@ ET
 BT
 /F4 11 Tf
 48.00 629.00 Td
-(POST /api/auth/login) Tj
+(GET /webhook) Tj
 ET
 BT
 /F3 9.5 Tf
@@ -1235,12 +1533,12 @@ ET
 BT
 /F3 9.5 Tf
 64.00 576.00 Td
-(- `backend/src/routes/auth.ts`) Tj
+(- `backend/src/routes/webhook.ts`) Tj
 ET
 BT
 /F3 9.5 Tf
 64.00 561.00 Td
-(- `backend/src/plugins/auth.ts`) Tj
+(- `backend/src/config.ts`) Tj
 ET
 BT
 /F3 9.5 Tf
@@ -1280,7 +1578,7 @@ ET
 BT
 /F3 9.5 Tf
 64.00 463.00 Td
-(- Login for the single hardcoded admin user.) Tj
+(- Meta WhatsApp webhook verification.) Tj
 ET
 BT
 /F3 9.5 Tf
@@ -1290,7 +1588,7 @@ ET
 BT
 /F3 9.5 Tf
 48.00 439.00 Td
-(Body:) Tj
+(Query parameters:) Tj
 ET
 BT
 /F3 9.5 Tf
@@ -1298,153 +1596,143 @@ BT
 () Tj
 ET
 BT
-/F5 8.5 Tf
-58.00 415.00 Td
-({) Tj
-ET
-BT
-/F5 8.5 Tf
-58.00 404.00 Td
-("username": "admin",) Tj
-ET
-BT
-/F5 8.5 Tf
-58.00 393.00 Td
-("password": "<admin password>") Tj
-ET
-BT
-/F5 8.5 Tf
-58.00 382.00 Td
-(}) Tj
+/F3 9.5 Tf
+64.00 414.00 Td
+(- `hub.mode`: expected `subscribe`) Tj
 ET
 BT
 /F3 9.5 Tf
-48.00 371.00 Td
+64.00 399.00 Td
+(- `hub.verify_token`: must match `VERIFY_TOKEN`) Tj
+ET
+BT
+/F3 9.5 Tf
+64.00 384.00 Td
+(- `hub.challenge`: challenge string returned to Meta) Tj
+ET
+BT
+/F3 9.5 Tf
+48.00 370.00 Td
 () Tj
 ET
 BT
 /F3 9.5 Tf
-48.00 361.00 Td
+48.00 360.00 Td
 (Returns:) Tj
 ET
 BT
 /F3 9.5 Tf
-48.00 346.00 Td
-() Tj
-ET
-BT
-/F5 8.5 Tf
-58.00 337.00 Td
-({) Tj
-ET
-BT
-/F5 8.5 Tf
-58.00 326.00 Td
-("token": "jwt-token",) Tj
-ET
-BT
-/F5 8.5 Tf
-58.00 315.00 Td
-("user": {) Tj
-ET
-BT
-/F5 8.5 Tf
-58.00 304.00 Td
-("username": "admin",) Tj
-ET
-BT
-/F5 8.5 Tf
-58.00 293.00 Td
-("role": "admin") Tj
-ET
-BT
-/F5 8.5 Tf
-58.00 282.00 Td
-(}) Tj
-ET
-BT
-/F5 8.5 Tf
-58.00 271.00 Td
-(}) Tj
-ET
-BT
-/F3 9.5 Tf
-48.00 260.00 Td
+48.00 345.00 Td
 () Tj
 ET
 BT
 /F3 9.5 Tf
-48.00 250.00 Td
-(Errors:) Tj
+64.00 335.00 Td
+(- `200` with challenge string when valid.) Tj
 ET
 BT
 /F3 9.5 Tf
-48.00 235.00 Td
-() Tj
+64.00 320.00 Td
+(- `403` with `Verification failed` when invalid.) Tj
 ET
 BT
 /F3 9.5 Tf
-64.00 225.00 Td
-(- `401` when username or password is incorrect.) Tj
-ET
-BT
-/F3 9.5 Tf
-48.00 211.00 Td
+48.00 306.00 Td
 () Tj
 ET
 BT
 /F4 11 Tf
-48.00 195.00 Td
-(GET /webhook) Tj
+48.00 290.00 Td
+(POST /webhook) Tj
 ET
 BT
 /F3 9.5 Tf
-48.00 177.00 Td
+48.00 272.00 Td
 () Tj
 ET
 BT
 /F3 9.5 Tf
-48.00 167.00 Td
+48.00 262.00 Td
 (Files:) Tj
 ET
 BT
 /F3 9.5 Tf
-48.00 152.00 Td
+48.00 247.00 Td
 () Tj
 ET
 BT
 /F3 9.5 Tf
-64.00 142.00 Td
+64.00 237.00 Td
 (- `backend/src/routes/webhook.ts`) Tj
 ET
 BT
 /F3 9.5 Tf
-64.00 127.00 Td
-(- `backend/src/config.ts`) Tj
+64.00 222.00 Td
+(- `backend/src/parsers/whatsapp.ts`) Tj
 ET
 BT
 /F3 9.5 Tf
-48.00 113.00 Td
+64.00 207.00 Td
+(- `backend/src/services/conversation.ts`) Tj
+ET
+BT
+/F3 9.5 Tf
+48.00 193.00 Td
 () Tj
 ET
 BT
 /F3 9.5 Tf
-48.00 103.00 Td
+48.00 183.00 Td
 (Auth:) Tj
 ET
 BT
 /F3 9.5 Tf
-48.00 88.00 Td
+48.00 168.00 Td
 () Tj
 ET
 BT
 /F3 9.5 Tf
-64.00 78.00 Td
+64.00 158.00 Td
 (- Public) Tj
 ET
 BT
 /F3 9.5 Tf
-48.00 64.00 Td
+48.00 144.00 Td
+() Tj
+ET
+BT
+/F3 9.5 Tf
+48.00 134.00 Td
+(Purpose:) Tj
+ET
+BT
+/F3 9.5 Tf
+48.00 119.00 Td
+() Tj
+ET
+BT
+/F3 9.5 Tf
+64.00 109.00 Td
+(- Receives WhatsApp events, stores messages, calls the AI, sends replies, and creates appointments) Tj
+ET
+BT
+/F3 9.5 Tf
+64.00 96.00 Td
+(when the AI returns complete appointment data.) Tj
+ET
+BT
+/F3 9.5 Tf
+48.00 82.00 Td
+() Tj
+ET
+BT
+/F3 9.5 Tf
+48.00 72.00 Td
+(Body:) Tj
+ET
+BT
+/F3 9.5 Tf
+48.00 57.00 Td
 () Tj
 ET
 BT
@@ -1455,15 +1743,303 @@ ET
 BT
 /F3 8 Tf
 506.00 28.00 Td
-(Page 5 of 16) Tj
+(Page 6 of 19) Tj
 ET
 endstream
 endobj
-16 0 obj
-<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F3 3 0 R /F4 4 0 R /F5 5 0 R >> >> /Contents 17 0 R >>
+18 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F3 3 0 R /F4 4 0 R /F5 5 0 R >> >> /Contents 19 0 R >>
 endobj
-17 0 obj
-<< /Length 3060 >>
+19 0 obj
+<< /Length 2862 >>
+stream
+BT
+/F3 9.5 Tf
+64.00 737.00 Td
+(- Meta WhatsApp webhook payload.) Tj
+ET
+BT
+/F3 9.5 Tf
+48.00 723.00 Td
+() Tj
+ET
+BT
+/F3 9.5 Tf
+48.00 713.00 Td
+(Returns:) Tj
+ET
+BT
+/F3 9.5 Tf
+48.00 698.00 Td
+() Tj
+ET
+BT
+/F5 8.5 Tf
+58.00 689.00 Td
+({) Tj
+ET
+BT
+/F5 8.5 Tf
+58.00 678.00 Td
+("success": true) Tj
+ET
+BT
+/F5 8.5 Tf
+58.00 667.00 Td
+(}) Tj
+ET
+BT
+/F3 9.5 Tf
+48.00 656.00 Td
+() Tj
+ET
+BT
+/F3 9.5 Tf
+48.00 646.00 Td
+(Side effects:) Tj
+ET
+BT
+/F3 9.5 Tf
+48.00 631.00 Td
+() Tj
+ET
+BT
+/F3 9.5 Tf
+64.00 621.00 Td
+(- Upserts user in `users`.) Tj
+ET
+BT
+/F3 9.5 Tf
+64.00 606.00 Td
+(- Stores incoming user message in `messages`.) Tj
+ET
+BT
+/F3 9.5 Tf
+64.00 591.00 Td
+(- Reads `backend/knowledge.md`.) Tj
+ET
+BT
+/F3 9.5 Tf
+64.00 576.00 Td
+(- Calls OpenAI.) Tj
+ET
+BT
+/F3 9.5 Tf
+64.00 561.00 Td
+(- Sends WhatsApp message.) Tj
+ET
+BT
+/F3 9.5 Tf
+64.00 546.00 Td
+(- Stores assistant reply only after WhatsApp send succeeds.) Tj
+ET
+BT
+/F3 9.5 Tf
+64.00 531.00 Td
+(- Creates appointment in `appointments` when needed.) Tj
+ET
+BT
+/F3 9.5 Tf
+48.00 517.00 Td
+() Tj
+ET
+BT
+/F4 11 Tf
+48.00 501.00 Td
+(GET /test-whatsapp) Tj
+ET
+BT
+/F3 9.5 Tf
+48.00 483.00 Td
+() Tj
+ET
+BT
+/F3 9.5 Tf
+48.00 473.00 Td
+(File:) Tj
+ET
+BT
+/F3 9.5 Tf
+48.00 458.00 Td
+() Tj
+ET
+BT
+/F3 9.5 Tf
+64.00 448.00 Td
+(- `backend/src/routes/webhook.ts`) Tj
+ET
+BT
+/F3 9.5 Tf
+48.00 434.00 Td
+() Tj
+ET
+BT
+/F3 9.5 Tf
+48.00 424.00 Td
+(Auth:) Tj
+ET
+BT
+/F3 9.5 Tf
+48.00 409.00 Td
+() Tj
+ET
+BT
+/F3 9.5 Tf
+64.00 399.00 Td
+(- Admin JWT required) Tj
+ET
+BT
+/F3 9.5 Tf
+48.00 385.00 Td
+() Tj
+ET
+BT
+/F3 9.5 Tf
+48.00 375.00 Td
+(Purpose:) Tj
+ET
+BT
+/F3 9.5 Tf
+48.00 360.00 Td
+() Tj
+ET
+BT
+/F3 9.5 Tf
+64.00 350.00 Td
+(- Sends a fixed WhatsApp test message.) Tj
+ET
+BT
+/F3 9.5 Tf
+48.00 336.00 Td
+() Tj
+ET
+BT
+/F3 9.5 Tf
+48.00 326.00 Td
+(Parameters:) Tj
+ET
+BT
+/F3 9.5 Tf
+48.00 311.00 Td
+() Tj
+ET
+BT
+/F3 9.5 Tf
+64.00 301.00 Td
+(- None) Tj
+ET
+BT
+/F3 9.5 Tf
+48.00 287.00 Td
+() Tj
+ET
+BT
+/F3 9.5 Tf
+48.00 277.00 Td
+(Returns:) Tj
+ET
+BT
+/F3 9.5 Tf
+48.00 262.00 Td
+() Tj
+ET
+BT
+/F5 8.5 Tf
+58.00 253.00 Td
+({) Tj
+ET
+BT
+/F5 8.5 Tf
+58.00 242.00 Td
+("success": true) Tj
+ET
+BT
+/F5 8.5 Tf
+58.00 231.00 Td
+(}) Tj
+ET
+BT
+/F3 9.5 Tf
+48.00 220.00 Td
+() Tj
+ET
+BT
+/F4 11 Tf
+48.00 204.00 Td
+(GET /test-ai) Tj
+ET
+BT
+/F3 9.5 Tf
+48.00 186.00 Td
+() Tj
+ET
+BT
+/F3 9.5 Tf
+48.00 176.00 Td
+(Files:) Tj
+ET
+BT
+/F3 9.5 Tf
+48.00 161.00 Td
+() Tj
+ET
+BT
+/F3 9.5 Tf
+64.00 151.00 Td
+(- `backend/src/routes/webhook.ts`) Tj
+ET
+BT
+/F3 9.5 Tf
+64.00 136.00 Td
+(- `backend/src/services/knowledge.ts`) Tj
+ET
+BT
+/F3 9.5 Tf
+64.00 121.00 Td
+(- `backend/src/services/openai.ts`) Tj
+ET
+BT
+/F3 9.5 Tf
+48.00 107.00 Td
+() Tj
+ET
+BT
+/F3 9.5 Tf
+48.00 97.00 Td
+(Auth:) Tj
+ET
+BT
+/F3 9.5 Tf
+48.00 82.00 Td
+() Tj
+ET
+BT
+/F3 9.5 Tf
+64.00 72.00 Td
+(- Admin JWT required) Tj
+ET
+BT
+/F3 9.5 Tf
+48.00 58.00 Td
+() Tj
+ET
+BT
+/F3 8 Tf
+48.00 28.00 Td
+(Vishwavrinda Ayurveda API Documentation) Tj
+ET
+BT
+/F3 8 Tf
+506.00 28.00 Td
+(Page 7 of 19) Tj
+ET
+endstream
+endobj
+20 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F3 3 0 R /F4 4 0 R /F5 5 0 R >> >> /Contents 21 0 R >>
+endobj
+21 0 obj
+<< /Length 3103 >>
 stream
 BT
 /F3 9.5 Tf
@@ -1478,7 +2054,7 @@ ET
 BT
 /F3 9.5 Tf
 64.00 712.00 Td
-(- Meta WhatsApp webhook verification.) Tj
+(- Loads knowledge and sends a fixed test question to OpenAI.) Tj
 ET
 BT
 /F3 9.5 Tf
@@ -1488,7 +2064,7 @@ ET
 BT
 /F3 9.5 Tf
 48.00 688.00 Td
-(Query parameters:) Tj
+(Parameters:) Tj
 ET
 BT
 /F3 9.5 Tf
@@ -1498,102 +2074,415 @@ ET
 BT
 /F3 9.5 Tf
 64.00 663.00 Td
-(- `hub.mode`: expected `subscribe`) Tj
+(- None) Tj
 ET
 BT
 /F3 9.5 Tf
-64.00 648.00 Td
-(- `hub.verify_token`: must match `VERIFY_TOKEN`) Tj
-ET
-BT
-/F3 9.5 Tf
-64.00 633.00 Td
-(- `hub.challenge`: challenge string returned to Meta) Tj
-ET
-BT
-/F3 9.5 Tf
-48.00 619.00 Td
+48.00 649.00 Td
 () Tj
 ET
 BT
 /F3 9.5 Tf
-48.00 609.00 Td
+48.00 639.00 Td
 (Returns:) Tj
 ET
 BT
 /F3 9.5 Tf
-48.00 594.00 Td
+48.00 624.00 Td
 () Tj
 ET
 BT
-/F3 9.5 Tf
-64.00 584.00 Td
-(- `200` with challenge string when valid.) Tj
+/F5 8.5 Tf
+58.00 615.00 Td
+({) Tj
+ET
+BT
+/F5 8.5 Tf
+58.00 604.00 Td
+("success": true,) Tj
+ET
+BT
+/F5 8.5 Tf
+58.00 593.00 Td
+("reply": {) Tj
+ET
+BT
+/F5 8.5 Tf
+58.00 582.00 Td
+("type": "message",) Tj
+ET
+BT
+/F5 8.5 Tf
+58.00 571.00 Td
+("reply": "string",) Tj
+ET
+BT
+/F5 8.5 Tf
+58.00 560.00 Td
+("appointment": null) Tj
+ET
+BT
+/F5 8.5 Tf
+58.00 549.00 Td
+(}) Tj
+ET
+BT
+/F5 8.5 Tf
+58.00 538.00 Td
+(}) Tj
 ET
 BT
 /F3 9.5 Tf
-64.00 569.00 Td
-(- `403` with `Verification failed` when invalid.) Tj
-ET
-BT
-/F3 9.5 Tf
-48.00 555.00 Td
+48.00 527.00 Td
 () Tj
 ET
 BT
 /F4 11 Tf
-48.00 539.00 Td
-(POST /webhook) Tj
+48.00 511.00 Td
+(POST /api/ai/test) Tj
 ET
 BT
 /F3 9.5 Tf
-48.00 521.00 Td
+48.00 493.00 Td
 () Tj
 ET
 BT
 /F3 9.5 Tf
-48.00 511.00 Td
+48.00 483.00 Td
 (Files:) Tj
 ET
 BT
 /F3 9.5 Tf
-48.00 496.00 Td
+48.00 468.00 Td
 () Tj
 ET
 BT
 /F3 9.5 Tf
-64.00 486.00 Td
-(- `backend/src/routes/webhook.ts`) Tj
+64.00 458.00 Td
+(- `backend/src/routes/ai.ts`) Tj
 ET
 BT
 /F3 9.5 Tf
-64.00 471.00 Td
-(- `backend/src/parsers/whatsapp.ts`) Tj
+64.00 443.00 Td
+(- `backend/src/services/knowledge.ts`) Tj
 ET
 BT
 /F3 9.5 Tf
-64.00 456.00 Td
-(- `backend/src/services/conversation.ts`) Tj
+64.00 428.00 Td
+(- `backend/src/services/openai.ts`) Tj
 ET
 BT
 /F3 9.5 Tf
-48.00 442.00 Td
+48.00 414.00 Td
 () Tj
 ET
 BT
 /F3 9.5 Tf
-48.00 432.00 Td
+48.00 404.00 Td
 (Auth:) Tj
 ET
 BT
 /F3 9.5 Tf
-48.00 417.00 Td
+48.00 389.00 Td
 () Tj
 ET
 BT
 /F3 9.5 Tf
-64.00 407.00 Td
-(- Public) Tj
+64.00 379.00 Td
+(- Admin JWT required) Tj
+ET
+BT
+/F3 9.5 Tf
+48.00 365.00 Td
+() Tj
+ET
+BT
+/F3 9.5 Tf
+48.00 355.00 Td
+(Purpose:) Tj
+ET
+BT
+/F3 9.5 Tf
+48.00 340.00 Td
+() Tj
+ET
+BT
+/F3 9.5 Tf
+64.00 330.00 Td
+(- Tests the AI response flow from an admin/API client without sending a WhatsApp message.) Tj
+ET
+BT
+/F3 9.5 Tf
+64.00 315.00 Td
+(- Loads `backend/knowledge.md`, calls OpenAI, and returns the structured AI result.) Tj
+ET
+BT
+/F3 9.5 Tf
+64.00 300.00 Td
+(- Does not create users, messages, or appointments in MongoDB.) Tj
+ET
+BT
+/F3 9.5 Tf
+48.00 286.00 Td
+() Tj
+ET
+BT
+/F3 9.5 Tf
+48.00 276.00 Td
+(Body:) Tj
+ET
+BT
+/F3 9.5 Tf
+48.00 261.00 Td
+() Tj
+ET
+BT
+/F5 8.5 Tf
+58.00 252.00 Td
+({) Tj
+ET
+BT
+/F5 8.5 Tf
+58.00 241.00 Td
+("message": "What is the consultation fee?") Tj
+ET
+BT
+/F5 8.5 Tf
+58.00 230.00 Td
+(}) Tj
+ET
+BT
+/F3 9.5 Tf
+48.00 219.00 Td
+() Tj
+ET
+BT
+/F3 9.5 Tf
+48.00 209.00 Td
+(Returns:) Tj
+ET
+BT
+/F3 9.5 Tf
+48.00 194.00 Td
+() Tj
+ET
+BT
+/F5 8.5 Tf
+58.00 185.00 Td
+({) Tj
+ET
+BT
+/F5 8.5 Tf
+58.00 174.00 Td
+("success": true,) Tj
+ET
+BT
+/F5 8.5 Tf
+58.00 163.00 Td
+("result": {) Tj
+ET
+BT
+/F5 8.5 Tf
+58.00 152.00 Td
+("type": "message",) Tj
+ET
+BT
+/F5 8.5 Tf
+58.00 141.00 Td
+("reply": "The consultation fee is Rs. 350...",) Tj
+ET
+BT
+/F5 8.5 Tf
+58.00 130.00 Td
+("appointment": null) Tj
+ET
+BT
+/F5 8.5 Tf
+58.00 119.00 Td
+(}) Tj
+ET
+BT
+/F5 8.5 Tf
+58.00 108.00 Td
+(}) Tj
+ET
+BT
+/F3 9.5 Tf
+48.00 97.00 Td
+() Tj
+ET
+BT
+/F3 9.5 Tf
+48.00 87.00 Td
+(Appointment result shape:) Tj
+ET
+BT
+/F3 9.5 Tf
+48.00 72.00 Td
+() Tj
+ET
+BT
+/F5 8.5 Tf
+58.00 63.00 Td
+({) Tj
+ET
+BT
+/F3 8 Tf
+48.00 28.00 Td
+(Vishwavrinda Ayurveda API Documentation) Tj
+ET
+BT
+/F3 8 Tf
+506.00 28.00 Td
+(Page 8 of 19) Tj
+ET
+endstream
+endobj
+22 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F3 3 0 R /F4 4 0 R /F5 5 0 R >> >> /Contents 23 0 R >>
+endobj
+23 0 obj
+<< /Length 3389 >>
+stream
+BT
+/F5 8.5 Tf
+58.00 738.00 Td
+("success": true,) Tj
+ET
+BT
+/F5 8.5 Tf
+58.00 727.00 Td
+("result": {) Tj
+ET
+BT
+/F5 8.5 Tf
+58.00 716.00 Td
+("type": "appointment",) Tj
+ET
+BT
+/F5 8.5 Tf
+58.00 705.00 Td
+("reply": "Thanks. The clinic team will contact you soon.",) Tj
+ET
+BT
+/F5 8.5 Tf
+58.00 694.00 Td
+("appointment": {) Tj
+ET
+BT
+/F5 8.5 Tf
+58.00 683.00 Td
+("patientName": "Raj Sharma",) Tj
+ET
+BT
+/F5 8.5 Tf
+58.00 672.00 Td
+("preferredDate": "2026-08-15",) Tj
+ET
+BT
+/F5 8.5 Tf
+58.00 661.00 Td
+("preferredTime": "5 PM",) Tj
+ET
+BT
+/F5 8.5 Tf
+58.00 650.00 Td
+("preferredContactMethod": "whatsapp",) Tj
+ET
+BT
+/F5 8.5 Tf
+58.00 639.00 Td
+("reason": "Acidity") Tj
+ET
+BT
+/F5 8.5 Tf
+58.00 628.00 Td
+(}) Tj
+ET
+BT
+/F5 8.5 Tf
+58.00 617.00 Td
+(}) Tj
+ET
+BT
+/F5 8.5 Tf
+58.00 606.00 Td
+(}) Tj
+ET
+BT
+/F3 9.5 Tf
+48.00 595.00 Td
+() Tj
+ET
+BT
+/F3 9.5 Tf
+48.00 585.00 Td
+(Errors:) Tj
+ET
+BT
+/F3 9.5 Tf
+48.00 570.00 Td
+() Tj
+ET
+BT
+/F3 9.5 Tf
+64.00 560.00 Td
+(- `400` when message is missing or empty.) Tj
+ET
+BT
+/F3 9.5 Tf
+64.00 545.00 Td
+(- `401` when JWT is missing or invalid.) Tj
+ET
+BT
+/F3 9.5 Tf
+64.00 530.00 Td
+(- `502` when the AI request fails.) Tj
+ET
+BT
+/F3 9.5 Tf
+48.00 516.00 Td
+() Tj
+ET
+BT
+/F4 11 Tf
+48.00 500.00 Td
+(GET /api/dashboard/stats) Tj
+ET
+BT
+/F3 9.5 Tf
+48.00 482.00 Td
+() Tj
+ET
+BT
+/F3 9.5 Tf
+48.00 472.00 Td
+(Files:) Tj
+ET
+BT
+/F3 9.5 Tf
+48.00 457.00 Td
+() Tj
+ET
+BT
+/F3 9.5 Tf
+64.00 447.00 Td
+(- `backend/src/routes/dashboard.ts`) Tj
+ET
+BT
+/F3 9.5 Tf
+64.00 432.00 Td
+(- `backend/src/services/dashboard.ts`) Tj
+ET
+BT
+/F3 9.5 Tf
+48.00 418.00 Td
+() Tj
+ET
+BT
+/F3 9.5 Tf
+48.00 408.00 Td
+(Auth:) Tj
 ET
 BT
 /F3 9.5 Tf
@@ -1602,1022 +2491,143 @@ BT
 ET
 BT
 /F3 9.5 Tf
-48.00 383.00 Td
-(Purpose:) Tj
-ET
-BT
-/F3 9.5 Tf
-48.00 368.00 Td
-() Tj
-ET
-BT
-/F3 9.5 Tf
-64.00 358.00 Td
-(- Receives WhatsApp events, stores messages, calls the AI, sends replies, and creates appointments) Tj
-ET
-BT
-/F3 9.5 Tf
-64.00 345.00 Td
-(when the AI returns complete appointment data.) Tj
-ET
-BT
-/F3 9.5 Tf
-48.00 331.00 Td
-() Tj
-ET
-BT
-/F3 9.5 Tf
-48.00 321.00 Td
-(Body:) Tj
-ET
-BT
-/F3 9.5 Tf
-48.00 306.00 Td
-() Tj
-ET
-BT
-/F3 9.5 Tf
-64.00 296.00 Td
-(- Meta WhatsApp webhook payload.) Tj
-ET
-BT
-/F3 9.5 Tf
-48.00 282.00 Td
-() Tj
-ET
-BT
-/F3 9.5 Tf
-48.00 272.00 Td
-(Returns:) Tj
-ET
-BT
-/F3 9.5 Tf
-48.00 257.00 Td
-() Tj
-ET
-BT
-/F5 8.5 Tf
-58.00 248.00 Td
-({) Tj
-ET
-BT
-/F5 8.5 Tf
-58.00 237.00 Td
-("success": true) Tj
-ET
-BT
-/F5 8.5 Tf
-58.00 226.00 Td
-(}) Tj
-ET
-BT
-/F3 9.5 Tf
-48.00 215.00 Td
-() Tj
-ET
-BT
-/F3 9.5 Tf
-48.00 205.00 Td
-(Side effects:) Tj
-ET
-BT
-/F3 9.5 Tf
-48.00 190.00 Td
-() Tj
-ET
-BT
-/F3 9.5 Tf
-64.00 180.00 Td
-(- Upserts user in `users`.) Tj
-ET
-BT
-/F3 9.5 Tf
-64.00 165.00 Td
-(- Stores incoming user message in `messages`.) Tj
-ET
-BT
-/F3 9.5 Tf
-64.00 150.00 Td
-(- Reads `backend/knowledge.md`.) Tj
-ET
-BT
-/F3 9.5 Tf
-64.00 135.00 Td
-(- Calls OpenAI.) Tj
-ET
-BT
-/F3 9.5 Tf
-64.00 120.00 Td
-(- Sends WhatsApp message.) Tj
-ET
-BT
-/F3 9.5 Tf
-64.00 105.00 Td
-(- Stores assistant reply only after WhatsApp send succeeds.) Tj
-ET
-BT
-/F3 9.5 Tf
-64.00 90.00 Td
-(- Creates appointment in `appointments` when needed.) Tj
-ET
-BT
-/F3 9.5 Tf
-48.00 76.00 Td
-() Tj
-ET
-BT
-/F3 8 Tf
-48.00 28.00 Td
-(Vishwavrinda Ayurveda API Documentation) Tj
-ET
-BT
-/F3 8 Tf
-506.00 28.00 Td
-(Page 6 of 16) Tj
-ET
-endstream
-endobj
-18 0 obj
-<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F3 3 0 R /F4 4 0 R /F5 5 0 R >> >> /Contents 19 0 R >>
-endobj
-19 0 obj
-<< /Length 2756 >>
-stream
-BT
-/F4 11 Tf
-48.00 731.00 Td
-(GET /test-whatsapp) Tj
-ET
-BT
-/F3 9.5 Tf
-48.00 713.00 Td
-() Tj
-ET
-BT
-/F3 9.5 Tf
-48.00 703.00 Td
-(File:) Tj
-ET
-BT
-/F3 9.5 Tf
-48.00 688.00 Td
-() Tj
-ET
-BT
-/F3 9.5 Tf
-64.00 678.00 Td
-(- `backend/src/routes/webhook.ts`) Tj
-ET
-BT
-/F3 9.5 Tf
-48.00 664.00 Td
-() Tj
-ET
-BT
-/F3 9.5 Tf
-48.00 654.00 Td
-(Auth:) Tj
-ET
-BT
-/F3 9.5 Tf
-48.00 639.00 Td
-() Tj
-ET
-BT
-/F3 9.5 Tf
-64.00 629.00 Td
+64.00 383.00 Td
 (- Admin JWT required) Tj
 ET
 BT
 /F3 9.5 Tf
-48.00 615.00 Td
+48.00 369.00 Td
 () Tj
 ET
 BT
 /F3 9.5 Tf
-48.00 605.00 Td
+48.00 359.00 Td
 (Purpose:) Tj
 ET
 BT
 /F3 9.5 Tf
-48.00 590.00 Td
+48.00 344.00 Td
 () Tj
 ET
 BT
 /F3 9.5 Tf
-64.00 580.00 Td
-(- Sends a fixed WhatsApp test message.) Tj
-ET
-BT
-/F3 9.5 Tf
-48.00 566.00 Td
-() Tj
-ET
-BT
-/F3 9.5 Tf
-48.00 556.00 Td
-(Parameters:) Tj
-ET
-BT
-/F3 9.5 Tf
-48.00 541.00 Td
-() Tj
-ET
-BT
-/F3 9.5 Tf
-64.00 531.00 Td
-(- None) Tj
-ET
-BT
-/F3 9.5 Tf
-48.00 517.00 Td
-() Tj
-ET
-BT
-/F3 9.5 Tf
-48.00 507.00 Td
-(Returns:) Tj
-ET
-BT
-/F3 9.5 Tf
-48.00 492.00 Td
-() Tj
-ET
-BT
-/F5 8.5 Tf
-58.00 483.00 Td
-({) Tj
-ET
-BT
-/F5 8.5 Tf
-58.00 472.00 Td
-("success": true) Tj
-ET
-BT
-/F5 8.5 Tf
-58.00 461.00 Td
-(}) Tj
-ET
-BT
-/F3 9.5 Tf
-48.00 450.00 Td
-() Tj
-ET
-BT
-/F4 11 Tf
-48.00 434.00 Td
-(GET /test-ai) Tj
-ET
-BT
-/F3 9.5 Tf
-48.00 416.00 Td
-() Tj
-ET
-BT
-/F3 9.5 Tf
-48.00 406.00 Td
-(Files:) Tj
-ET
-BT
-/F3 9.5 Tf
-48.00 391.00 Td
-() Tj
-ET
-BT
-/F3 9.5 Tf
-64.00 381.00 Td
-(- `backend/src/routes/webhook.ts`) Tj
-ET
-BT
-/F3 9.5 Tf
-64.00 366.00 Td
-(- `backend/src/services/knowledge.ts`) Tj
-ET
-BT
-/F3 9.5 Tf
-64.00 351.00 Td
-(- `backend/src/services/openai.ts`) Tj
-ET
-BT
-/F3 9.5 Tf
-48.00 337.00 Td
-() Tj
-ET
-BT
-/F3 9.5 Tf
-48.00 327.00 Td
-(Auth:) Tj
-ET
-BT
-/F3 9.5 Tf
-48.00 312.00 Td
-() Tj
-ET
-BT
-/F3 9.5 Tf
-64.00 302.00 Td
-(- Admin JWT required) Tj
-ET
-BT
-/F3 9.5 Tf
-48.00 288.00 Td
-() Tj
-ET
-BT
-/F3 9.5 Tf
-48.00 278.00 Td
-(Purpose:) Tj
-ET
-BT
-/F3 9.5 Tf
-48.00 263.00 Td
-() Tj
-ET
-BT
-/F3 9.5 Tf
-64.00 253.00 Td
-(- Loads knowledge and sends a fixed test question to OpenAI.) Tj
-ET
-BT
-/F3 9.5 Tf
-48.00 239.00 Td
-() Tj
-ET
-BT
-/F3 9.5 Tf
-48.00 229.00 Td
-(Parameters:) Tj
-ET
-BT
-/F3 9.5 Tf
-48.00 214.00 Td
-() Tj
-ET
-BT
-/F3 9.5 Tf
-64.00 204.00 Td
-(- None) Tj
-ET
-BT
-/F3 9.5 Tf
-48.00 190.00 Td
-() Tj
-ET
-BT
-/F3 9.5 Tf
-48.00 180.00 Td
-(Returns:) Tj
-ET
-BT
-/F3 9.5 Tf
-48.00 165.00 Td
-() Tj
-ET
-BT
-/F5 8.5 Tf
-58.00 156.00 Td
-({) Tj
-ET
-BT
-/F5 8.5 Tf
-58.00 145.00 Td
-("success": true,) Tj
-ET
-BT
-/F5 8.5 Tf
-58.00 134.00 Td
-("reply": {) Tj
-ET
-BT
-/F5 8.5 Tf
-58.00 123.00 Td
-("type": "message",) Tj
-ET
-BT
-/F5 8.5 Tf
-58.00 112.00 Td
-("reply": "string",) Tj
-ET
-BT
-/F5 8.5 Tf
-58.00 101.00 Td
-("appointment": null) Tj
-ET
-BT
-/F5 8.5 Tf
-58.00 90.00 Td
-(}) Tj
-ET
-BT
-/F5 8.5 Tf
-58.00 79.00 Td
-(}) Tj
-ET
-BT
-/F3 9.5 Tf
-48.00 68.00 Td
-() Tj
-ET
-BT
-/F3 8 Tf
-48.00 28.00 Td
-(Vishwavrinda Ayurveda API Documentation) Tj
-ET
-BT
-/F3 8 Tf
-506.00 28.00 Td
-(Page 7 of 16) Tj
-ET
-endstream
-endobj
-20 0 obj
-<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F3 3 0 R /F4 4 0 R /F5 5 0 R >> >> /Contents 21 0 R >>
-endobj
-21 0 obj
-<< /Length 3312 >>
-stream
-BT
-/F4 11 Tf
-48.00 731.00 Td
-(POST /api/ai/test) Tj
-ET
-BT
-/F3 9.5 Tf
-48.00 713.00 Td
-() Tj
-ET
-BT
-/F3 9.5 Tf
-48.00 703.00 Td
-(Files:) Tj
-ET
-BT
-/F3 9.5 Tf
-48.00 688.00 Td
-() Tj
-ET
-BT
-/F3 9.5 Tf
-64.00 678.00 Td
-(- `backend/src/routes/ai.ts`) Tj
-ET
-BT
-/F3 9.5 Tf
-64.00 663.00 Td
-(- `backend/src/services/knowledge.ts`) Tj
-ET
-BT
-/F3 9.5 Tf
-64.00 648.00 Td
-(- `backend/src/services/openai.ts`) Tj
-ET
-BT
-/F3 9.5 Tf
-48.00 634.00 Td
-() Tj
-ET
-BT
-/F3 9.5 Tf
-48.00 624.00 Td
-(Auth:) Tj
-ET
-BT
-/F3 9.5 Tf
-48.00 609.00 Td
-() Tj
-ET
-BT
-/F3 9.5 Tf
-64.00 599.00 Td
-(- Admin JWT required) Tj
-ET
-BT
-/F3 9.5 Tf
-48.00 585.00 Td
-() Tj
-ET
-BT
-/F3 9.5 Tf
-48.00 575.00 Td
-(Purpose:) Tj
-ET
-BT
-/F3 9.5 Tf
-48.00 560.00 Td
-() Tj
-ET
-BT
-/F3 9.5 Tf
-64.00 550.00 Td
-(- Tests the AI response flow from an admin/API client without sending a WhatsApp message.) Tj
-ET
-BT
-/F3 9.5 Tf
-64.00 535.00 Td
-(- Loads `backend/knowledge.md`, calls OpenAI, and returns the structured AI result.) Tj
-ET
-BT
-/F3 9.5 Tf
-64.00 520.00 Td
-(- Does not create users, messages, or appointments in MongoDB.) Tj
-ET
-BT
-/F3 9.5 Tf
-48.00 506.00 Td
-() Tj
-ET
-BT
-/F3 9.5 Tf
-48.00 496.00 Td
-(Body:) Tj
-ET
-BT
-/F3 9.5 Tf
-48.00 481.00 Td
-() Tj
-ET
-BT
-/F5 8.5 Tf
-58.00 472.00 Td
-({) Tj
-ET
-BT
-/F5 8.5 Tf
-58.00 461.00 Td
-("message": "What is the consultation fee?") Tj
-ET
-BT
-/F5 8.5 Tf
-58.00 450.00 Td
-(}) Tj
-ET
-BT
-/F3 9.5 Tf
-48.00 439.00 Td
-() Tj
-ET
-BT
-/F3 9.5 Tf
-48.00 429.00 Td
-(Returns:) Tj
-ET
-BT
-/F3 9.5 Tf
-48.00 414.00 Td
-() Tj
-ET
-BT
-/F5 8.5 Tf
-58.00 405.00 Td
-({) Tj
-ET
-BT
-/F5 8.5 Tf
-58.00 394.00 Td
-("success": true,) Tj
-ET
-BT
-/F5 8.5 Tf
-58.00 383.00 Td
-("result": {) Tj
-ET
-BT
-/F5 8.5 Tf
-58.00 372.00 Td
-("type": "message",) Tj
-ET
-BT
-/F5 8.5 Tf
-58.00 361.00 Td
-("reply": "The consultation fee is Rs. 350...",) Tj
-ET
-BT
-/F5 8.5 Tf
-58.00 350.00 Td
-("appointment": null) Tj
-ET
-BT
-/F5 8.5 Tf
-58.00 339.00 Td
-(}) Tj
-ET
-BT
-/F5 8.5 Tf
-58.00 328.00 Td
-(}) Tj
-ET
-BT
-/F3 9.5 Tf
-48.00 317.00 Td
-() Tj
-ET
-BT
-/F3 9.5 Tf
-48.00 307.00 Td
-(Appointment result shape:) Tj
-ET
-BT
-/F3 9.5 Tf
-48.00 292.00 Td
-() Tj
-ET
-BT
-/F5 8.5 Tf
-58.00 283.00 Td
-({) Tj
-ET
-BT
-/F5 8.5 Tf
-58.00 272.00 Td
-("success": true,) Tj
-ET
-BT
-/F5 8.5 Tf
-58.00 261.00 Td
-("result": {) Tj
-ET
-BT
-/F5 8.5 Tf
-58.00 250.00 Td
-("type": "appointment",) Tj
-ET
-BT
-/F5 8.5 Tf
-58.00 239.00 Td
-("reply": "Thanks. The clinic team will contact you soon.",) Tj
-ET
-BT
-/F5 8.5 Tf
-58.00 228.00 Td
-("appointment": {) Tj
-ET
-BT
-/F5 8.5 Tf
-58.00 217.00 Td
-("patientName": "Raj Sharma",) Tj
-ET
-BT
-/F5 8.5 Tf
-58.00 206.00 Td
-("preferredDate": "2026-08-15",) Tj
-ET
-BT
-/F5 8.5 Tf
-58.00 195.00 Td
-("preferredTime": "5 PM",) Tj
-ET
-BT
-/F5 8.5 Tf
-58.00 184.00 Td
-("preferredContactMethod": "whatsapp",) Tj
-ET
-BT
-/F5 8.5 Tf
-58.00 173.00 Td
-("reason": "Acidity") Tj
-ET
-BT
-/F5 8.5 Tf
-58.00 162.00 Td
-(}) Tj
-ET
-BT
-/F5 8.5 Tf
-58.00 151.00 Td
-(}) Tj
-ET
-BT
-/F5 8.5 Tf
-58.00 140.00 Td
-(}) Tj
-ET
-BT
-/F3 9.5 Tf
-48.00 129.00 Td
-() Tj
-ET
-BT
-/F3 9.5 Tf
-48.00 119.00 Td
-(Errors:) Tj
-ET
-BT
-/F3 9.5 Tf
-48.00 104.00 Td
-() Tj
-ET
-BT
-/F3 9.5 Tf
-64.00 94.00 Td
-(- `400` when message is missing or empty.) Tj
-ET
-BT
-/F3 9.5 Tf
-64.00 79.00 Td
-(- `401` when JWT is missing or invalid.) Tj
-ET
-BT
-/F3 9.5 Tf
-64.00 64.00 Td
-(- `502` when the AI request fails.) Tj
-ET
-BT
-/F3 8 Tf
-48.00 28.00 Td
-(Vishwavrinda Ayurveda API Documentation) Tj
-ET
-BT
-/F3 8 Tf
-506.00 28.00 Td
-(Page 8 of 16) Tj
-ET
-endstream
-endobj
-22 0 obj
-<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F3 3 0 R /F4 4 0 R /F5 5 0 R >> >> /Contents 23 0 R >>
-endobj
-23 0 obj
-<< /Length 3192 >>
-stream
-BT
-/F3 9.5 Tf
-48.00 738.00 Td
-() Tj
-ET
-BT
-/F4 11 Tf
-48.00 722.00 Td
-(GET /api/dashboard/stats) Tj
-ET
-BT
-/F3 9.5 Tf
-48.00 704.00 Td
-() Tj
-ET
-BT
-/F3 9.5 Tf
-48.00 694.00 Td
-(Files:) Tj
-ET
-BT
-/F3 9.5 Tf
-48.00 679.00 Td
-() Tj
-ET
-BT
-/F3 9.5 Tf
-64.00 669.00 Td
-(- `backend/src/routes/dashboard.ts`) Tj
-ET
-BT
-/F3 9.5 Tf
-64.00 654.00 Td
-(- `backend/src/services/dashboard.ts`) Tj
-ET
-BT
-/F3 9.5 Tf
-48.00 640.00 Td
-() Tj
-ET
-BT
-/F3 9.5 Tf
-48.00 630.00 Td
-(Auth:) Tj
-ET
-BT
-/F3 9.5 Tf
-48.00 615.00 Td
-() Tj
-ET
-BT
-/F3 9.5 Tf
-64.00 605.00 Td
-(- Admin JWT required) Tj
-ET
-BT
-/F3 9.5 Tf
-48.00 591.00 Td
-() Tj
-ET
-BT
-/F3 9.5 Tf
-48.00 581.00 Td
-(Purpose:) Tj
-ET
-BT
-/F3 9.5 Tf
-48.00 566.00 Td
-() Tj
-ET
-BT
-/F3 9.5 Tf
-64.00 556.00 Td
+64.00 334.00 Td
 (- Returns counters and chart trend data for the dashboard.) Tj
 ET
 BT
 /F3 9.5 Tf
-48.00 542.00 Td
+48.00 320.00 Td
 () Tj
 ET
 BT
 /F3 9.5 Tf
-48.00 532.00 Td
+48.00 310.00 Td
 (Query parameters:) Tj
 ET
 BT
 /F3 9.5 Tf
-48.00 517.00 Td
+48.00 295.00 Td
 () Tj
 ET
 BT
 /F3 9.5 Tf
-64.00 507.00 Td
+64.00 285.00 Td
 (- `period`: optional `week` or `month`, default `week`) Tj
 ET
 BT
 /F3 9.5 Tf
-64.00 492.00 Td
+64.00 270.00 Td
 (- `anchorDate`: optional date in `YYYY-MM-DD`; when omitted, today is used) Tj
 ET
 BT
 /F3 9.5 Tf
-48.00 478.00 Td
+48.00 256.00 Td
 () Tj
 ET
 BT
 /F3 9.5 Tf
-48.00 468.00 Td
+48.00 246.00 Td
 (Returns:) Tj
 ET
 BT
 /F3 9.5 Tf
-48.00 453.00 Td
+48.00 231.00 Td
 () Tj
 ET
 BT
 /F5 8.5 Tf
-58.00 444.00 Td
+58.00 222.00 Td
 ({) Tj
 ET
 BT
 /F5 8.5 Tf
-58.00 433.00 Td
+58.00 211.00 Td
 ("totalUsers": 10,) Tj
 ET
 BT
 /F5 8.5 Tf
-58.00 422.00 Td
+58.00 200.00 Td
 ("newUsersThisWeek": 4,) Tj
 ET
 BT
 /F5 8.5 Tf
-58.00 411.00 Td
+58.00 189.00 Td
 ("newUsersThisMonth": 8,) Tj
 ET
 BT
 /F5 8.5 Tf
-58.00 400.00 Td
+58.00 178.00 Td
 ("totalMessages": 40,) Tj
 ET
 BT
 /F5 8.5 Tf
-58.00 389.00 Td
+58.00 167.00 Td
 ("totalAppointments": 10,) Tj
 ET
 BT
 /F5 8.5 Tf
-58.00 378.00 Td
+58.00 156.00 Td
 ("pendingAppointments": 6,) Tj
 ET
 BT
 /F5 8.5 Tf
-58.00 367.00 Td
+58.00 145.00 Td
 ("completedAppointments": 4,) Tj
 ET
 BT
 /F5 8.5 Tf
-58.00 356.00 Td
+58.00 134.00 Td
 ("appointmentsThisWeek": 3,) Tj
 ET
 BT
 /F5 8.5 Tf
-58.00 345.00 Td
+58.00 123.00 Td
 ("appointmentsThisMonth": 9,) Tj
 ET
 BT
 /F5 8.5 Tf
-58.00 334.00 Td
+58.00 112.00 Td
 ("trend": {) Tj
 ET
 BT
 /F5 8.5 Tf
-58.00 323.00 Td
+58.00 101.00 Td
 ("period": "week",) Tj
 ET
 BT
 /F5 8.5 Tf
-58.00 312.00 Td
+58.00 90.00 Td
 ("anchorDate": "2026-07-09",) Tj
 ET
 BT
 /F5 8.5 Tf
-58.00 301.00 Td
+58.00 79.00 Td
 ("startDate": "2026-07-03",) Tj
 ET
 BT
 /F5 8.5 Tf
-58.00 290.00 Td
+58.00 68.00 Td
 ("endDate": "2026-07-09",) Tj
-ET
-BT
-/F5 8.5 Tf
-58.00 279.00 Td
-("points": [) Tj
-ET
-BT
-/F5 8.5 Tf
-58.00 268.00 Td
-({) Tj
-ET
-BT
-/F5 8.5 Tf
-58.00 257.00 Td
-("date": "2026-07-03",) Tj
-ET
-BT
-/F5 8.5 Tf
-58.00 246.00 Td
-("label": "3 Jul",) Tj
-ET
-BT
-/F5 8.5 Tf
-58.00 235.00 Td
-("users": 5,) Tj
-ET
-BT
-/F5 8.5 Tf
-58.00 224.00 Td
-("appointments": 2) Tj
-ET
-BT
-/F5 8.5 Tf
-58.00 213.00 Td
-(}) Tj
-ET
-BT
-/F5 8.5 Tf
-58.00 202.00 Td
-(]) Tj
-ET
-BT
-/F5 8.5 Tf
-58.00 191.00 Td
-(}) Tj
-ET
-BT
-/F5 8.5 Tf
-58.00 180.00 Td
-(}) Tj
-ET
-BT
-/F3 9.5 Tf
-48.00 169.00 Td
-() Tj
-ET
-BT
-/F3 9.5 Tf
-48.00 159.00 Td
-(Errors:) Tj
-ET
-BT
-/F3 9.5 Tf
-48.00 144.00 Td
-() Tj
-ET
-BT
-/F3 9.5 Tf
-64.00 134.00 Td
-(- `400` for invalid period.) Tj
-ET
-BT
-/F3 9.5 Tf
-64.00 119.00 Td
-(- `400` for invalid anchor date.) Tj
-ET
-BT
-/F3 9.5 Tf
-64.00 104.00 Td
-(- `401` when JWT is missing or invalid.) Tj
-ET
-BT
-/F3 9.5 Tf
-64.00 89.00 Td
-(- `500` for unexpected database errors.) Tj
-ET
-BT
-/F3 9.5 Tf
-48.00 75.00 Td
-() Tj
 ET
 BT
 /F3 8 Tf
@@ -2627,7 +2637,7 @@ ET
 BT
 /F3 8 Tf
 506.00 28.00 Td
-(Page 9 of 16) Tj
+(Page 9 of 19) Tj
 ET
 endstream
 endobj
@@ -2635,430 +2645,137 @@ endobj
 << /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F3 3 0 R /F4 4 0 R /F5 5 0 R >> >> /Contents 25 0 R >>
 endobj
 25 0 obj
-<< /Length 3319 >>
+<< /Length 3339 >>
 stream
 BT
-/F4 11 Tf
-48.00 731.00 Td
-(GET /api/appointments) Tj
-ET
-BT
-/F3 9.5 Tf
-48.00 713.00 Td
-() Tj
-ET
-BT
-/F3 9.5 Tf
-48.00 703.00 Td
-(Files:) Tj
-ET
-BT
-/F3 9.5 Tf
-48.00 688.00 Td
-() Tj
-ET
-BT
-/F3 9.5 Tf
-64.00 678.00 Td
-(- `backend/src/routes/appointments.ts`) Tj
-ET
-BT
-/F3 9.5 Tf
-64.00 663.00 Td
-(- `backend/src/services/appointments.ts`) Tj
-ET
-BT
-/F3 9.5 Tf
-48.00 649.00 Td
-() Tj
-ET
-BT
-/F3 9.5 Tf
-48.00 639.00 Td
-(Auth:) Tj
-ET
-BT
-/F3 9.5 Tf
-48.00 624.00 Td
-() Tj
-ET
-BT
-/F3 9.5 Tf
-64.00 614.00 Td
-(- Admin JWT required) Tj
-ET
-BT
-/F3 9.5 Tf
-48.00 600.00 Td
-() Tj
-ET
-BT
-/F3 9.5 Tf
-48.00 590.00 Td
-(Purpose:) Tj
-ET
-BT
-/F3 9.5 Tf
-48.00 575.00 Td
-() Tj
-ET
-BT
-/F3 9.5 Tf
-64.00 565.00 Td
-(- Returns paginated appointment requests.) Tj
-ET
-BT
-/F3 9.5 Tf
-48.00 551.00 Td
-() Tj
-ET
-BT
-/F3 9.5 Tf
-48.00 541.00 Td
-(Query parameters:) Tj
-ET
-BT
-/F3 9.5 Tf
-48.00 526.00 Td
-() Tj
-ET
-BT
-/F3 9.5 Tf
-64.00 516.00 Td
-(- `page`: optional positive integer) Tj
-ET
-BT
-/F3 9.5 Tf
-64.00 501.00 Td
-(- `limit`: optional positive integer, max `100`) Tj
-ET
-BT
-/F3 9.5 Tf
-64.00 486.00 Td
-(- `status`: optional `pending`, `done`, or `all`, default `all`) Tj
-ET
-BT
-/F3 9.5 Tf
-64.00 471.00 Td
-(- `dateCategory`: optional `today`, `upcoming`, `past`, or `all`, default `all`) Tj
-ET
-BT
-/F3 9.5 Tf
-64.00 456.00 Td
-(- `search`: optional search across `patientName` and `phoneNumber`) Tj
-ET
-BT
-/F3 9.5 Tf
-48.00 442.00 Td
-() Tj
-ET
-BT
-/F3 9.5 Tf
-48.00 432.00 Td
-(Returns:) Tj
-ET
-BT
-/F3 9.5 Tf
-48.00 417.00 Td
-() Tj
+/F5 8.5 Tf
+58.00 738.00 Td
+("points": [) Tj
 ET
 BT
 /F5 8.5 Tf
-58.00 408.00 Td
+58.00 727.00 Td
 ({) Tj
 ET
 BT
 /F5 8.5 Tf
-58.00 397.00 Td
-("data": [) Tj
+58.00 716.00 Td
+("date": "2026-07-03",) Tj
 ET
 BT
 /F5 8.5 Tf
-58.00 386.00 Td
-({) Tj
+58.00 705.00 Td
+("label": "3 Jul",) Tj
 ET
 BT
 /F5 8.5 Tf
-58.00 375.00 Td
-("_id": "64f000000000000000000001",) Tj
+58.00 694.00 Td
+("users": 5,) Tj
 ET
 BT
 /F5 8.5 Tf
-58.00 364.00 Td
-("patientName": "Aarav Sharma",) Tj
+58.00 683.00 Td
+("appointments": 2) Tj
 ET
 BT
 /F5 8.5 Tf
-58.00 353.00 Td
-("phoneNumber": "+919880000001",) Tj
-ET
-BT
-/F5 8.5 Tf
-58.00 342.00 Td
-("preferredDate": "2026-07-10",) Tj
-ET
-BT
-/F5 8.5 Tf
-58.00 331.00 Td
-("preferredTime": "10:30 AM",) Tj
-ET
-BT
-/F5 8.5 Tf
-58.00 320.00 Td
-("reason": "Digestive discomfort",) Tj
-ET
-BT
-/F5 8.5 Tf
-58.00 309.00 Td
-("preferredContactMethod": "whatsapp",) Tj
-ET
-BT
-/F5 8.5 Tf
-58.00 298.00 Td
-("source": "whatsapp",) Tj
-ET
-BT
-/F5 8.5 Tf
-58.00 287.00 Td
-("isCompleted": false,) Tj
-ET
-BT
-/F5 8.5 Tf
-58.00 276.00 Td
-("createdAt": "2026-07-09T10:00:00.000Z",) Tj
-ET
-BT
-/F5 8.5 Tf
-58.00 265.00 Td
-("updatedAt": "2026-07-09T10:00:00.000Z") Tj
-ET
-BT
-/F5 8.5 Tf
-58.00 254.00 Td
+58.00 672.00 Td
 (}) Tj
 ET
 BT
 /F5 8.5 Tf
-58.00 243.00 Td
-(],) Tj
+58.00 661.00 Td
+(]) Tj
 ET
 BT
 /F5 8.5 Tf
-58.00 232.00 Td
-("pagination": {) Tj
-ET
-BT
-/F5 8.5 Tf
-58.00 221.00 Td
-("page": 1,) Tj
-ET
-BT
-/F5 8.5 Tf
-58.00 210.00 Td
-("limit": 20,) Tj
-ET
-BT
-/F5 8.5 Tf
-58.00 199.00 Td
-("total": 1,) Tj
-ET
-BT
-/F5 8.5 Tf
-58.00 188.00 Td
-("totalPages": 1) Tj
-ET
-BT
-/F5 8.5 Tf
-58.00 177.00 Td
+58.00 650.00 Td
 (}) Tj
 ET
 BT
 /F5 8.5 Tf
-58.00 166.00 Td
+58.00 639.00 Td
 (}) Tj
 ET
 BT
 /F3 9.5 Tf
-48.00 155.00 Td
+48.00 628.00 Td
 () Tj
 ET
 BT
 /F3 9.5 Tf
-48.00 145.00 Td
+48.00 618.00 Td
 (Errors:) Tj
 ET
 BT
 /F3 9.5 Tf
-48.00 130.00 Td
+48.00 603.00 Td
 () Tj
 ET
 BT
 /F3 9.5 Tf
-64.00 120.00 Td
-(- `400` for invalid pagination.) Tj
+64.00 593.00 Td
+(- `400` for invalid period.) Tj
 ET
 BT
 /F3 9.5 Tf
-64.00 105.00 Td
-(- `400` for invalid status.) Tj
+64.00 578.00 Td
+(- `400` for invalid anchor date.) Tj
 ET
 BT
 /F3 9.5 Tf
-64.00 90.00 Td
-(- `400` for invalid date filter.) Tj
-ET
-BT
-/F3 9.5 Tf
-64.00 75.00 Td
+64.00 563.00 Td
 (- `401` when JWT is missing or invalid.) Tj
 ET
 BT
-/F3 8 Tf
-48.00 28.00 Td
-(Vishwavrinda Ayurveda API Documentation) Tj
-ET
-BT
-/F3 8 Tf
-506.00 28.00 Td
-(Page 10 of 16) Tj
-ET
-endstream
-endobj
-26 0 obj
-<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F3 3 0 R /F4 4 0 R /F5 5 0 R >> >> /Contents 27 0 R >>
-endobj
-27 0 obj
-<< /Length 3208 >>
-stream
-BT
 /F3 9.5 Tf
-64.00 737.00 Td
+64.00 548.00 Td
 (- `500` for unexpected database errors.) Tj
 ET
 BT
 /F3 9.5 Tf
-48.00 723.00 Td
+48.00 534.00 Td
 () Tj
 ET
 BT
 /F4 11 Tf
-48.00 707.00 Td
-(PATCH /api/appointments/:id) Tj
+48.00 518.00 Td
+(GET /api/appointments) Tj
 ET
 BT
 /F3 9.5 Tf
-48.00 689.00 Td
+48.00 500.00 Td
 () Tj
 ET
 BT
 /F3 9.5 Tf
-48.00 679.00 Td
+48.00 490.00 Td
 (Files:) Tj
 ET
 BT
 /F3 9.5 Tf
-48.00 664.00 Td
+48.00 475.00 Td
 () Tj
 ET
 BT
 /F3 9.5 Tf
-64.00 654.00 Td
+64.00 465.00 Td
 (- `backend/src/routes/appointments.ts`) Tj
 ET
 BT
 /F3 9.5 Tf
-64.00 639.00 Td
+64.00 450.00 Td
 (- `backend/src/services/appointments.ts`) Tj
 ET
 BT
 /F3 9.5 Tf
-48.00 625.00 Td
+48.00 436.00 Td
 () Tj
 ET
 BT
 /F3 9.5 Tf
-48.00 615.00 Td
+48.00 426.00 Td
 (Auth:) Tj
-ET
-BT
-/F3 9.5 Tf
-48.00 600.00 Td
-() Tj
-ET
-BT
-/F3 9.5 Tf
-64.00 590.00 Td
-(- Admin JWT required) Tj
-ET
-BT
-/F3 9.5 Tf
-48.00 576.00 Td
-() Tj
-ET
-BT
-/F3 9.5 Tf
-48.00 566.00 Td
-(Purpose:) Tj
-ET
-BT
-/F3 9.5 Tf
-48.00 551.00 Td
-() Tj
-ET
-BT
-/F3 9.5 Tf
-64.00 541.00 Td
-(- Updates only appointment completion status.) Tj
-ET
-BT
-/F3 9.5 Tf
-48.00 527.00 Td
-() Tj
-ET
-BT
-/F3 9.5 Tf
-48.00 517.00 Td
-(Path parameters:) Tj
-ET
-BT
-/F3 9.5 Tf
-48.00 502.00 Td
-() Tj
-ET
-BT
-/F3 9.5 Tf
-64.00 492.00 Td
-(- `id`: MongoDB ObjectId string) Tj
-ET
-BT
-/F3 9.5 Tf
-48.00 478.00 Td
-() Tj
-ET
-BT
-/F3 9.5 Tf
-48.00 468.00 Td
-(Body:) Tj
-ET
-BT
-/F3 9.5 Tf
-48.00 453.00 Td
-() Tj
-ET
-BT
-/F5 8.5 Tf
-58.00 444.00 Td
-({) Tj
-ET
-BT
-/F5 8.5 Tf
-58.00 433.00 Td
-("isCompleted": true) Tj
-ET
-BT
-/F5 8.5 Tf
-58.00 422.00 Td
-(}) Tj
 ET
 BT
 /F3 9.5 Tf
@@ -3067,148 +2784,148 @@ BT
 ET
 BT
 /F3 9.5 Tf
-48.00 401.00 Td
+64.00 401.00 Td
+(- Admin JWT required) Tj
+ET
+BT
+/F3 9.5 Tf
+48.00 387.00 Td
+() Tj
+ET
+BT
+/F3 9.5 Tf
+48.00 377.00 Td
+(Purpose:) Tj
+ET
+BT
+/F3 9.5 Tf
+48.00 362.00 Td
+() Tj
+ET
+BT
+/F3 9.5 Tf
+64.00 352.00 Td
+(- Returns paginated appointment requests.) Tj
+ET
+BT
+/F3 9.5 Tf
+48.00 338.00 Td
+() Tj
+ET
+BT
+/F3 9.5 Tf
+48.00 328.00 Td
+(Query parameters:) Tj
+ET
+BT
+/F3 9.5 Tf
+48.00 313.00 Td
+() Tj
+ET
+BT
+/F3 9.5 Tf
+64.00 303.00 Td
+(- `page`: optional positive integer) Tj
+ET
+BT
+/F3 9.5 Tf
+64.00 288.00 Td
+(- `limit`: optional positive integer, max `100`) Tj
+ET
+BT
+/F3 9.5 Tf
+64.00 273.00 Td
+(- `status`: optional `pending`, `done`, or `all`, default `all`) Tj
+ET
+BT
+/F3 9.5 Tf
+64.00 258.00 Td
+(- `dateCategory`: optional `today`, `upcoming`, `past`, or `all`, default `all`) Tj
+ET
+BT
+/F3 9.5 Tf
+64.00 243.00 Td
+(- `search`: optional search across `patientName` and `phoneNumber`) Tj
+ET
+BT
+/F3 9.5 Tf
+48.00 229.00 Td
+() Tj
+ET
+BT
+/F3 9.5 Tf
+48.00 219.00 Td
 (Returns:) Tj
 ET
 BT
 /F3 9.5 Tf
-48.00 386.00 Td
+48.00 204.00 Td
 () Tj
 ET
 BT
 /F5 8.5 Tf
-58.00 377.00 Td
+58.00 195.00 Td
 ({) Tj
 ET
 BT
 /F5 8.5 Tf
-58.00 366.00 Td
-("success": true,) Tj
+58.00 184.00 Td
+("data": [) Tj
 ET
 BT
 /F5 8.5 Tf
-58.00 355.00 Td
-("data": {) Tj
+58.00 173.00 Td
+({) Tj
 ET
 BT
 /F5 8.5 Tf
-58.00 344.00 Td
+58.00 162.00 Td
 ("_id": "64f000000000000000000001",) Tj
 ET
 BT
 /F5 8.5 Tf
-58.00 333.00 Td
+58.00 151.00 Td
 ("patientName": "Aarav Sharma",) Tj
 ET
 BT
 /F5 8.5 Tf
-58.00 322.00 Td
+58.00 140.00 Td
 ("phoneNumber": "+919880000001",) Tj
 ET
 BT
 /F5 8.5 Tf
-58.00 311.00 Td
+58.00 129.00 Td
 ("preferredDate": "2026-07-10",) Tj
 ET
 BT
 /F5 8.5 Tf
-58.00 300.00 Td
+58.00 118.00 Td
 ("preferredTime": "10:30 AM",) Tj
 ET
 BT
 /F5 8.5 Tf
-58.00 289.00 Td
+58.00 107.00 Td
 ("reason": "Digestive discomfort",) Tj
 ET
 BT
 /F5 8.5 Tf
-58.00 278.00 Td
+58.00 96.00 Td
 ("preferredContactMethod": "whatsapp",) Tj
 ET
 BT
 /F5 8.5 Tf
-58.00 267.00 Td
+58.00 85.00 Td
 ("source": "whatsapp",) Tj
 ET
 BT
 /F5 8.5 Tf
-58.00 256.00 Td
-("isCompleted": true,) Tj
+58.00 74.00 Td
+("isCompleted": false,) Tj
 ET
 BT
 /F5 8.5 Tf
-58.00 245.00 Td
+58.00 63.00 Td
 ("createdAt": "2026-07-09T10:00:00.000Z",) Tj
-ET
-BT
-/F5 8.5 Tf
-58.00 234.00 Td
-("updatedAt": "2026-07-09T10:15:00.000Z",) Tj
-ET
-BT
-/F5 8.5 Tf
-58.00 223.00 Td
-("completedAt": "2026-07-09T10:15:00.000Z") Tj
-ET
-BT
-/F5 8.5 Tf
-58.00 212.00 Td
-(}) Tj
-ET
-BT
-/F5 8.5 Tf
-58.00 201.00 Td
-(}) Tj
-ET
-BT
-/F3 9.5 Tf
-48.00 190.00 Td
-() Tj
-ET
-BT
-/F3 9.5 Tf
-48.00 180.00 Td
-(Rules:) Tj
-ET
-BT
-/F3 9.5 Tf
-48.00 165.00 Td
-() Tj
-ET
-BT
-/F3 9.5 Tf
-64.00 155.00 Td
-(- Only `isCompleted` can be changed.) Tj
-ET
-BT
-/F3 9.5 Tf
-64.00 140.00 Td
-(- Extra body fields are rejected.) Tj
-ET
-BT
-/F3 9.5 Tf
-64.00 125.00 Td
-(- Setting `isCompleted=true` adds `completedAt`.) Tj
-ET
-BT
-/F3 9.5 Tf
-64.00 110.00 Td
-(- Setting `isCompleted=false` removes `completedAt`.) Tj
-ET
-BT
-/F3 9.5 Tf
-48.00 96.00 Td
-() Tj
-ET
-BT
-/F3 9.5 Tf
-48.00 86.00 Td
-(Errors:) Tj
-ET
-BT
-/F3 9.5 Tf
-48.00 71.00 Td
-() Tj
 ET
 BT
 /F3 8 Tf
@@ -3218,7 +2935,310 @@ ET
 BT
 /F3 8 Tf
 506.00 28.00 Td
-(Page 11 of 16) Tj
+(Page 10 of 19) Tj
+ET
+endstream
+endobj
+26 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F3 3 0 R /F4 4 0 R /F5 5 0 R >> >> /Contents 27 0 R >>
+endobj
+27 0 obj
+<< /Length 3164 >>
+stream
+BT
+/F5 8.5 Tf
+58.00 738.00 Td
+("updatedAt": "2026-07-09T10:00:00.000Z") Tj
+ET
+BT
+/F5 8.5 Tf
+58.00 727.00 Td
+(}) Tj
+ET
+BT
+/F5 8.5 Tf
+58.00 716.00 Td
+(],) Tj
+ET
+BT
+/F5 8.5 Tf
+58.00 705.00 Td
+("pagination": {) Tj
+ET
+BT
+/F5 8.5 Tf
+58.00 694.00 Td
+("page": 1,) Tj
+ET
+BT
+/F5 8.5 Tf
+58.00 683.00 Td
+("limit": 20,) Tj
+ET
+BT
+/F5 8.5 Tf
+58.00 672.00 Td
+("total": 1,) Tj
+ET
+BT
+/F5 8.5 Tf
+58.00 661.00 Td
+("totalPages": 1) Tj
+ET
+BT
+/F5 8.5 Tf
+58.00 650.00 Td
+(}) Tj
+ET
+BT
+/F5 8.5 Tf
+58.00 639.00 Td
+(}) Tj
+ET
+BT
+/F3 9.5 Tf
+48.00 628.00 Td
+() Tj
+ET
+BT
+/F3 9.5 Tf
+48.00 618.00 Td
+(Errors:) Tj
+ET
+BT
+/F3 9.5 Tf
+48.00 603.00 Td
+() Tj
+ET
+BT
+/F3 9.5 Tf
+64.00 593.00 Td
+(- `400` for invalid pagination.) Tj
+ET
+BT
+/F3 9.5 Tf
+64.00 578.00 Td
+(- `400` for invalid status.) Tj
+ET
+BT
+/F3 9.5 Tf
+64.00 563.00 Td
+(- `400` for invalid date filter.) Tj
+ET
+BT
+/F3 9.5 Tf
+64.00 548.00 Td
+(- `401` when JWT is missing or invalid.) Tj
+ET
+BT
+/F3 9.5 Tf
+64.00 533.00 Td
+(- `500` for unexpected database errors.) Tj
+ET
+BT
+/F3 9.5 Tf
+48.00 519.00 Td
+() Tj
+ET
+BT
+/F4 11 Tf
+48.00 503.00 Td
+(PATCH /api/appointments/:id) Tj
+ET
+BT
+/F3 9.5 Tf
+48.00 485.00 Td
+() Tj
+ET
+BT
+/F3 9.5 Tf
+48.00 475.00 Td
+(Files:) Tj
+ET
+BT
+/F3 9.5 Tf
+48.00 460.00 Td
+() Tj
+ET
+BT
+/F3 9.5 Tf
+64.00 450.00 Td
+(- `backend/src/routes/appointments.ts`) Tj
+ET
+BT
+/F3 9.5 Tf
+64.00 435.00 Td
+(- `backend/src/services/appointments.ts`) Tj
+ET
+BT
+/F3 9.5 Tf
+48.00 421.00 Td
+() Tj
+ET
+BT
+/F3 9.5 Tf
+48.00 411.00 Td
+(Auth:) Tj
+ET
+BT
+/F3 9.5 Tf
+48.00 396.00 Td
+() Tj
+ET
+BT
+/F3 9.5 Tf
+64.00 386.00 Td
+(- Admin JWT required) Tj
+ET
+BT
+/F3 9.5 Tf
+48.00 372.00 Td
+() Tj
+ET
+BT
+/F3 9.5 Tf
+48.00 362.00 Td
+(Purpose:) Tj
+ET
+BT
+/F3 9.5 Tf
+48.00 347.00 Td
+() Tj
+ET
+BT
+/F3 9.5 Tf
+64.00 337.00 Td
+(- Updates only appointment completion status.) Tj
+ET
+BT
+/F3 9.5 Tf
+48.00 323.00 Td
+() Tj
+ET
+BT
+/F3 9.5 Tf
+48.00 313.00 Td
+(Path parameters:) Tj
+ET
+BT
+/F3 9.5 Tf
+48.00 298.00 Td
+() Tj
+ET
+BT
+/F3 9.5 Tf
+64.00 288.00 Td
+(- `id`: MongoDB ObjectId string) Tj
+ET
+BT
+/F3 9.5 Tf
+48.00 274.00 Td
+() Tj
+ET
+BT
+/F3 9.5 Tf
+48.00 264.00 Td
+(Body:) Tj
+ET
+BT
+/F3 9.5 Tf
+48.00 249.00 Td
+() Tj
+ET
+BT
+/F5 8.5 Tf
+58.00 240.00 Td
+({) Tj
+ET
+BT
+/F5 8.5 Tf
+58.00 229.00 Td
+("isCompleted": true) Tj
+ET
+BT
+/F5 8.5 Tf
+58.00 218.00 Td
+(}) Tj
+ET
+BT
+/F3 9.5 Tf
+48.00 207.00 Td
+() Tj
+ET
+BT
+/F3 9.5 Tf
+48.00 197.00 Td
+(Returns:) Tj
+ET
+BT
+/F3 9.5 Tf
+48.00 182.00 Td
+() Tj
+ET
+BT
+/F5 8.5 Tf
+58.00 173.00 Td
+({) Tj
+ET
+BT
+/F5 8.5 Tf
+58.00 162.00 Td
+("success": true,) Tj
+ET
+BT
+/F5 8.5 Tf
+58.00 151.00 Td
+("data": {) Tj
+ET
+BT
+/F5 8.5 Tf
+58.00 140.00 Td
+("_id": "64f000000000000000000001",) Tj
+ET
+BT
+/F5 8.5 Tf
+58.00 129.00 Td
+("patientName": "Aarav Sharma",) Tj
+ET
+BT
+/F5 8.5 Tf
+58.00 118.00 Td
+("phoneNumber": "+919880000001",) Tj
+ET
+BT
+/F5 8.5 Tf
+58.00 107.00 Td
+("preferredDate": "2026-07-10",) Tj
+ET
+BT
+/F5 8.5 Tf
+58.00 96.00 Td
+("preferredTime": "10:30 AM",) Tj
+ET
+BT
+/F5 8.5 Tf
+58.00 85.00 Td
+("reason": "Digestive discomfort",) Tj
+ET
+BT
+/F5 8.5 Tf
+58.00 74.00 Td
+("preferredContactMethod": "whatsapp",) Tj
+ET
+BT
+/F5 8.5 Tf
+58.00 63.00 Td
+("source": "whatsapp",) Tj
+ET
+BT
+/F3 8 Tf
+48.00 28.00 Td
+(Vishwavrinda Ayurveda API Documentation) Tj
+ET
+BT
+/F3 8 Tf
+506.00 28.00 Td
+(Page 11 of 19) Tj
 ET
 endstream
 endobj
@@ -3226,713 +3246,122 @@ endobj
 << /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F3 3 0 R /F4 4 0 R /F5 5 0 R >> >> /Contents 29 0 R >>
 endobj
 29 0 obj
-<< /Length 3105 >>
+<< /Length 3298 >>
 stream
 BT
+/F5 8.5 Tf
+58.00 738.00 Td
+("isCompleted": true,) Tj
+ET
+BT
+/F5 8.5 Tf
+58.00 727.00 Td
+("createdAt": "2026-07-09T10:00:00.000Z",) Tj
+ET
+BT
+/F5 8.5 Tf
+58.00 716.00 Td
+("updatedAt": "2026-07-09T10:15:00.000Z",) Tj
+ET
+BT
+/F5 8.5 Tf
+58.00 705.00 Td
+("completedAt": "2026-07-09T10:15:00.000Z") Tj
+ET
+BT
+/F5 8.5 Tf
+58.00 694.00 Td
+(}) Tj
+ET
+BT
+/F5 8.5 Tf
+58.00 683.00 Td
+(}) Tj
+ET
+BT
 /F3 9.5 Tf
-64.00 737.00 Td
+48.00 672.00 Td
+() Tj
+ET
+BT
+/F3 9.5 Tf
+48.00 662.00 Td
+(Rules:) Tj
+ET
+BT
+/F3 9.5 Tf
+48.00 647.00 Td
+() Tj
+ET
+BT
+/F3 9.5 Tf
+64.00 637.00 Td
+(- Only `isCompleted` can be changed.) Tj
+ET
+BT
+/F3 9.5 Tf
+64.00 622.00 Td
+(- Extra body fields are rejected.) Tj
+ET
+BT
+/F3 9.5 Tf
+64.00 607.00 Td
+(- Setting `isCompleted=true` adds `completedAt`.) Tj
+ET
+BT
+/F3 9.5 Tf
+64.00 592.00 Td
+(- Setting `isCompleted=false` removes `completedAt`.) Tj
+ET
+BT
+/F3 9.5 Tf
+48.00 578.00 Td
+() Tj
+ET
+BT
+/F3 9.5 Tf
+48.00 568.00 Td
+(Errors:) Tj
+ET
+BT
+/F3 9.5 Tf
+48.00 553.00 Td
+() Tj
+ET
+BT
+/F3 9.5 Tf
+64.00 543.00 Td
 (- `400` for invalid ObjectId.) Tj
 ET
 BT
 /F3 9.5 Tf
-64.00 722.00 Td
+64.00 528.00 Td
 (- `400` for invalid body.) Tj
 ET
 BT
 /F3 9.5 Tf
-64.00 707.00 Td
+64.00 513.00 Td
 (- `401` when JWT is missing or invalid.) Tj
 ET
 BT
 /F3 9.5 Tf
-64.00 692.00 Td
+64.00 498.00 Td
 (- `404` when appointment is not found.) Tj
 ET
 BT
 /F3 9.5 Tf
-64.00 677.00 Td
+64.00 483.00 Td
 (- `500` for unexpected database errors.) Tj
 ET
 BT
 /F3 9.5 Tf
-48.00 663.00 Td
+48.00 469.00 Td
 () Tj
 ET
 BT
 /F4 11 Tf
-48.00 647.00 Td
+48.00 453.00 Td
 (GET /api/users) Tj
-ET
-BT
-/F3 9.5 Tf
-48.00 629.00 Td
-() Tj
-ET
-BT
-/F3 9.5 Tf
-48.00 619.00 Td
-(Files:) Tj
-ET
-BT
-/F3 9.5 Tf
-48.00 604.00 Td
-() Tj
-ET
-BT
-/F3 9.5 Tf
-64.00 594.00 Td
-(- `backend/src/routes/users.ts`) Tj
-ET
-BT
-/F3 9.5 Tf
-64.00 579.00 Td
-(- `backend/src/services/users.ts`) Tj
-ET
-BT
-/F3 9.5 Tf
-48.00 565.00 Td
-() Tj
-ET
-BT
-/F3 9.5 Tf
-48.00 555.00 Td
-(Auth:) Tj
-ET
-BT
-/F3 9.5 Tf
-48.00 540.00 Td
-() Tj
-ET
-BT
-/F3 9.5 Tf
-64.00 530.00 Td
-(- Admin JWT required) Tj
-ET
-BT
-/F3 9.5 Tf
-48.00 516.00 Td
-() Tj
-ET
-BT
-/F3 9.5 Tf
-48.00 506.00 Td
-(Purpose:) Tj
-ET
-BT
-/F3 9.5 Tf
-48.00 491.00 Td
-() Tj
-ET
-BT
-/F3 9.5 Tf
-64.00 481.00 Td
-(- Returns paginated WhatsApp users.) Tj
-ET
-BT
-/F3 9.5 Tf
-48.00 467.00 Td
-() Tj
-ET
-BT
-/F3 9.5 Tf
-48.00 457.00 Td
-(Query parameters:) Tj
-ET
-BT
-/F3 9.5 Tf
-48.00 442.00 Td
-() Tj
-ET
-BT
-/F3 9.5 Tf
-64.00 432.00 Td
-(- `page`: optional positive integer) Tj
-ET
-BT
-/F3 9.5 Tf
-64.00 417.00 Td
-(- `limit`: optional positive integer, max `100`) Tj
-ET
-BT
-/F3 9.5 Tf
-64.00 402.00 Td
-(- `search`: optional phone number search) Tj
-ET
-BT
-/F3 9.5 Tf
-48.00 388.00 Td
-() Tj
-ET
-BT
-/F3 9.5 Tf
-48.00 378.00 Td
-(Returns:) Tj
-ET
-BT
-/F3 9.5 Tf
-48.00 363.00 Td
-() Tj
-ET
-BT
-/F5 8.5 Tf
-58.00 354.00 Td
-({) Tj
-ET
-BT
-/F5 8.5 Tf
-58.00 343.00 Td
-("data": [) Tj
-ET
-BT
-/F5 8.5 Tf
-58.00 332.00 Td
-({) Tj
-ET
-BT
-/F5 8.5 Tf
-58.00 321.00 Td
-("phoneNumber": "+919880000001",) Tj
-ET
-BT
-/F5 8.5 Tf
-58.00 310.00 Td
-("firstSeenAt": "2026-07-01T10:00:00.000Z",) Tj
-ET
-BT
-/F5 8.5 Tf
-58.00 299.00 Td
-("lastActiveAt": "2026-07-09T10:00:00.000Z",) Tj
-ET
-BT
-/F5 8.5 Tf
-58.00 288.00 Td
-("totalMessages": 4,) Tj
-ET
-BT
-/F5 8.5 Tf
-58.00 277.00 Td
-("createdAt": "2026-07-01T10:00:00.000Z",) Tj
-ET
-BT
-/F5 8.5 Tf
-58.00 266.00 Td
-("updatedAt": "2026-07-09T10:00:00.000Z") Tj
-ET
-BT
-/F5 8.5 Tf
-58.00 255.00 Td
-(}) Tj
-ET
-BT
-/F5 8.5 Tf
-58.00 244.00 Td
-(],) Tj
-ET
-BT
-/F5 8.5 Tf
-58.00 233.00 Td
-("pagination": {) Tj
-ET
-BT
-/F5 8.5 Tf
-58.00 222.00 Td
-("page": 1,) Tj
-ET
-BT
-/F5 8.5 Tf
-58.00 211.00 Td
-("limit": 20,) Tj
-ET
-BT
-/F5 8.5 Tf
-58.00 200.00 Td
-("total": 1,) Tj
-ET
-BT
-/F5 8.5 Tf
-58.00 189.00 Td
-("totalPages": 1) Tj
-ET
-BT
-/F5 8.5 Tf
-58.00 178.00 Td
-(}) Tj
-ET
-BT
-/F5 8.5 Tf
-58.00 167.00 Td
-(}) Tj
-ET
-BT
-/F3 9.5 Tf
-48.00 156.00 Td
-() Tj
-ET
-BT
-/F3 9.5 Tf
-48.00 146.00 Td
-(Errors:) Tj
-ET
-BT
-/F3 9.5 Tf
-48.00 131.00 Td
-() Tj
-ET
-BT
-/F3 9.5 Tf
-64.00 121.00 Td
-(- `400` for invalid pagination.) Tj
-ET
-BT
-/F3 9.5 Tf
-64.00 106.00 Td
-(- `401` when JWT is missing or invalid.) Tj
-ET
-BT
-/F3 9.5 Tf
-64.00 91.00 Td
-(- `500` for unexpected database errors.) Tj
-ET
-BT
-/F3 9.5 Tf
-48.00 77.00 Td
-() Tj
-ET
-BT
-/F3 8 Tf
-48.00 28.00 Td
-(Vishwavrinda Ayurveda API Documentation) Tj
-ET
-BT
-/F3 8 Tf
-506.00 28.00 Td
-(Page 12 of 16) Tj
-ET
-endstream
-endobj
-30 0 obj
-<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F3 3 0 R /F4 4 0 R /F5 5 0 R >> >> /Contents 31 0 R >>
-endobj
-31 0 obj
-<< /Length 3185 >>
-stream
-BT
-/F4 11 Tf
-48.00 731.00 Td
-(GET /api/users/:phoneNumber/messages) Tj
-ET
-BT
-/F3 9.5 Tf
-48.00 713.00 Td
-() Tj
-ET
-BT
-/F3 9.5 Tf
-48.00 703.00 Td
-(Files:) Tj
-ET
-BT
-/F3 9.5 Tf
-48.00 688.00 Td
-() Tj
-ET
-BT
-/F3 9.5 Tf
-64.00 678.00 Td
-(- `backend/src/routes/users.ts`) Tj
-ET
-BT
-/F3 9.5 Tf
-64.00 663.00 Td
-(- `backend/src/services/messages.ts`) Tj
-ET
-BT
-/F3 9.5 Tf
-48.00 649.00 Td
-() Tj
-ET
-BT
-/F3 9.5 Tf
-48.00 639.00 Td
-(Auth:) Tj
-ET
-BT
-/F3 9.5 Tf
-48.00 624.00 Td
-() Tj
-ET
-BT
-/F3 9.5 Tf
-64.00 614.00 Td
-(- Admin JWT required) Tj
-ET
-BT
-/F3 9.5 Tf
-48.00 600.00 Td
-() Tj
-ET
-BT
-/F3 9.5 Tf
-48.00 590.00 Td
-(Purpose:) Tj
-ET
-BT
-/F3 9.5 Tf
-48.00 575.00 Td
-() Tj
-ET
-BT
-/F3 9.5 Tf
-64.00 565.00 Td
-(- Returns paginated conversation history for one WhatsApp phone number.) Tj
-ET
-BT
-/F3 9.5 Tf
-48.00 551.00 Td
-() Tj
-ET
-BT
-/F3 9.5 Tf
-48.00 541.00 Td
-(Path parameters:) Tj
-ET
-BT
-/F3 9.5 Tf
-48.00 526.00 Td
-() Tj
-ET
-BT
-/F3 9.5 Tf
-64.00 516.00 Td
-(- `phoneNumber`: WhatsApp phone number) Tj
-ET
-BT
-/F3 9.5 Tf
-48.00 502.00 Td
-() Tj
-ET
-BT
-/F3 9.5 Tf
-48.00 492.00 Td
-(Query parameters:) Tj
-ET
-BT
-/F3 9.5 Tf
-48.00 477.00 Td
-() Tj
-ET
-BT
-/F3 9.5 Tf
-64.00 467.00 Td
-(- `page`: optional positive integer) Tj
-ET
-BT
-/F3 9.5 Tf
-64.00 452.00 Td
-(- `limit`: optional positive integer, max `100`) Tj
-ET
-BT
-/F3 9.5 Tf
-48.00 438.00 Td
-() Tj
-ET
-BT
-/F3 9.5 Tf
-48.00 428.00 Td
-(Returns:) Tj
-ET
-BT
-/F3 9.5 Tf
-48.00 413.00 Td
-() Tj
-ET
-BT
-/F5 8.5 Tf
-58.00 404.00 Td
-({) Tj
-ET
-BT
-/F5 8.5 Tf
-58.00 393.00 Td
-("data": [) Tj
-ET
-BT
-/F5 8.5 Tf
-58.00 382.00 Td
-({) Tj
-ET
-BT
-/F5 8.5 Tf
-58.00 371.00 Td
-("phoneNumber": "+919880000001",) Tj
-ET
-BT
-/F5 8.5 Tf
-58.00 360.00 Td
-("role": "user",) Tj
-ET
-BT
-/F5 8.5 Tf
-58.00 349.00 Td
-("content": "Namaste, I need an appointment.",) Tj
-ET
-BT
-/F5 8.5 Tf
-58.00 338.00 Td
-("createdAt": "2026-07-09T10:00:00.000Z") Tj
-ET
-BT
-/F5 8.5 Tf
-58.00 327.00 Td
-(},) Tj
-ET
-BT
-/F5 8.5 Tf
-58.00 316.00 Td
-({) Tj
-ET
-BT
-/F5 8.5 Tf
-58.00 305.00 Td
-("phoneNumber": "+919880000001",) Tj
-ET
-BT
-/F5 8.5 Tf
-58.00 294.00 Td
-("role": "assistant",) Tj
-ET
-BT
-/F5 8.5 Tf
-58.00 283.00 Td
-("content": "Please share your preferred date and time.",) Tj
-ET
-BT
-/F5 8.5 Tf
-58.00 272.00 Td
-("createdAt": "2026-07-09T10:01:00.000Z") Tj
-ET
-BT
-/F5 8.5 Tf
-58.00 261.00 Td
-(}) Tj
-ET
-BT
-/F5 8.5 Tf
-58.00 250.00 Td
-(],) Tj
-ET
-BT
-/F5 8.5 Tf
-58.00 239.00 Td
-("pagination": {) Tj
-ET
-BT
-/F5 8.5 Tf
-58.00 228.00 Td
-("page": 1,) Tj
-ET
-BT
-/F5 8.5 Tf
-58.00 217.00 Td
-("limit": 20,) Tj
-ET
-BT
-/F5 8.5 Tf
-58.00 206.00 Td
-("total": 2,) Tj
-ET
-BT
-/F5 8.5 Tf
-58.00 195.00 Td
-("totalPages": 1) Tj
-ET
-BT
-/F5 8.5 Tf
-58.00 184.00 Td
-(}) Tj
-ET
-BT
-/F5 8.5 Tf
-58.00 173.00 Td
-(}) Tj
-ET
-BT
-/F3 9.5 Tf
-48.00 162.00 Td
-() Tj
-ET
-BT
-/F3 9.5 Tf
-48.00 152.00 Td
-(Errors:) Tj
-ET
-BT
-/F3 9.5 Tf
-48.00 137.00 Td
-() Tj
-ET
-BT
-/F3 9.5 Tf
-64.00 127.00 Td
-(- `400` for invalid pagination.) Tj
-ET
-BT
-/F3 9.5 Tf
-64.00 112.00 Td
-(- `400` for invalid phone number.) Tj
-ET
-BT
-/F3 9.5 Tf
-64.00 97.00 Td
-(- `401` when JWT is missing or invalid.) Tj
-ET
-BT
-/F3 9.5 Tf
-64.00 82.00 Td
-(- `500` for unexpected database errors.) Tj
-ET
-BT
-/F3 9.5 Tf
-48.00 68.00 Td
-() Tj
-ET
-BT
-/F3 8 Tf
-48.00 28.00 Td
-(Vishwavrinda Ayurveda API Documentation) Tj
-ET
-BT
-/F3 8 Tf
-506.00 28.00 Td
-(Page 13 of 16) Tj
-ET
-endstream
-endobj
-32 0 obj
-<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F3 3 0 R /F4 4 0 R /F5 5 0 R >> >> /Contents 33 0 R >>
-endobj
-33 0 obj
-<< /Length 2769 >>
-stream
-BT
-/F4 11 Tf
-48.00 731.00 Td
-(GET /api/knowledge) Tj
-ET
-BT
-/F3 9.5 Tf
-48.00 713.00 Td
-() Tj
-ET
-BT
-/F3 9.5 Tf
-48.00 703.00 Td
-(Files:) Tj
-ET
-BT
-/F3 9.5 Tf
-48.00 688.00 Td
-() Tj
-ET
-BT
-/F3 9.5 Tf
-64.00 678.00 Td
-(- `backend/src/routes/knowledge.ts`) Tj
-ET
-BT
-/F3 9.5 Tf
-64.00 663.00 Td
-(- `backend/src/services/knowledge.ts`) Tj
-ET
-BT
-/F3 9.5 Tf
-48.00 649.00 Td
-() Tj
-ET
-BT
-/F3 9.5 Tf
-48.00 639.00 Td
-(Auth:) Tj
-ET
-BT
-/F3 9.5 Tf
-48.00 624.00 Td
-() Tj
-ET
-BT
-/F3 9.5 Tf
-64.00 614.00 Td
-(- Admin JWT required) Tj
-ET
-BT
-/F3 9.5 Tf
-48.00 600.00 Td
-() Tj
-ET
-BT
-/F3 9.5 Tf
-48.00 590.00 Td
-(Purpose:) Tj
-ET
-BT
-/F3 9.5 Tf
-48.00 575.00 Td
-() Tj
-ET
-BT
-/F3 9.5 Tf
-64.00 565.00 Td
-(- Reads file-based clinic knowledge.) Tj
-ET
-BT
-/F3 9.5 Tf
-48.00 551.00 Td
-() Tj
-ET
-BT
-/F3 9.5 Tf
-48.00 541.00 Td
-(Parameters:) Tj
-ET
-BT
-/F3 9.5 Tf
-48.00 526.00 Td
-() Tj
-ET
-BT
-/F3 9.5 Tf
-64.00 516.00 Td
-(- None) Tj
-ET
-BT
-/F3 9.5 Tf
-48.00 502.00 Td
-() Tj
-ET
-BT
-/F3 9.5 Tf
-48.00 492.00 Td
-(Returns:) Tj
-ET
-BT
-/F3 9.5 Tf
-48.00 477.00 Td
-() Tj
-ET
-BT
-/F5 8.5 Tf
-58.00 468.00 Td
-({) Tj
-ET
-BT
-/F5 8.5 Tf
-58.00 457.00 Td
-("content": "markdown content") Tj
-ET
-BT
-/F5 8.5 Tf
-58.00 446.00 Td
-(}) Tj
 ET
 BT
 /F3 9.5 Tf
@@ -3942,7 +3371,7 @@ ET
 BT
 /F3 9.5 Tf
 48.00 425.00 Td
-(Errors:) Tj
+(Files:) Tj
 ET
 BT
 /F3 9.5 Tf
@@ -3952,12 +3381,12 @@ ET
 BT
 /F3 9.5 Tf
 64.00 400.00 Td
-(- `401` when JWT is missing or invalid.) Tj
+(- `backend/src/routes/users.ts`) Tj
 ET
 BT
 /F3 9.5 Tf
 64.00 385.00 Td
-(- `500` for filesystem errors.) Tj
+(- `backend/src/services/users.ts`) Tj
 ET
 BT
 /F3 9.5 Tf
@@ -3965,34 +3394,39 @@ BT
 () Tj
 ET
 BT
-/F4 11 Tf
-48.00 355.00 Td
-(PUT /api/knowledge) Tj
+/F3 9.5 Tf
+48.00 361.00 Td
+(Auth:) Tj
 ET
 BT
 /F3 9.5 Tf
-48.00 337.00 Td
+48.00 346.00 Td
 () Tj
 ET
 BT
 /F3 9.5 Tf
-48.00 327.00 Td
-(Files:) Tj
+64.00 336.00 Td
+(- Admin JWT required) Tj
+ET
+BT
+/F3 9.5 Tf
+48.00 322.00 Td
+() Tj
 ET
 BT
 /F3 9.5 Tf
 48.00 312.00 Td
+(Purpose:) Tj
+ET
+BT
+/F3 9.5 Tf
+48.00 297.00 Td
 () Tj
 ET
 BT
 /F3 9.5 Tf
-64.00 302.00 Td
-(- `backend/src/routes/knowledge.ts`) Tj
-ET
-BT
-/F3 9.5 Tf
 64.00 287.00 Td
-(- `backend/src/services/knowledge.ts`) Tj
+(- Returns paginated WhatsApp users.) Tj
 ET
 BT
 /F3 9.5 Tf
@@ -4002,7 +3436,7 @@ ET
 BT
 /F3 9.5 Tf
 48.00 263.00 Td
-(Auth:) Tj
+(Query parameters:) Tj
 ET
 BT
 /F3 9.5 Tf
@@ -4012,57 +3446,1234 @@ ET
 BT
 /F3 9.5 Tf
 64.00 238.00 Td
-(- Admin JWT required) Tj
+(- `page`: optional positive integer) Tj
 ET
 BT
 /F3 9.5 Tf
-48.00 224.00 Td
+64.00 223.00 Td
+(- `limit`: optional positive integer, max `100`) Tj
+ET
+BT
+/F3 9.5 Tf
+64.00 208.00 Td
+(- `search`: optional phone number search) Tj
+ET
+BT
+/F3 9.5 Tf
+48.00 194.00 Td
 () Tj
 ET
 BT
 /F3 9.5 Tf
-48.00 214.00 Td
-(Purpose:) Tj
+48.00 184.00 Td
+(Returns:) Tj
 ET
 BT
 /F3 9.5 Tf
-48.00 199.00 Td
-() Tj
-ET
-BT
-/F3 9.5 Tf
-64.00 189.00 Td
-(- Replaces `backend/knowledge.md`.) Tj
-ET
-BT
-/F3 9.5 Tf
-48.00 175.00 Td
-() Tj
-ET
-BT
-/F3 9.5 Tf
-48.00 165.00 Td
-(Body:) Tj
-ET
-BT
-/F3 9.5 Tf
-48.00 150.00 Td
+48.00 169.00 Td
 () Tj
 ET
 BT
 /F5 8.5 Tf
-58.00 141.00 Td
+58.00 160.00 Td
 ({) Tj
 ET
 BT
 /F5 8.5 Tf
-58.00 130.00 Td
-("content": "updated markdown content") Tj
+58.00 149.00 Td
+("data": [) Tj
 ET
 BT
 /F5 8.5 Tf
-58.00 119.00 Td
+58.00 138.00 Td
+({) Tj
+ET
+BT
+/F5 8.5 Tf
+58.00 127.00 Td
+("phoneNumber": "+919880000001",) Tj
+ET
+BT
+/F5 8.5 Tf
+58.00 116.00 Td
+("firstSeenAt": "2026-07-01T10:00:00.000Z",) Tj
+ET
+BT
+/F5 8.5 Tf
+58.00 105.00 Td
+("lastActiveAt": "2026-07-09T10:00:00.000Z",) Tj
+ET
+BT
+/F5 8.5 Tf
+58.00 94.00 Td
+("totalMessages": 4,) Tj
+ET
+BT
+/F5 8.5 Tf
+58.00 83.00 Td
+("replyMode": "ai",) Tj
+ET
+BT
+/F5 8.5 Tf
+58.00 72.00 Td
+("appointmentAssistantActive": false,) Tj
+ET
+BT
+/F5 8.5 Tf
+58.00 61.00 Td
+("createdAt": "2026-07-01T10:00:00.000Z",) Tj
+ET
+BT
+/F3 8 Tf
+48.00 28.00 Td
+(Vishwavrinda Ayurveda API Documentation) Tj
+ET
+BT
+/F3 8 Tf
+506.00 28.00 Td
+(Page 12 of 19) Tj
+ET
+endstream
+endobj
+30 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F3 3 0 R /F4 4 0 R /F5 5 0 R >> >> /Contents 31 0 R >>
+endobj
+31 0 obj
+<< /Length 3225 >>
+stream
+BT
+/F5 8.5 Tf
+58.00 738.00 Td
+("updatedAt": "2026-07-09T10:00:00.000Z") Tj
+ET
+BT
+/F5 8.5 Tf
+58.00 727.00 Td
 (}) Tj
+ET
+BT
+/F5 8.5 Tf
+58.00 716.00 Td
+(],) Tj
+ET
+BT
+/F5 8.5 Tf
+58.00 705.00 Td
+("pagination": {) Tj
+ET
+BT
+/F5 8.5 Tf
+58.00 694.00 Td
+("page": 1,) Tj
+ET
+BT
+/F5 8.5 Tf
+58.00 683.00 Td
+("limit": 20,) Tj
+ET
+BT
+/F5 8.5 Tf
+58.00 672.00 Td
+("total": 1,) Tj
+ET
+BT
+/F5 8.5 Tf
+58.00 661.00 Td
+("totalPages": 1) Tj
+ET
+BT
+/F5 8.5 Tf
+58.00 650.00 Td
+(}) Tj
+ET
+BT
+/F5 8.5 Tf
+58.00 639.00 Td
+(}) Tj
+ET
+BT
+/F3 9.5 Tf
+48.00 628.00 Td
+() Tj
+ET
+BT
+/F3 9.5 Tf
+48.00 618.00 Td
+(Errors:) Tj
+ET
+BT
+/F3 9.5 Tf
+48.00 603.00 Td
+() Tj
+ET
+BT
+/F3 9.5 Tf
+64.00 593.00 Td
+(- `400` for invalid pagination.) Tj
+ET
+BT
+/F3 9.5 Tf
+64.00 578.00 Td
+(- `401` when JWT is missing or invalid.) Tj
+ET
+BT
+/F3 9.5 Tf
+64.00 563.00 Td
+(- `500` for unexpected database errors.) Tj
+ET
+BT
+/F3 9.5 Tf
+48.00 549.00 Td
+() Tj
+ET
+BT
+/F4 11 Tf
+48.00 533.00 Td
+(GET /api/users/:phoneNumber/messages) Tj
+ET
+BT
+/F3 9.5 Tf
+48.00 515.00 Td
+() Tj
+ET
+BT
+/F3 9.5 Tf
+48.00 505.00 Td
+(Files:) Tj
+ET
+BT
+/F3 9.5 Tf
+48.00 490.00 Td
+() Tj
+ET
+BT
+/F3 9.5 Tf
+64.00 480.00 Td
+(- `backend/src/routes/users.ts`) Tj
+ET
+BT
+/F3 9.5 Tf
+64.00 465.00 Td
+(- `backend/src/services/messages.ts`) Tj
+ET
+BT
+/F3 9.5 Tf
+48.00 451.00 Td
+() Tj
+ET
+BT
+/F3 9.5 Tf
+48.00 441.00 Td
+(Auth:) Tj
+ET
+BT
+/F3 9.5 Tf
+48.00 426.00 Td
+() Tj
+ET
+BT
+/F3 9.5 Tf
+64.00 416.00 Td
+(- Admin JWT required) Tj
+ET
+BT
+/F3 9.5 Tf
+48.00 402.00 Td
+() Tj
+ET
+BT
+/F3 9.5 Tf
+48.00 392.00 Td
+(Purpose:) Tj
+ET
+BT
+/F3 9.5 Tf
+48.00 377.00 Td
+() Tj
+ET
+BT
+/F3 9.5 Tf
+64.00 367.00 Td
+(- Returns paginated conversation history for one WhatsApp phone number.) Tj
+ET
+BT
+/F3 9.5 Tf
+48.00 353.00 Td
+() Tj
+ET
+BT
+/F3 9.5 Tf
+48.00 343.00 Td
+(Path parameters:) Tj
+ET
+BT
+/F3 9.5 Tf
+48.00 328.00 Td
+() Tj
+ET
+BT
+/F3 9.5 Tf
+64.00 318.00 Td
+(- `phoneNumber`: WhatsApp phone number) Tj
+ET
+BT
+/F3 9.5 Tf
+48.00 304.00 Td
+() Tj
+ET
+BT
+/F3 9.5 Tf
+48.00 294.00 Td
+(Query parameters:) Tj
+ET
+BT
+/F3 9.5 Tf
+48.00 279.00 Td
+() Tj
+ET
+BT
+/F3 9.5 Tf
+64.00 269.00 Td
+(- `page`: optional positive integer) Tj
+ET
+BT
+/F3 9.5 Tf
+64.00 254.00 Td
+(- `limit`: optional positive integer, max `100`) Tj
+ET
+BT
+/F3 9.5 Tf
+48.00 240.00 Td
+() Tj
+ET
+BT
+/F3 9.5 Tf
+48.00 230.00 Td
+(Returns:) Tj
+ET
+BT
+/F3 9.5 Tf
+48.00 215.00 Td
+() Tj
+ET
+BT
+/F5 8.5 Tf
+58.00 206.00 Td
+({) Tj
+ET
+BT
+/F5 8.5 Tf
+58.00 195.00 Td
+("data": [) Tj
+ET
+BT
+/F5 8.5 Tf
+58.00 184.00 Td
+({) Tj
+ET
+BT
+/F5 8.5 Tf
+58.00 173.00 Td
+("phoneNumber": "+919880000001",) Tj
+ET
+BT
+/F5 8.5 Tf
+58.00 162.00 Td
+("role": "user",) Tj
+ET
+BT
+/F5 8.5 Tf
+58.00 151.00 Td
+("sentBy": "patient",) Tj
+ET
+BT
+/F5 8.5 Tf
+58.00 140.00 Td
+("content": "Namaste, I need an appointment.",) Tj
+ET
+BT
+/F5 8.5 Tf
+58.00 129.00 Td
+("createdAt": "2026-07-09T10:00:00.000Z") Tj
+ET
+BT
+/F5 8.5 Tf
+58.00 118.00 Td
+(},) Tj
+ET
+BT
+/F5 8.5 Tf
+58.00 107.00 Td
+({) Tj
+ET
+BT
+/F5 8.5 Tf
+58.00 96.00 Td
+("phoneNumber": "+919880000001",) Tj
+ET
+BT
+/F5 8.5 Tf
+58.00 85.00 Td
+("role": "assistant",) Tj
+ET
+BT
+/F5 8.5 Tf
+58.00 74.00 Td
+("sentBy": "ai",) Tj
+ET
+BT
+/F5 8.5 Tf
+58.00 63.00 Td
+("content": "Please share your preferred date and time.",) Tj
+ET
+BT
+/F3 8 Tf
+48.00 28.00 Td
+(Vishwavrinda Ayurveda API Documentation) Tj
+ET
+BT
+/F3 8 Tf
+506.00 28.00 Td
+(Page 13 of 19) Tj
+ET
+endstream
+endobj
+32 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F3 3 0 R /F4 4 0 R /F5 5 0 R >> >> /Contents 33 0 R >>
+endobj
+33 0 obj
+<< /Length 3104 >>
+stream
+BT
+/F5 8.5 Tf
+58.00 738.00 Td
+("createdAt": "2026-07-09T10:01:00.000Z") Tj
+ET
+BT
+/F5 8.5 Tf
+58.00 727.00 Td
+(}) Tj
+ET
+BT
+/F5 8.5 Tf
+58.00 716.00 Td
+(],) Tj
+ET
+BT
+/F5 8.5 Tf
+58.00 705.00 Td
+("pagination": {) Tj
+ET
+BT
+/F5 8.5 Tf
+58.00 694.00 Td
+("page": 1,) Tj
+ET
+BT
+/F5 8.5 Tf
+58.00 683.00 Td
+("limit": 20,) Tj
+ET
+BT
+/F5 8.5 Tf
+58.00 672.00 Td
+("total": 2,) Tj
+ET
+BT
+/F5 8.5 Tf
+58.00 661.00 Td
+("totalPages": 1) Tj
+ET
+BT
+/F5 8.5 Tf
+58.00 650.00 Td
+(}) Tj
+ET
+BT
+/F5 8.5 Tf
+58.00 639.00 Td
+(}) Tj
+ET
+BT
+/F3 9.5 Tf
+48.00 628.00 Td
+() Tj
+ET
+BT
+/F3 9.5 Tf
+48.00 618.00 Td
+(Errors:) Tj
+ET
+BT
+/F3 9.5 Tf
+48.00 603.00 Td
+() Tj
+ET
+BT
+/F3 9.5 Tf
+64.00 593.00 Td
+(- `400` for invalid pagination.) Tj
+ET
+BT
+/F3 9.5 Tf
+64.00 578.00 Td
+(- `400` for invalid phone number.) Tj
+ET
+BT
+/F3 9.5 Tf
+64.00 563.00 Td
+(- `401` when JWT is missing or invalid.) Tj
+ET
+BT
+/F3 9.5 Tf
+64.00 548.00 Td
+(- `500` for unexpected database errors.) Tj
+ET
+BT
+/F3 9.5 Tf
+48.00 534.00 Td
+() Tj
+ET
+BT
+/F4 11 Tf
+48.00 518.00 Td
+(PATCH /api/users/:phoneNumber/reply-mode) Tj
+ET
+BT
+/F3 9.5 Tf
+48.00 500.00 Td
+() Tj
+ET
+BT
+/F3 9.5 Tf
+48.00 490.00 Td
+(Files:) Tj
+ET
+BT
+/F3 9.5 Tf
+48.00 475.00 Td
+() Tj
+ET
+BT
+/F3 9.5 Tf
+64.00 465.00 Td
+(- `backend/src/routes/users.ts`) Tj
+ET
+BT
+/F3 9.5 Tf
+64.00 450.00 Td
+(- `backend/src/services/users.ts`) Tj
+ET
+BT
+/F3 9.5 Tf
+48.00 436.00 Td
+() Tj
+ET
+BT
+/F3 9.5 Tf
+48.00 426.00 Td
+(Auth:) Tj
+ET
+BT
+/F3 9.5 Tf
+48.00 411.00 Td
+() Tj
+ET
+BT
+/F3 9.5 Tf
+64.00 401.00 Td
+(- Admin JWT required) Tj
+ET
+BT
+/F3 9.5 Tf
+48.00 387.00 Td
+() Tj
+ET
+BT
+/F3 9.5 Tf
+48.00 377.00 Td
+(Purpose:) Tj
+ET
+BT
+/F3 9.5 Tf
+48.00 362.00 Td
+() Tj
+ET
+BT
+/F3 9.5 Tf
+64.00 352.00 Td
+(- Switches one conversation between AI mode and staff/manual mode.) Tj
+ET
+BT
+/F3 9.5 Tf
+48.00 338.00 Td
+() Tj
+ET
+BT
+/F3 9.5 Tf
+48.00 328.00 Td
+(Body:) Tj
+ET
+BT
+/F3 9.5 Tf
+48.00 313.00 Td
+() Tj
+ET
+BT
+/F5 8.5 Tf
+58.00 304.00 Td
+({) Tj
+ET
+BT
+/F5 8.5 Tf
+58.00 293.00 Td
+("replyMode": "manual") Tj
+ET
+BT
+/F5 8.5 Tf
+58.00 282.00 Td
+(}) Tj
+ET
+BT
+/F3 9.5 Tf
+48.00 271.00 Td
+() Tj
+ET
+BT
+/F3 9.5 Tf
+48.00 261.00 Td
+(Allowed values:) Tj
+ET
+BT
+/F3 9.5 Tf
+48.00 246.00 Td
+() Tj
+ET
+BT
+/F3 9.5 Tf
+64.00 236.00 Td
+(- `ai`: AI replies normally.) Tj
+ET
+BT
+/F3 9.5 Tf
+64.00 221.00 Td
+(- `manual`: AI general replies pause for this patient.) Tj
+ET
+BT
+/F3 9.5 Tf
+48.00 207.00 Td
+() Tj
+ET
+BT
+/F3 9.5 Tf
+48.00 197.00 Td
+(Returns:) Tj
+ET
+BT
+/F3 9.5 Tf
+48.00 182.00 Td
+() Tj
+ET
+BT
+/F5 8.5 Tf
+58.00 173.00 Td
+({) Tj
+ET
+BT
+/F5 8.5 Tf
+58.00 162.00 Td
+("success": true,) Tj
+ET
+BT
+/F5 8.5 Tf
+58.00 151.00 Td
+("data": {) Tj
+ET
+BT
+/F5 8.5 Tf
+58.00 140.00 Td
+("phoneNumber": "916200855270",) Tj
+ET
+BT
+/F5 8.5 Tf
+58.00 129.00 Td
+("replyMode": "manual",) Tj
+ET
+BT
+/F5 8.5 Tf
+58.00 118.00 Td
+("manualUntil": "2026-08-17T06:30:00.000Z",) Tj
+ET
+BT
+/F5 8.5 Tf
+58.00 107.00 Td
+("appointmentAssistantActive": false) Tj
+ET
+BT
+/F5 8.5 Tf
+58.00 96.00 Td
+(}) Tj
+ET
+BT
+/F5 8.5 Tf
+58.00 85.00 Td
+(}) Tj
+ET
+BT
+/F3 9.5 Tf
+48.00 74.00 Td
+() Tj
+ET
+BT
+/F3 9.5 Tf
+48.00 64.00 Td
+(Errors:) Tj
+ET
+BT
+/F3 8 Tf
+48.00 28.00 Td
+(Vishwavrinda Ayurveda API Documentation) Tj
+ET
+BT
+/F3 8 Tf
+506.00 28.00 Td
+(Page 14 of 19) Tj
+ET
+endstream
+endobj
+34 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F3 3 0 R /F4 4 0 R /F5 5 0 R >> >> /Contents 35 0 R >>
+endobj
+35 0 obj
+<< /Length 3109 >>
+stream
+BT
+/F3 9.5 Tf
+48.00 738.00 Td
+() Tj
+ET
+BT
+/F3 9.5 Tf
+64.00 728.00 Td
+(- `400` for invalid phone number or reply mode.) Tj
+ET
+BT
+/F3 9.5 Tf
+64.00 713.00 Td
+(- `401` when JWT is missing or invalid.) Tj
+ET
+BT
+/F3 9.5 Tf
+64.00 698.00 Td
+(- `404` when user is not found.) Tj
+ET
+BT
+/F3 9.5 Tf
+64.00 683.00 Td
+(- `500` for unexpected database errors.) Tj
+ET
+BT
+/F3 9.5 Tf
+48.00 669.00 Td
+() Tj
+ET
+BT
+/F4 11 Tf
+48.00 653.00 Td
+(POST /api/users/:phoneNumber/messages/send) Tj
+ET
+BT
+/F3 9.5 Tf
+48.00 635.00 Td
+() Tj
+ET
+BT
+/F3 9.5 Tf
+48.00 625.00 Td
+(Files:) Tj
+ET
+BT
+/F3 9.5 Tf
+48.00 610.00 Td
+() Tj
+ET
+BT
+/F3 9.5 Tf
+64.00 600.00 Td
+(- `backend/src/routes/users.ts`) Tj
+ET
+BT
+/F3 9.5 Tf
+64.00 585.00 Td
+(- `backend/src/services/users.ts`) Tj
+ET
+BT
+/F3 9.5 Tf
+64.00 570.00 Td
+(- `backend/src/services/messaging.ts`) Tj
+ET
+BT
+/F3 9.5 Tf
+48.00 556.00 Td
+() Tj
+ET
+BT
+/F3 9.5 Tf
+48.00 546.00 Td
+(Auth:) Tj
+ET
+BT
+/F3 9.5 Tf
+48.00 531.00 Td
+() Tj
+ET
+BT
+/F3 9.5 Tf
+64.00 521.00 Td
+(- Admin JWT required) Tj
+ET
+BT
+/F3 9.5 Tf
+48.00 507.00 Td
+() Tj
+ET
+BT
+/F3 9.5 Tf
+48.00 497.00 Td
+(Purpose:) Tj
+ET
+BT
+/F3 9.5 Tf
+48.00 482.00 Td
+() Tj
+ET
+BT
+/F3 9.5 Tf
+64.00 472.00 Td
+(- Sends a manual staff WhatsApp reply from the dashboard.) Tj
+ET
+BT
+/F3 9.5 Tf
+64.00 457.00 Td
+(- Stores the message in MongoDB with `role=assistant` and `sentBy=staff`.) Tj
+ET
+BT
+/F3 9.5 Tf
+64.00 442.00 Td
+(- Moves that patient to staff/manual mode.) Tj
+ET
+BT
+/F3 9.5 Tf
+48.00 428.00 Td
+() Tj
+ET
+BT
+/F3 9.5 Tf
+48.00 418.00 Td
+(Body:) Tj
+ET
+BT
+/F3 9.5 Tf
+48.00 403.00 Td
+() Tj
+ET
+BT
+/F5 8.5 Tf
+58.00 394.00 Td
+({) Tj
+ET
+BT
+/F5 8.5 Tf
+58.00 383.00 Td
+("message": "Doctor will call you soon.") Tj
+ET
+BT
+/F5 8.5 Tf
+58.00 372.00 Td
+(}) Tj
+ET
+BT
+/F3 9.5 Tf
+48.00 361.00 Td
+() Tj
+ET
+BT
+/F3 9.5 Tf
+48.00 351.00 Td
+(Returns:) Tj
+ET
+BT
+/F3 9.5 Tf
+48.00 336.00 Td
+() Tj
+ET
+BT
+/F5 8.5 Tf
+58.00 327.00 Td
+({) Tj
+ET
+BT
+/F5 8.5 Tf
+58.00 316.00 Td
+("success": true,) Tj
+ET
+BT
+/F5 8.5 Tf
+58.00 305.00 Td
+("data": {) Tj
+ET
+BT
+/F5 8.5 Tf
+58.00 294.00 Td
+("phoneNumber": "916200855270",) Tj
+ET
+BT
+/F5 8.5 Tf
+58.00 283.00 Td
+("replyMode": "manual") Tj
+ET
+BT
+/F5 8.5 Tf
+58.00 272.00 Td
+(}) Tj
+ET
+BT
+/F5 8.5 Tf
+58.00 261.00 Td
+(}) Tj
+ET
+BT
+/F3 9.5 Tf
+48.00 250.00 Td
+() Tj
+ET
+BT
+/F3 9.5 Tf
+48.00 240.00 Td
+(Errors:) Tj
+ET
+BT
+/F3 9.5 Tf
+48.00 225.00 Td
+() Tj
+ET
+BT
+/F3 9.5 Tf
+64.00 215.00 Td
+(- `400` for invalid phone number or empty message.) Tj
+ET
+BT
+/F3 9.5 Tf
+64.00 200.00 Td
+(- `401` when JWT is missing or invalid.) Tj
+ET
+BT
+/F3 9.5 Tf
+64.00 185.00 Td
+(- `404` when user is not found.) Tj
+ET
+BT
+/F3 9.5 Tf
+64.00 170.00 Td
+(- `502` when WhatsApp sending fails.) Tj
+ET
+BT
+/F3 9.5 Tf
+48.00 156.00 Td
+() Tj
+ET
+BT
+/F4 11 Tf
+48.00 140.00 Td
+(POST /api/users/:phoneNumber/appointments/start) Tj
+ET
+BT
+/F3 9.5 Tf
+48.00 122.00 Td
+() Tj
+ET
+BT
+/F3 9.5 Tf
+48.00 112.00 Td
+(Files:) Tj
+ET
+BT
+/F3 9.5 Tf
+48.00 97.00 Td
+() Tj
+ET
+BT
+/F3 9.5 Tf
+64.00 87.00 Td
+(- `backend/src/routes/users.ts`) Tj
+ET
+BT
+/F3 9.5 Tf
+64.00 72.00 Td
+(- `backend/src/services/users.ts`) Tj
+ET
+BT
+/F3 8 Tf
+48.00 28.00 Td
+(Vishwavrinda Ayurveda API Documentation) Tj
+ET
+BT
+/F3 8 Tf
+506.00 28.00 Td
+(Page 15 of 19) Tj
+ET
+endstream
+endobj
+36 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F3 3 0 R /F4 4 0 R /F5 5 0 R >> >> /Contents 37 0 R >>
+endobj
+37 0 obj
+<< /Length 3120 >>
+stream
+BT
+/F3 9.5 Tf
+64.00 737.00 Td
+(- `backend/src/services/conversation.ts`) Tj
+ET
+BT
+/F3 9.5 Tf
+48.00 723.00 Td
+() Tj
+ET
+BT
+/F3 9.5 Tf
+48.00 713.00 Td
+(Auth:) Tj
+ET
+BT
+/F3 9.5 Tf
+48.00 698.00 Td
+() Tj
+ET
+BT
+/F3 9.5 Tf
+64.00 688.00 Td
+(- Admin JWT required) Tj
+ET
+BT
+/F3 9.5 Tf
+48.00 674.00 Td
+() Tj
+ET
+BT
+/F3 9.5 Tf
+48.00 664.00 Td
+(Purpose:) Tj
+ET
+BT
+/F3 9.5 Tf
+48.00 649.00 Td
+() Tj
+ET
+BT
+/F3 9.5 Tf
+64.00 639.00 Td
+(- Staff starts appointment collection from dashboard.) Tj
+ET
+BT
+/F3 9.5 Tf
+64.00 624.00 Td
+(- System sends the patient a WhatsApp message asking for the 5 required fields.) Tj
+ET
+BT
+/F3 9.5 Tf
+64.00 609.00 Td
+(- Enables staff/manual mode with appointment assistant active.) Tj
+ET
+BT
+/F3 9.5 Tf
+64.00 594.00 Td
+(- General AI chat remains paused; only appointment collection runs.) Tj
+ET
+BT
+/F3 9.5 Tf
+48.00 580.00 Td
+() Tj
+ET
+BT
+/F3 9.5 Tf
+48.00 570.00 Td
+(Required patient details:) Tj
+ET
+BT
+/F3 9.5 Tf
+48.00 555.00 Td
+() Tj
+ET
+BT
+/F3 9.5 Tf
+64.00 545.00 Td
+(- Full name) Tj
+ET
+BT
+/F3 9.5 Tf
+64.00 530.00 Td
+(- Preferred date) Tj
+ET
+BT
+/F3 9.5 Tf
+64.00 515.00 Td
+(- Preferred time) Tj
+ET
+BT
+/F3 9.5 Tf
+64.00 500.00 Td
+(- Reason/problem) Tj
+ET
+BT
+/F3 9.5 Tf
+64.00 485.00 Td
+(- Preferred contact method: call or WhatsApp) Tj
+ET
+BT
+/F3 9.5 Tf
+48.00 471.00 Td
+() Tj
+ET
+BT
+/F3 9.5 Tf
+48.00 461.00 Td
+(Returns:) Tj
+ET
+BT
+/F3 9.5 Tf
+48.00 446.00 Td
+() Tj
+ET
+BT
+/F5 8.5 Tf
+58.00 437.00 Td
+({) Tj
+ET
+BT
+/F5 8.5 Tf
+58.00 426.00 Td
+("success": true,) Tj
+ET
+BT
+/F5 8.5 Tf
+58.00 415.00 Td
+("data": {) Tj
+ET
+BT
+/F5 8.5 Tf
+58.00 404.00 Td
+("phoneNumber": "916200855270",) Tj
+ET
+BT
+/F5 8.5 Tf
+58.00 393.00 Td
+("replyMode": "manual",) Tj
+ET
+BT
+/F5 8.5 Tf
+58.00 382.00 Td
+("appointmentAssistantActive": true) Tj
+ET
+BT
+/F5 8.5 Tf
+58.00 371.00 Td
+(}) Tj
+ET
+BT
+/F5 8.5 Tf
+58.00 360.00 Td
+(}) Tj
+ET
+BT
+/F3 9.5 Tf
+48.00 349.00 Td
+() Tj
+ET
+BT
+/F3 9.5 Tf
+48.00 339.00 Td
+(Errors:) Tj
+ET
+BT
+/F3 9.5 Tf
+48.00 324.00 Td
+() Tj
+ET
+BT
+/F3 9.5 Tf
+64.00 314.00 Td
+(- `400` for invalid phone number.) Tj
+ET
+BT
+/F3 9.5 Tf
+64.00 299.00 Td
+(- `401` when JWT is missing or invalid.) Tj
+ET
+BT
+/F3 9.5 Tf
+64.00 284.00 Td
+(- `404` when user is not found.) Tj
+ET
+BT
+/F3 9.5 Tf
+64.00 269.00 Td
+(- `502` when WhatsApp sending fails.) Tj
+ET
+BT
+/F3 9.5 Tf
+48.00 255.00 Td
+() Tj
+ET
+BT
+/F4 11 Tf
+48.00 239.00 Td
+(GET /api/knowledge) Tj
+ET
+BT
+/F3 9.5 Tf
+48.00 221.00 Td
+() Tj
+ET
+BT
+/F3 9.5 Tf
+48.00 211.00 Td
+(Files:) Tj
+ET
+BT
+/F3 9.5 Tf
+48.00 196.00 Td
+() Tj
+ET
+BT
+/F3 9.5 Tf
+64.00 186.00 Td
+(- `backend/src/routes/knowledge.ts`) Tj
+ET
+BT
+/F3 9.5 Tf
+64.00 171.00 Td
+(- `backend/src/services/knowledge.ts`) Tj
+ET
+BT
+/F3 9.5 Tf
+48.00 157.00 Td
+() Tj
+ET
+BT
+/F3 9.5 Tf
+48.00 147.00 Td
+(Auth:) Tj
+ET
+BT
+/F3 9.5 Tf
+48.00 132.00 Td
+() Tj
+ET
+BT
+/F3 9.5 Tf
+64.00 122.00 Td
+(- Admin JWT required) Tj
 ET
 BT
 /F3 9.5 Tf
@@ -4072,7 +4683,7 @@ ET
 BT
 /F3 9.5 Tf
 48.00 98.00 Td
-(Validation:) Tj
+(Purpose:) Tj
 ET
 BT
 /F3 9.5 Tf
@@ -4082,7 +4693,12 @@ ET
 BT
 /F3 9.5 Tf
 64.00 73.00 Td
-(- `content` must be a string.) Tj
+(- Reads file-based clinic knowledge.) Tj
+ET
+BT
+/F3 9.5 Tf
+48.00 59.00 Td
+() Tj
 ET
 BT
 /F3 8 Tf
@@ -4092,255 +4708,285 @@ ET
 BT
 /F3 8 Tf
 506.00 28.00 Td
-(Page 14 of 16) Tj
+(Page 16 of 19) Tj
 ET
 endstream
 endobj
-34 0 obj
-<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F3 3 0 R /F4 4 0 R /F5 5 0 R >> >> /Contents 35 0 R >>
+38 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F3 3 0 R /F4 4 0 R /F5 5 0 R >> >> /Contents 39 0 R >>
 endobj
-35 0 obj
-<< /Length 3437 >>
+39 0 obj
+<< /Length 2830 >>
 stream
 BT
 /F3 9.5 Tf
-64.00 737.00 Td
-(- `content` must not be empty after trimming.) Tj
+48.00 737.00 Td
+(Parameters:) Tj
 ET
 BT
 /F3 9.5 Tf
-64.00 722.00 Td
-(- `content` maximum length is `100000` characters.) Tj
-ET
-BT
-/F3 9.5 Tf
-48.00 708.00 Td
+48.00 722.00 Td
 () Tj
+ET
+BT
+/F3 9.5 Tf
+64.00 712.00 Td
+(- None) Tj
 ET
 BT
 /F3 9.5 Tf
 48.00 698.00 Td
+() Tj
+ET
+BT
+/F3 9.5 Tf
+48.00 688.00 Td
 (Returns:) Tj
 ET
 BT
 /F3 9.5 Tf
-48.00 683.00 Td
+48.00 673.00 Td
 () Tj
 ET
 BT
 /F5 8.5 Tf
-58.00 674.00 Td
+58.00 664.00 Td
 ({) Tj
 ET
 BT
 /F5 8.5 Tf
-58.00 663.00 Td
-("success": true) Tj
+58.00 653.00 Td
+("content": "markdown content") Tj
 ET
 BT
 /F5 8.5 Tf
-58.00 652.00 Td
+58.00 642.00 Td
 (}) Tj
 ET
 BT
 /F3 9.5 Tf
-48.00 641.00 Td
+48.00 631.00 Td
 () Tj
 ET
 BT
 /F3 9.5 Tf
-48.00 631.00 Td
+48.00 621.00 Td
 (Errors:) Tj
 ET
 BT
 /F3 9.5 Tf
-48.00 616.00 Td
+48.00 606.00 Td
 () Tj
 ET
 BT
 /F3 9.5 Tf
-64.00 606.00 Td
-(- `400` for invalid content.) Tj
-ET
-BT
-/F3 9.5 Tf
-64.00 591.00 Td
+64.00 596.00 Td
 (- `401` when JWT is missing or invalid.) Tj
 ET
 BT
 /F3 9.5 Tf
-64.00 576.00 Td
+64.00 581.00 Td
 (- `500` for filesystem errors.) Tj
 ET
 BT
 /F3 9.5 Tf
-48.00 562.00 Td
+48.00 567.00 Td
 () Tj
 ET
 BT
-/F4 14 Tf
-48.00 543.00 Td
-(Important Files By Responsibility) Tj
+/F4 11 Tf
+48.00 551.00 Td
+(PUT /api/knowledge) Tj
 ET
 BT
 /F3 9.5 Tf
-48.00 518.00 Td
-() Tj
-ET
-BT
-/F3 9.5 Tf
-64.00 508.00 Td
-(- Backend entrypoint: `backend/src/index.ts`) Tj
-ET
-BT
-/F3 9.5 Tf
-64.00 493.00 Td
-(- Route registration: `backend/src/routes/index.ts`) Tj
-ET
-BT
-/F3 9.5 Tf
-64.00 478.00 Td
-(- Auth plugin: `backend/src/plugins/auth.ts`) Tj
-ET
-BT
-/F3 9.5 Tf
-64.00 463.00 Td
-(- API path constants: `backend/src/constants/api.ts`) Tj
-ET
-BT
-/F3 9.5 Tf
-64.00 448.00 Td
-(- Database constants: `backend/src/constants/database.ts`) Tj
-ET
-BT
-/F3 9.5 Tf
-64.00 433.00 Td
-(- Pagination helper: `backend/src/lib/pagination.ts`) Tj
-ET
-BT
-/F3 9.5 Tf
-64.00 418.00 Td
-(- Request body validators: `backend/src/lib/request-body.ts`) Tj
-ET
-BT
-/F3 9.5 Tf
-64.00 403.00 Td
-(- WhatsApp parser: `backend/src/parsers/whatsapp.ts`) Tj
-ET
-BT
-/F3 9.5 Tf
-64.00 388.00 Td
-(- WhatsApp sender: `backend/src/services/whatsapp.ts`) Tj
-ET
-BT
-/F3 9.5 Tf
-64.00 373.00 Td
-(- OpenAI service: `backend/src/services/openai.ts`) Tj
-ET
-BT
-/F3 9.5 Tf
-64.00 358.00 Td
-(- Conversation orchestrator: `backend/src/services/conversation.ts`) Tj
-ET
-BT
-/F3 9.5 Tf
-64.00 343.00 Td
-(- Appointment service: `backend/src/services/appointments.ts`) Tj
-ET
-BT
-/F3 9.5 Tf
-64.00 328.00 Td
-(- User service: `backend/src/services/users.ts`) Tj
-ET
-BT
-/F3 9.5 Tf
-64.00 313.00 Td
-(- Message service: `backend/src/services/messages.ts`) Tj
-ET
-BT
-/F3 9.5 Tf
-64.00 298.00 Td
-(- Dashboard service: `backend/src/services/dashboard.ts`) Tj
-ET
-BT
-/F3 9.5 Tf
-64.00 283.00 Td
-(- Knowledge service: `backend/src/services/knowledge.ts`) Tj
-ET
-BT
-/F3 9.5 Tf
-64.00 268.00 Td
-(- Frontend API client: `frontend/lib/api-client.ts`) Tj
-ET
-BT
-/F3 9.5 Tf
-64.00 253.00 Td
-(- Frontend login page: `frontend/app/login/page.tsx`) Tj
-ET
-BT
-/F3 9.5 Tf
-64.00 238.00 Td
-(- Frontend protected route proxy: `frontend/proxy.ts`) Tj
-ET
-BT
-/F3 9.5 Tf
-48.00 224.00 Td
-() Tj
-ET
-BT
-/F4 14 Tf
-48.00 205.00 Td
-(Final Local Test Report) Tj
-ET
-BT
-/F3 9.5 Tf
-48.00 180.00 Td
+48.00 533.00 Td
 () Tj
 ET
 BT
 /F3 9.5 Tf
-48.00 170.00 Td
-(Date:) Tj
+48.00 523.00 Td
+(Files:) Tj
 ET
 BT
 /F3 9.5 Tf
-48.00 155.00 Td
+48.00 508.00 Td
 () Tj
 ET
 BT
 /F3 9.5 Tf
-64.00 145.00 Td
-(- 2026-08-11) Tj
+64.00 498.00 Td
+(- `backend/src/routes/knowledge.ts`) Tj
 ET
 BT
 /F3 9.5 Tf
-48.00 131.00 Td
+64.00 483.00 Td
+(- `backend/src/services/knowledge.ts`) Tj
+ET
+BT
+/F3 9.5 Tf
+48.00 469.00 Td
 () Tj
 ET
 BT
 /F3 9.5 Tf
-48.00 121.00 Td
-(Result:) Tj
+48.00 459.00 Td
+(Auth:) Tj
 ET
 BT
 /F3 9.5 Tf
-48.00 106.00 Td
+48.00 444.00 Td
 () Tj
 ET
 BT
 /F3 9.5 Tf
-64.00 96.00 Td
-(- Backend route/security sweep: `26/26` passed.) Tj
+64.00 434.00 Td
+(- Admin JWT required) Tj
 ET
 BT
 /F3 9.5 Tf
-64.00 81.00 Td
-(- Backend typecheck: passed.) Tj
+48.00 420.00 Td
+() Tj
 ET
 BT
 /F3 9.5 Tf
-64.00 66.00 Td
-(- Frontend typecheck: passed with `--incremental false`.) Tj
+48.00 410.00 Td
+(Purpose:) Tj
+ET
+BT
+/F3 9.5 Tf
+48.00 395.00 Td
+() Tj
+ET
+BT
+/F3 9.5 Tf
+64.00 385.00 Td
+(- Replaces `backend/knowledge.md`.) Tj
+ET
+BT
+/F3 9.5 Tf
+48.00 371.00 Td
+() Tj
+ET
+BT
+/F3 9.5 Tf
+48.00 361.00 Td
+(Body:) Tj
+ET
+BT
+/F3 9.5 Tf
+48.00 346.00 Td
+() Tj
+ET
+BT
+/F5 8.5 Tf
+58.00 337.00 Td
+({) Tj
+ET
+BT
+/F5 8.5 Tf
+58.00 326.00 Td
+("content": "updated markdown content") Tj
+ET
+BT
+/F5 8.5 Tf
+58.00 315.00 Td
+(}) Tj
+ET
+BT
+/F3 9.5 Tf
+48.00 304.00 Td
+() Tj
+ET
+BT
+/F3 9.5 Tf
+48.00 294.00 Td
+(Validation:) Tj
+ET
+BT
+/F3 9.5 Tf
+48.00 279.00 Td
+() Tj
+ET
+BT
+/F3 9.5 Tf
+64.00 269.00 Td
+(- `content` must be a string.) Tj
+ET
+BT
+/F3 9.5 Tf
+64.00 254.00 Td
+(- `content` must not be empty after trimming.) Tj
+ET
+BT
+/F3 9.5 Tf
+64.00 239.00 Td
+(- `content` maximum length is `100000` characters.) Tj
+ET
+BT
+/F3 9.5 Tf
+48.00 225.00 Td
+() Tj
+ET
+BT
+/F3 9.5 Tf
+48.00 215.00 Td
+(Returns:) Tj
+ET
+BT
+/F3 9.5 Tf
+48.00 200.00 Td
+() Tj
+ET
+BT
+/F5 8.5 Tf
+58.00 191.00 Td
+({) Tj
+ET
+BT
+/F5 8.5 Tf
+58.00 180.00 Td
+("success": true) Tj
+ET
+BT
+/F5 8.5 Tf
+58.00 169.00 Td
+(}) Tj
+ET
+BT
+/F3 9.5 Tf
+48.00 158.00 Td
+() Tj
+ET
+BT
+/F3 9.5 Tf
+48.00 148.00 Td
+(Errors:) Tj
+ET
+BT
+/F3 9.5 Tf
+48.00 133.00 Td
+() Tj
+ET
+BT
+/F3 9.5 Tf
+64.00 123.00 Td
+(- `400` for invalid content.) Tj
+ET
+BT
+/F3 9.5 Tf
+64.00 108.00 Td
+(- `401` when JWT is missing or invalid.) Tj
+ET
+BT
+/F3 9.5 Tf
+64.00 93.00 Td
+(- `500` for filesystem errors.) Tj
+ET
+BT
+/F3 9.5 Tf
+48.00 79.00 Td
+() Tj
 ET
 BT
 /F3 8 Tf
@@ -4350,20 +4996,263 @@ ET
 BT
 /F3 8 Tf
 506.00 28.00 Td
-(Page 15 of 16) Tj
+(Page 17 of 19) Tj
 ET
 endstream
 endobj
-36 0 obj
-<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F3 3 0 R /F4 4 0 R /F5 5 0 R >> >> /Contents 37 0 R >>
+40 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F3 3 0 R /F4 4 0 R /F5 5 0 R >> >> /Contents 41 0 R >>
 endobj
-37 0 obj
-<< /Length 1673 >>
+41 0 obj
+<< /Length 3687 >>
+stream
+BT
+/F4 14 Tf
+48.00 728.00 Td
+(Important Files By Responsibility) Tj
+ET
+BT
+/F3 9.5 Tf
+48.00 703.00 Td
+() Tj
+ET
+BT
+/F3 9.5 Tf
+64.00 693.00 Td
+(- Backend entrypoint: `backend/src/index.ts`) Tj
+ET
+BT
+/F3 9.5 Tf
+64.00 678.00 Td
+(- Route registration: `backend/src/routes/index.ts`) Tj
+ET
+BT
+/F3 9.5 Tf
+64.00 663.00 Td
+(- Auth plugin: `backend/src/plugins/auth.ts`) Tj
+ET
+BT
+/F3 9.5 Tf
+64.00 648.00 Td
+(- API path constants: `backend/src/constants/api.ts`) Tj
+ET
+BT
+/F3 9.5 Tf
+64.00 633.00 Td
+(- Database constants: `backend/src/constants/database.ts`) Tj
+ET
+BT
+/F3 9.5 Tf
+64.00 618.00 Td
+(- Pagination helper: `backend/src/lib/pagination.ts`) Tj
+ET
+BT
+/F3 9.5 Tf
+64.00 603.00 Td
+(- Request body validators: `backend/src/lib/request-body.ts`) Tj
+ET
+BT
+/F3 9.5 Tf
+64.00 588.00 Td
+(- WhatsApp parser: `backend/src/parsers/whatsapp.ts`) Tj
+ET
+BT
+/F3 9.5 Tf
+64.00 573.00 Td
+(- WhatsApp sender: `backend/src/services/whatsapp.ts`) Tj
+ET
+BT
+/F3 9.5 Tf
+64.00 558.00 Td
+(- OpenAI service: `backend/src/services/openai.ts`) Tj
+ET
+BT
+/F3 9.5 Tf
+64.00 543.00 Td
+(- Conversation orchestrator: `backend/src/services/conversation.ts`) Tj
+ET
+BT
+/F3 9.5 Tf
+64.00 528.00 Td
+(- Appointment service: `backend/src/services/appointments.ts`) Tj
+ET
+BT
+/F3 9.5 Tf
+64.00 513.00 Td
+(- User service: `backend/src/services/users.ts`) Tj
+ET
+BT
+/F3 9.5 Tf
+64.00 498.00 Td
+(- Message service: `backend/src/services/messages.ts`) Tj
+ET
+BT
+/F3 9.5 Tf
+64.00 483.00 Td
+(- Dashboard service: `backend/src/services/dashboard.ts`) Tj
+ET
+BT
+/F3 9.5 Tf
+64.00 468.00 Td
+(- Knowledge service: `backend/src/services/knowledge.ts`) Tj
+ET
+BT
+/F3 9.5 Tf
+64.00 453.00 Td
+(- Frontend API client: `frontend/lib/api-client.ts`) Tj
+ET
+BT
+/F3 9.5 Tf
+64.00 438.00 Td
+(- Frontend login page: `frontend/app/login/page.tsx`) Tj
+ET
+BT
+/F3 9.5 Tf
+64.00 423.00 Td
+(- Frontend protected route proxy: `frontend/proxy.ts`) Tj
+ET
+BT
+/F3 9.5 Tf
+48.00 409.00 Td
+() Tj
+ET
+BT
+/F4 14 Tf
+48.00 390.00 Td
+(Staff Mode Rules) Tj
+ET
+BT
+/F3 9.5 Tf
+48.00 365.00 Td
+() Tj
+ET
+BT
+/F3 9.5 Tf
+64.00 355.00 Td
+(- AI mode: AI can answer normal questions and create appointments.) Tj
+ET
+BT
+/F3 9.5 Tf
+64.00 340.00 Td
+(- Staff mode: AI general replies are paused for that patient.) Tj
+ET
+BT
+/F3 9.5 Tf
+64.00 325.00 Td
+(- Staff manual replies are sent from dashboard and saved as `sentBy=staff`.) Tj
+ET
+BT
+/F3 9.5 Tf
+64.00 310.00 Td
+(- Book Appointment button sends the patient the 5-field appointment request.) Tj
+ET
+BT
+/F3 9.5 Tf
+64.00 295.00 Td
+(- While appointment assistant is active, the backend only collects appointment details.) Tj
+ET
+BT
+/F3 9.5 Tf
+64.00 280.00 Td
+(- When all appointment details are present, the backend creates the appointment and sends the normal) Tj
+ET
+BT
+/F3 9.5 Tf
+64.00 267.00 Td
+(appointment confirmation.) Tj
+ET
+BT
+/F3 9.5 Tf
+64.00 252.00 Td
+(- Staff can return the conversation to AI mode from dashboard.) Tj
+ET
+BT
+/F3 9.5 Tf
+48.00 238.00 Td
+() Tj
+ET
+BT
+/F4 14 Tf
+48.00 219.00 Td
+(Final Local Test Report) Tj
+ET
+BT
+/F3 9.5 Tf
+48.00 194.00 Td
+() Tj
+ET
+BT
+/F3 9.5 Tf
+48.00 184.00 Td
+(Date:) Tj
+ET
+BT
+/F3 9.5 Tf
+48.00 169.00 Td
+() Tj
+ET
+BT
+/F3 9.5 Tf
+64.00 159.00 Td
+(- 2026-08-17) Tj
+ET
+BT
+/F3 9.5 Tf
+48.00 145.00 Td
+() Tj
+ET
+BT
+/F3 9.5 Tf
+48.00 135.00 Td
+(Result:) Tj
+ET
+BT
+/F3 9.5 Tf
+48.00 120.00 Td
+() Tj
+ET
+BT
+/F3 9.5 Tf
+64.00 110.00 Td
+(- Backend route/security sweep: `26/26` passed.) Tj
+ET
+BT
+/F3 9.5 Tf
+64.00 95.00 Td
+(- Backend typecheck: passed.) Tj
+ET
+BT
+/F3 9.5 Tf
+64.00 80.00 Td
+(- Frontend typecheck: passed with `--incremental false`.) Tj
+ET
+BT
+/F3 9.5 Tf
+64.00 65.00 Td
+(- Frontend lint: passed.) Tj
+ET
+BT
+/F3 8 Tf
+48.00 28.00 Td
+(Vishwavrinda Ayurveda API Documentation) Tj
+ET
+BT
+/F3 8 Tf
+506.00 28.00 Td
+(Page 18 of 19) Tj
+ET
+endstream
+endobj
+42 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F3 3 0 R /F4 4 0 R /F5 5 0 R >> >> /Contents 43 0 R >>
+endobj
+43 0 obj
+<< /Length 2064 >>
 stream
 BT
 /F3 9.5 Tf
 64.00 737.00 Td
-(- Frontend lint: passed.) Tj
+(- Frontend production build: passed.) Tj
 ET
 BT
 /F3 9.5 Tf
@@ -4382,72 +5271,92 @@ BT
 ET
 BT
 /F3 9.5 Tf
-48.00 678.00 Td
-() Tj
+64.00 677.00 Td
+(- Staff mode route smoke test: passed.) Tj
 ET
 BT
 /F3 9.5 Tf
-48.00 668.00 Td
-(Verified route behavior:) Tj
+48.00 663.00 Td
+() Tj
 ET
 BT
 /F3 9.5 Tf
 48.00 653.00 Td
+(Verified route behavior:) Tj
+ET
+BT
+/F3 9.5 Tf
+48.00 638.00 Td
 () Tj
 ET
 BT
 /F3 9.5 Tf
-64.00 643.00 Td
+64.00 628.00 Td
 (- Public health endpoint returns `200`.) Tj
 ET
 BT
 /F3 9.5 Tf
-64.00 628.00 Td
+64.00 613.00 Td
 (- Webhook verification accepts the correct `VERIFY_TOKEN` and rejects invalid tokens.) Tj
 ET
 BT
 /F3 9.5 Tf
-64.00 613.00 Td
+64.00 598.00 Td
 (- Login returns a JWT for valid admin credentials and rejects invalid credentials.) Tj
 ET
 BT
 /F3 9.5 Tf
-64.00 598.00 Td
+64.00 583.00 Td
 (- Protected `/api/*` routes reject missing JWT with `401`.) Tj
 ET
 BT
 /F3 9.5 Tf
-64.00 583.00 Td
+64.00 568.00 Td
+(- Staff reply mode rejects missing JWT with `401`, rejects invalid modes with `400`, and switches) Tj
+ET
+BT
+/F3 9.5 Tf
+64.00 555.00 Td
+(`manual`/`ai` successfully.) Tj
+ET
+BT
+/F3 9.5 Tf
+64.00 540.00 Td
+(- Staff manual reply route rejects empty messages with `400`.) Tj
+ET
+BT
+/F3 9.5 Tf
+64.00 525.00 Td
 (- Validation errors return `400` for bad AI body, bad pagination, bad dashboard filters, bad) Tj
 ET
 BT
 /F3 9.5 Tf
-64.00 570.00 Td
+64.00 512.00 Td
 (appointment status/date filter, bad appointment update body, invalid appointment id, and invalid) Tj
 ET
 BT
 /F3 9.5 Tf
-64.00 557.00 Td
+64.00 499.00 Td
 (knowledge content.) Tj
 ET
 BT
 /F3 9.5 Tf
-64.00 542.00 Td
+64.00 484.00 Td
 (- AI test answers clinic fee questions from `knowledge.md`.) Tj
 ET
 BT
 /F3 9.5 Tf
-64.00 527.00 Td
+64.00 469.00 Td
 (- WhatsApp E2E simulation saved the user, stored user and assistant messages, sent WhatsApp replies,) Tj
 ET
 BT
 /F3 9.5 Tf
-64.00 514.00 Td
+64.00 456.00 Td
 (created an appointment, and updated dashboard counts.) Tj
 ET
 BT
 /F3 9.5 Tf
-48.00 500.00 Td
+48.00 442.00 Td
 () Tj
 ET
 BT
@@ -4458,52 +5367,58 @@ ET
 BT
 /F3 8 Tf
 506.00 28.00 Td
-(Page 16 of 16) Tj
+(Page 19 of 19) Tj
 ET
 endstream
 endobj
 xref
-0 38
+0 44
 0000000000 65535 f 
 0000000009 00000 n 
 0000000058 00000 n 
-0000000220 00000 n 
-0000000290 00000 n 
-0000000365 00000 n 
-0000000433 00000 n 
-0000000579 00000 n 
-0000004100 00000 n 
-0000004246 00000 n 
-0000007422 00000 n 
-0000007570 00000 n 
-0000010643 00000 n 
-0000010791 00000 n 
-0000013539 00000 n 
-0000013687 00000 n 
-0000016529 00000 n 
-0000016677 00000 n 
-0000019790 00000 n 
-0000019938 00000 n 
-0000022747 00000 n 
-0000022895 00000 n 
-0000026260 00000 n 
-0000026408 00000 n 
-0000029653 00000 n 
-0000029801 00000 n 
-0000033173 00000 n 
-0000033321 00000 n 
-0000036582 00000 n 
-0000036730 00000 n 
-0000039888 00000 n 
-0000040036 00000 n 
-0000043274 00000 n 
-0000043422 00000 n 
-0000046244 00000 n 
-0000046392 00000 n 
-0000049882 00000 n 
-0000050030 00000 n 
+0000000241 00000 n 
+0000000311 00000 n 
+0000000386 00000 n 
+0000000454 00000 n 
+0000000600 00000 n 
+0000004121 00000 n 
+0000004267 00000 n 
+0000007507 00000 n 
+0000007655 00000 n 
+0000011023 00000 n 
+0000011171 00000 n 
+0000014011 00000 n 
+0000014159 00000 n 
+0000016844 00000 n 
+0000016992 00000 n 
+0000020037 00000 n 
+0000020185 00000 n 
+0000023100 00000 n 
+0000023248 00000 n 
+0000026404 00000 n 
+0000026552 00000 n 
+0000029994 00000 n 
+0000030142 00000 n 
+0000033534 00000 n 
+0000033682 00000 n 
+0000036899 00000 n 
+0000037047 00000 n 
+0000040398 00000 n 
+0000040546 00000 n 
+0000043824 00000 n 
+0000043972 00000 n 
+0000047129 00000 n 
+0000047277 00000 n 
+0000050439 00000 n 
+0000050587 00000 n 
+0000053760 00000 n 
+0000053908 00000 n 
+0000056791 00000 n 
+0000056939 00000 n 
+0000060679 00000 n 
+0000060827 00000 n 
 trailer
-<< /Size 38 /Root 1 0 R >>
+<< /Size 44 /Root 1 0 R >>
 startxref
-51756
+62944
 %%EOF

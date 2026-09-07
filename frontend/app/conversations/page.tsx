@@ -1,10 +1,38 @@
 "use client";
 
-import { Suspense, UIEvent, useEffect, useMemo, useState } from "react";
+import {
+  FormEvent,
+  Suspense,
+  UIEvent,
+  useEffect,
+  useMemo,
+  useState,
+} from "react";
 import { useRouter, useSearchParams } from "next/navigation";
-import { ArrowLeft, Bot, MessageSquareText, Search, User, Users } from "lucide-react";
-import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
-import { getMessagesByPhoneNumber, getUsers } from "@/lib/api/users";
+import {
+  ArrowLeft,
+  Bot,
+  CalendarPlus,
+  MessageSquareText,
+  Search,
+  Send,
+  User,
+  Users,
+} from "lucide-react";
+import {
+  useInfiniteQuery,
+  useMutation,
+  useQuery,
+  useQueryClient,
+} from "@tanstack/react-query";
+import { toast } from "sonner";
+import {
+  getMessagesByPhoneNumber,
+  getUsers,
+  sendUserMessage,
+  startAppointmentBooking,
+  updateUserReplyMode,
+} from "@/lib/api/users";
 import { PageHeader } from "@/components/page-header";
 import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -22,11 +50,13 @@ const USER_LIMIT = 10;
 const MESSAGE_LIMIT = 50;
 
 function ConversationsContent() {
+  const queryClient = useQueryClient();
   const router = useRouter();
   const searchParams = useSearchParams();
   const selectedPhoneNumber = searchParams.get("phoneNumber") ?? "";
   const [userPage, setUserPage] = useState(1);
   const [search, setSearch] = useState("");
+  const [manualMessage, setManualMessage] = useState("");
   const debouncedSearch = useDebouncedValue(search);
 
   useEffect(() => {
@@ -77,6 +107,14 @@ function ConversationsContent() {
 
   const usersPage = usersQuery.data;
   const users = usersPage?.data ?? [];
+  const selectedUser = users.find(
+    (user) => user.phoneNumber === selectedPhoneNumber
+  );
+  const selectedReplyMode = selectedUser?.replyMode ?? "ai";
+  const controlsDisabled =
+    !selectedPhoneNumber ||
+    usersQuery.isLoading ||
+    !selectedUser;
   const messages = useMemo(
     () =>
       messagesQuery.data?.pages
@@ -86,6 +124,55 @@ function ConversationsContent() {
     [messagesQuery.data]
   );
   const showConversationOnMobile = Boolean(selectedPhoneNumber);
+
+  const replyModeMutation = useMutation({
+    mutationFn: (replyMode: "ai" | "manual") =>
+      updateUserReplyMode(selectedPhoneNumber, replyMode),
+    onSuccess: (_, replyMode) => {
+      queryClient.invalidateQueries({ queryKey: ["users"] });
+      toast.success(replyMode === "manual" ? "Staff mode enabled." : "AI mode enabled.");
+    },
+    onError: () => {
+      toast.error("Could not update reply mode.");
+    },
+  });
+
+  const sendMessageMutation = useMutation({
+    mutationFn: (message: string) => sendUserMessage(selectedPhoneNumber, message),
+    onSuccess: () => {
+      setManualMessage("");
+      queryClient.invalidateQueries({ queryKey: ["users"] });
+      queryClient.invalidateQueries({ queryKey: ["messages", selectedPhoneNumber] });
+      toast.success("Message sent.");
+    },
+    onError: () => {
+      toast.error("Could not send message.");
+    },
+  });
+
+  const appointmentMutation = useMutation({
+    mutationFn: () => startAppointmentBooking(selectedPhoneNumber),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["users"] });
+      queryClient.invalidateQueries({ queryKey: ["messages", selectedPhoneNumber] });
+      toast.success("Appointment details requested.");
+    },
+    onError: () => {
+      toast.error("Could not start appointment booking.");
+    },
+  });
+
+  function handleManualSend(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+
+    const message = manualMessage.trim();
+
+    if (!message || controlsDisabled) {
+      return;
+    }
+
+    sendMessageMutation.mutate(message);
+  }
 
   return (
     <div className="space-y-6">
@@ -167,6 +254,12 @@ function ConversationsContent() {
                       <Badge variant="outline">
                         {formatNumber(user.totalMessages)}
                       </Badge>
+                      {(user.replyMode === "manual" ||
+                        user.appointmentAssistantActive) && (
+                        <Badge variant="secondary">
+                          {user.appointmentAssistantActive ? "Booking" : "Staff"}
+                        </Badge>
+                      )}
                     </button>
                   );
                 })}
@@ -215,6 +308,36 @@ function ConversationsContent() {
                     </div>
                   </div>
                 </div>
+                <div className="flex flex-wrap items-center justify-end gap-2">
+                  <Badge
+                    variant={
+                      selectedUser?.appointmentAssistantActive
+                        ? "pending"
+                        : selectedReplyMode === "manual"
+                          ? "secondary"
+                          : "success"
+                    }
+                  >
+                    {selectedUser?.appointmentAssistantActive
+                      ? "Booking"
+                      : selectedReplyMode === "manual"
+                        ? "Staff Mode"
+                        : "AI Active"}
+                  </Badge>
+                  <Button
+                    type="button"
+                    size="sm"
+                    variant={selectedReplyMode === "manual" ? "outline" : "secondary"}
+                    disabled={controlsDisabled || replyModeMutation.isPending}
+                    onClick={() =>
+                      replyModeMutation.mutate(
+                        selectedReplyMode === "manual" ? "ai" : "manual"
+                      )
+                    }
+                  >
+                    {selectedReplyMode === "manual" ? "Return to AI" : "Take over"}
+                  </Button>
+                </div>
               </div>
 
               <div
@@ -258,6 +381,11 @@ function ConversationsContent() {
 
                 {messages.map((message, index) => {
                   const isAssistant = message.role === "assistant";
+                  const label = isAssistant
+                    ? message.sentBy === "staff"
+                      ? "Staff"
+                      : "AI Assistant"
+                    : "Patient";
                   const Icon = isAssistant ? Bot : User;
 
                   return (
@@ -284,7 +412,7 @@ function ConversationsContent() {
                             isAssistant ? "text-white/75" : "text-muted-foreground"
                           )}
                         >
-                          {isAssistant ? "AI Assistant" : "Patient"}
+                          {label}
                         </div>
                         <div className="whitespace-pre-wrap break-words text-sm leading-6">
                           {message.content || "(empty message)"}
@@ -307,6 +435,38 @@ function ConversationsContent() {
                   );
                 })}
               </div>
+              <form
+                className="grid gap-2 border-t bg-background p-4 lg:grid-cols-[1fr_auto_auto]"
+                onSubmit={handleManualSend}
+              >
+                <Input
+                  aria-label="Staff reply"
+                  placeholder="Type staff reply"
+                  value={manualMessage}
+                  onChange={(event) => setManualMessage(event.target.value)}
+                  disabled={controlsDisabled || sendMessageMutation.isPending}
+                />
+                <Button
+                  type="submit"
+                  disabled={
+                    controlsDisabled ||
+                    !manualMessage.trim() ||
+                    sendMessageMutation.isPending
+                  }
+                >
+                  <Send className="h-4 w-4" />
+                  Send
+                </Button>
+                <Button
+                  type="button"
+                  variant="outline"
+                  disabled={controlsDisabled || appointmentMutation.isPending}
+                  onClick={() => appointmentMutation.mutate()}
+                >
+                  <CalendarPlus className="h-4 w-4" />
+                  Book Appointment
+                </Button>
+              </form>
             </div>
           )}
         </Card>

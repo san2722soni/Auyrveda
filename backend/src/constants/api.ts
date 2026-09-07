@@ -9,6 +9,9 @@ export const API_PATHS = {
   appointmentById: "/api/appointments/:id",
   users: "/api/users",
   userMessages: "/api/users/:phoneNumber/messages",
+  userReplyMode: "/api/users/:phoneNumber/reply-mode",
+  userSendMessage: "/api/users/:phoneNumber/messages/send",
+  userStartAppointment: "/api/users/:phoneNumber/appointments/start",
   dashboardStats: "/api/dashboard/stats",
   knowledge: "/api/knowledge",
 } as const;

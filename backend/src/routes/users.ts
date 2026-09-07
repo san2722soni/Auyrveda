@@ -1,8 +1,15 @@
 import { FastifyInstance } from "fastify";
+import { APPOINTMENT_DETAILS_REQUEST_MESSAGE } from "../constants/appointments";
 import { API_PATHS } from "../constants/api";
 import { parsePagination, PaginationQuery } from "../lib/pagination";
+import { isNonEmptyStringWithinLimit } from "../lib/request-body";
 import { getMessagesByPhoneNumber } from "../services/messages";
-import { getUsers } from "../services/users";
+import {
+  sendStaffMessage,
+  setUserReplyMode,
+  startAppointmentAssistant,
+  getUsers,
+} from "../services/users";
 
 interface UserQuery extends PaginationQuery {
   search?: string;
@@ -10,6 +17,20 @@ interface UserQuery extends PaginationQuery {
 
 interface UserMessagesParams {
   phoneNumber: string;
+}
+
+interface UserReplyModeBody {
+  replyMode?: unknown;
+}
+
+interface UserSendMessageBody {
+  message?: unknown;
+}
+
+function parsePhoneNumber(value: string): string | null {
+  const phoneNumber = value.trim();
+
+  return phoneNumber ? phoneNumber : null;
 }
 
 export async function userRoutes(app: FastifyInstance) {
@@ -63,6 +84,93 @@ export async function userRoutes(app: FastifyInstance) {
         request.log.error(error);
 
         return reply.status(500).send({ error: "Failed to fetch messages" });
+      }
+    }
+  );
+
+  app.patch<{ Params: UserMessagesParams; Body: UserReplyModeBody }>(
+    API_PATHS.userReplyMode,
+    async (request, reply) => {
+      const phoneNumber = parsePhoneNumber(request.params.phoneNumber);
+      const replyMode = request.body?.replyMode;
+
+      if (!phoneNumber) {
+        return reply.status(400).send({ error: "Invalid phone number" });
+      }
+
+      if (replyMode !== "ai" && replyMode !== "manual") {
+        return reply.status(400).send({ error: "Invalid reply mode" });
+      }
+
+      try {
+        const user = await setUserReplyMode(phoneNumber, replyMode);
+
+        if (!user) {
+          return reply.status(404).send({ error: "User not found" });
+        }
+
+        return reply.send({ success: true, data: user });
+      } catch (error) {
+        request.log.error(error);
+
+        return reply.status(500).send({ error: "Failed to update reply mode" });
+      }
+    }
+  );
+
+  app.post<{ Params: UserMessagesParams; Body: UserSendMessageBody }>(
+    API_PATHS.userSendMessage,
+    async (request, reply) => {
+      const phoneNumber = parsePhoneNumber(request.params.phoneNumber);
+
+      if (!phoneNumber) {
+        return reply.status(400).send({ error: "Invalid phone number" });
+      }
+
+      if (!isNonEmptyStringWithinLimit(request.body?.message, 4000)) {
+        return reply.status(400).send({ error: "Invalid message" });
+      }
+
+      try {
+        const user = await sendStaffMessage(phoneNumber, request.body.message.trim());
+
+        if (!user) {
+          return reply.status(404).send({ error: "User not found" });
+        }
+
+        return reply.send({ success: true, data: user });
+      } catch (error) {
+        request.log.error(error);
+
+        return reply.status(502).send({ error: "Failed to send message" });
+      }
+    }
+  );
+
+  app.post<{ Params: UserMessagesParams }>(
+    API_PATHS.userStartAppointment,
+    async (request, reply) => {
+      const phoneNumber = parsePhoneNumber(request.params.phoneNumber);
+
+      if (!phoneNumber) {
+        return reply.status(400).send({ error: "Invalid phone number" });
+      }
+
+      try {
+        const user = await startAppointmentAssistant(
+          phoneNumber,
+          APPOINTMENT_DETAILS_REQUEST_MESSAGE
+        );
+
+        if (!user) {
+          return reply.status(404).send({ error: "User not found" });
+        }
+
+        return reply.send({ success: true, data: user });
+      } catch (error) {
+        request.log.error(error);
+
+        return reply.status(502).send({ error: "Failed to start appointment booking" });
       }
     }
   );

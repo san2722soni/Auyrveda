@@ -7,11 +7,12 @@ import {
   PaginationMeta,
 } from "../lib/pagination";
 import { getDatabase } from "./database";
-import { Message, MessageRole } from "../types/message";
+import { Message, MessageRole, MessageSender } from "../types/message";
 
 interface CreateMessageInput {
   phoneNumber: string;
   role: MessageRole;
+  sentBy?: MessageSender;
   content: string;
 }
 
