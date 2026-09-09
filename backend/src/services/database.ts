@@ -17,9 +17,11 @@ async function initializeIndexes(db: Db): Promise<void> {
       { key: { firstSeenAt: -1 }, name: INDEXES.usersFirstSeenAt },
     ]),
     db.collection<Message>(COLLECTIONS.messages).createIndexes([
+      { key: { externalId: 1 }, unique: true, sparse: true },
       { key: { phoneNumber: 1, createdAt: -1 }, name: INDEXES.messagesPhoneNumberCreatedAt },
     ]),
     db.collection<Appointment>(COLLECTIONS.appointments).createIndexes([
+      { key: { sourceMessageId: 1 }, unique: true, sparse: true },
       { key: { createdAt: -1 }, name: INDEXES.appointmentsCreatedAt },
       { key: { isCompleted: 1, createdAt: -1 }, name: INDEXES.appointmentsIsCompletedCreatedAt },
       { key: { phoneNumber: 1 }, name: INDEXES.appointmentsPhoneNumber },

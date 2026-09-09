@@ -3,6 +3,8 @@ export interface User {
   replyMode?: "ai" | "manual";
   manualUntil?: Date;
   appointmentAssistantActive?: boolean;
+  modeVersion?: number;
+  contextStartedAt?: Date;
 
   firstSeenAt: Date;
   lastActiveAt: Date;

@@ -131,6 +131,7 @@ export default function AppointmentsPage() {
   }, [dateCategory, debouncedSearch, status]);
 
   const appointmentsQuery = useQuery({
+    refetchInterval: 5000,
     queryKey: [
       "appointments",
       { page, limit: LIMIT, status, dateCategory, search: debouncedSearch },

@@ -1,6 +1,7 @@
 const numberFormatter = new Intl.NumberFormat("en-IN");
 
 const dateTimeFormatter = new Intl.DateTimeFormat("en-IN", {
+  timeZone: "Asia/Kolkata",
   day: "numeric",
   month: "short",
   year: "numeric",
@@ -9,6 +10,7 @@ const dateTimeFormatter = new Intl.DateTimeFormat("en-IN", {
 });
 
 const dateFormatter = new Intl.DateTimeFormat("en-IN", {
+  timeZone: "Asia/Kolkata",
   day: "numeric",
   month: "short",
   year: "numeric",

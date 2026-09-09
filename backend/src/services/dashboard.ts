@@ -3,6 +3,7 @@ import { COLLECTIONS } from "../constants/database";
 import { Appointment } from "../types/appointment";
 import { Message } from "../types/message";
 import { User } from "../types/user";
+import { addDays, CLINIC_TIMEZONE, startOfDay, startOfMonth, toDateKey } from "../lib/clinic-date";
 
 export type DashboardTrendPeriod = "week" | "month";
 
@@ -22,6 +23,7 @@ export interface DashboardTrend {
 }
 
 export interface DashboardStats {
+  failedMessages: number;
   totalUsers: number;
   newUsersThisWeek: number;
   newUsersThisMonth: number;
@@ -54,40 +56,17 @@ interface CountResult {
 }
 
 const shortDateFormatter = new Intl.DateTimeFormat("en-IN", {
+  timeZone: CLINIC_TIMEZONE,
   day: "numeric",
   month: "short",
 });
-
-function startOfDay(date: Date): Date {
-  return new Date(date.getFullYear(), date.getMonth(), date.getDate());
-}
-
-function addDays(date: Date, days: number): Date {
-  return new Date(
-    date.getFullYear(),
-    date.getMonth(),
-    date.getDate() + days
-  );
-}
-
-function toDateKey(date: Date): string {
-  const year = date.getFullYear();
-  const month = String(date.getMonth() + 1).padStart(2, "0");
-  const day = String(date.getDate()).padStart(2, "0");
-
-  return `${year}-${month}-${day}`;
-}
 
 function getTrendRange(period: DashboardTrendPeriod, anchorDate: Date): DateRange {
   const anchorDay = startOfDay(anchorDate);
 
   if (period === "month") {
-    const start = new Date(anchorDay.getFullYear(), anchorDay.getMonth(), 1);
-    const endExclusive = new Date(
-      anchorDay.getFullYear(),
-      anchorDay.getMonth() + 1,
-      1
-    );
+    const start = startOfMonth(anchorDay);
+    const endExclusive = startOfMonth(addDays(start, 32));
 
     return { start, endExclusive };
   }
@@ -151,13 +130,14 @@ export async function getDashboardStats(
   const messages = db.collection<Message>(COLLECTIONS.messages);
   const appointments = db.collection<Appointment>(COLLECTIONS.appointments);
   const now = new Date();
-  const weekStart = new Date(now.getTime() - 7 * 24 * 60 * 60 * 1000);
-  const monthStart = new Date(now.getFullYear(), now.getMonth(), 1);
+  const weekStart = addDays(startOfDay(now), -6);
+  const monthStart = startOfMonth(now);
   const trendPeriod = input.trendPeriod ?? "week";
   const trendAnchorDate = input.anchorDate ?? now;
   const trendRange = getTrendRange(trendPeriod, trendAnchorDate);
 
   const [
+    failedMessages,
     totalUsers,
     newUsersThisWeek,
     newUsersThisMonth,
@@ -172,6 +152,7 @@ export async function getDashboardStats(
     trendInitialUsers,
     trendInitialAppointments,
   ] = await Promise.all([
+    db.collection("webhook_inbox").countDocuments({ state: { $in: ["failed", "uncertain"] } }),
     users.countDocuments(),
     users.countDocuments({ firstSeenAt: { $gte: weekStart } }),
     users.countDocuments({ firstSeenAt: { $gte: monthStart } }),
@@ -197,6 +178,7 @@ export async function getDashboardStats(
               $dateToString: {
                 format: "%Y-%m-%d",
                 date: "$firstSeenAt",
+                timezone: CLINIC_TIMEZONE,
               },
             },
             count: { $sum: 1 },
@@ -220,6 +202,7 @@ export async function getDashboardStats(
               $dateToString: {
                 format: "%Y-%m-%d",
                 date: "$createdAt",
+                timezone: CLINIC_TIMEZONE,
               },
             },
             count: { $sum: 1 },
@@ -240,6 +223,7 @@ export async function getDashboardStats(
   ]);
 
   return {
+    failedMessages,
     totalUsers,
     newUsersThisWeek,
     newUsersThisMonth,

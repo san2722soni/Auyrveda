@@ -12,6 +12,7 @@ export async function sendMessages(
     `https://graph.facebook.com/v23.0/${config.phoneNumberId}/messages`,
     {
       method: "POST",
+      signal: AbortSignal.timeout(30_000),
 
       headers: {
         Authorization: `Bearer ${config.whatsappToken}`,

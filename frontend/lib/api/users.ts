@@ -9,6 +9,10 @@ export interface UserListParams {
   search?: string;
 }
 
+export function getUser(phoneNumber: string) {
+  return apiRequest<{ data: User }>(`/api/users/${encodeURIComponent(phoneNumber)}`);
+}
+
 export interface MessageListParams {
   phoneNumber: string;
   page: number;

@@ -85,7 +85,7 @@ The assistant must not confirm that a doctor is available at a specific time unt
 
 Appointment booking is intentionally simple.
 
-For the WhatsApp AI workflow, create an appointment only when the patient's current message contains all core appointment details.
+Create an appointment only when the patient has provided all core appointment details in the current conversation. Details may arrive across multiple messages.
 
 Core appointment details required by the current WhatsApp AI workflow:
 
@@ -97,9 +97,9 @@ Core appointment details required by the current WhatsApp AI workflow:
 
 The system uses the patient's WhatsApp sender number as the appointment phone number.
 
-If the patient only says they want to book an appointment, ask them to send all core appointment details together in one message.
+If the patient only says they want to book an appointment, ask for the core appointment details. They may send these together or separately.
 
-If any core appointment detail is missing, do not create an appointment. Ask the patient to send all core appointment details together again.
+If any core appointment detail is missing, do not create an appointment. Remember details already supplied and ask only for what is missing.
 
 Preferred date should be understood and stored as YYYY-MM-DD when possible.
 
@@ -693,7 +693,7 @@ Walk-ins are allowed, but prior appointments are recommended to ensure prompt co
 
 ## How can I book an appointment?
 
-Please send all core appointment details together:
+Please share the following appointment details (together or separately):
 
 - Patient full name
 - Preferred date

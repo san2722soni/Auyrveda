@@ -34,6 +34,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { ErrorState } from "@/components/error-state";
 import { Button } from "@/components/ui/button";
 import { formatNumber } from "@/lib/format";
+import { MessageFailures } from "@/components/message-failures";
 
 function DashboardSkeleton() {
   return (
@@ -59,6 +60,18 @@ function DashboardSkeleton() {
   );
 }
 
+function getChartMax(points: DashboardStats["trend"]["points"], dataKey: "users" | "appointments") {
+  const maxValue = Math.max(0, ...points.map((point) => point[dataKey]));
+
+  if (maxValue <= 10) {
+    return 10;
+  }
+
+  const step = maxValue <= 50 ? 10 : 50;
+
+  return Math.ceil(maxValue / step) * step;
+}
+
 function MetricChart({
   title,
   description,
@@ -73,6 +86,7 @@ function MetricChart({
   color: string;
 }) {
   const latestValue = stats.trend.points.at(-1)?.[dataKey] ?? 0;
+  const chartMax = getChartMax(stats.trend.points, dataKey);
 
   return (
     <Card className="shadow-lg shadow-emerald-950/10">
@@ -112,6 +126,8 @@ function MetricChart({
                 axisLine={false}
                 tickMargin={8}
                 width={36}
+                allowDecimals={false}
+                domain={[0, chartMax]}
               />
               <Tooltip
                 formatter={(value) => formatNumber(Number(value))}
@@ -142,6 +158,7 @@ export default function DashboardPage() {
   const [period, setPeriod] = useState<DashboardTrendPeriod>("week");
   const periodLabel = period === "week" ? "This Week" : "This Month";
   const statsQuery = useQuery({
+    refetchInterval: 5000,
     queryKey: ["dashboard", "stats", { period }],
     queryFn: () => getDashboardStats({ period }),
   });
@@ -188,6 +205,12 @@ export default function DashboardPage() {
 
       {statsQuery.data && (
         <>
+          {statsQuery.data.failedMessages > 0 && (
+            <div role="alert" className="rounded-md border border-destructive p-3 text-sm text-destructive">
+              {statsQuery.data.failedMessages} message(s) need delivery review.
+              <MessageFailures />
+            </div>
+          )}
           <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
             <StatCard
               title="Total Users"

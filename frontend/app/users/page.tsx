@@ -44,6 +44,7 @@ export default function UsersPage() {
   }, [debouncedSearch]);
 
   const usersQuery = useQuery({
+    refetchInterval: 5000,
     queryKey: ["users", { page, limit: LIMIT, search: debouncedSearch }],
     queryFn: () =>
       getUsers({

@@ -3,25 +3,29 @@ import { APPOINTMENT_CONFIRMATION_MESSAGE } from "../constants/appointments";
 import { getKnowledge } from "./knowledge";
 import { generateAppointmentReply, generateReply } from "./openai";
 import { createAppointment } from "./appointments";
-import { createMessage } from "./messages";
+import { createMessage, getConversationHistory } from "./messages";
+import { withConversationLock } from "../lib/conversation-lock";
 import { sendAndStoreMessage } from "./messaging";
 import {
   getEffectiveReplyMode,
   stopAppointmentAssistant,
   upsertUser,
+  getUser,
 } from "./users";
 
 export async function handleConversation(
-  incoming: WhatsAppMessage
+  incoming: WhatsAppMessage,
+  beforeDelivery: () => Promise<void> = async () => undefined
 ): Promise<void> {
-  const user = await upsertUser(incoming.from);
-
   await createMessage({
+    externalId: incoming.id,
     phoneNumber: incoming.from,
     role: "user",
     sentBy: "patient",
     content: incoming.text,
   });
+
+  const user = await upsertUser(incoming.from);
 
   const replyMode = await getEffectiveReplyMode(user);
 
@@ -30,30 +34,36 @@ export async function handleConversation(
   }
 
   const knowledge = await getKnowledge();
+  const history = await getConversationHistory(incoming.from, user.contextStartedAt);
+  const input = history.map(({ role, content }) => ({ role, content }));
 
-  const result =
+  const result = incoming.type !== "text"
+    ? { type: "message" as const, reply: "Please send your question or appointment details as text. Clinic staff can help with reports or other attachments.", appointment: null }
+    :
     replyMode === "manual"
-      ? await generateAppointmentReply(incoming.text, knowledge)
-      : await generateReply(incoming.text, knowledge);
+      ? await generateAppointmentReply(input, knowledge)
+      : await generateReply(input, knowledge);
 
-  if (result.type === "message") {
-    await sendAndStoreMessage(incoming.from, result.reply);
-    return;
-  }
+  await withConversationLock(incoming.from, async () => {
+    const current = await getUser(incoming.from);
+    if (!current || (current.modeVersion ?? 0) !== (user.modeVersion ?? 0)) return;
 
-  if (result.type === "appointment") {
-    await createAppointment({
-      ...result.appointment,
-      phoneNumber: incoming.from,
-    });
-
-    if (replyMode === "manual") {
-      await stopAppointmentAssistant(incoming.from);
+    if (result.type === "message") {
+      await beforeDelivery();
+      await sendAndStoreMessage(incoming.from, result.reply);
+      return;
     }
 
-    await sendAndStoreMessage(
-      incoming.from,
-      APPOINTMENT_CONFIRMATION_MESSAGE
-    );
-  }
+    if (result.type === "appointment") {
+      await createAppointment({
+        ...result.appointment,
+        phoneNumber: incoming.from,
+        sourceMessageId: incoming.id,
+      });
+
+      await beforeDelivery();
+      await sendAndStoreMessage(incoming.from, APPOINTMENT_CONFIRMATION_MESSAGE);
+      await stopAppointmentAssistant(incoming.from);
+    }
+  });
 }

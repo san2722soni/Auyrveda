@@ -1,6 +1,7 @@
 export type ContactMethod = "call" | "whatsapp";
 
 export interface Appointment {
+  sourceMessageId?: string;
   patientName: string;
   phoneNumber: string;
   preferredDate: string;

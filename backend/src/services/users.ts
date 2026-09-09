@@ -10,10 +10,9 @@ import { escapeRegExp } from "../lib/regex";
 import { getDatabase } from "./database";
 import { User } from "../types/user";
 import { sendAndStoreMessage } from "./messaging";
+import { withConversationLock } from "../lib/conversation-lock";
 
 export type ReplyMode = "ai" | "manual";
-
-const MANUAL_MODE_MINUTES = 30;
 
 interface GetUsersInput extends PaginationInput {
   search?: string;
@@ -28,8 +27,8 @@ function getUsersCollection(): Collection<User> {
   return getDatabase().collection<User>(COLLECTIONS.users);
 }
 
-function getManualUntil(): Date {
-  return new Date(Date.now() + MANUAL_MODE_MINUTES * 60 * 1000);
+export async function getUser(phoneNumber: string): Promise<User | null> {
+  return getUsersCollection().findOne({ phoneNumber });
 }
 
 export async function upsertUser(phoneNumber: string): Promise<User> {
@@ -50,9 +49,6 @@ export async function upsertUser(phoneNumber: string): Promise<User> {
         lastActiveAt: now,
         updatedAt: now,
       },
-      $inc: {
-        totalMessages: 1,
-      },
     },
     { upsert: true, returnDocument: "after" }
   );
@@ -60,6 +56,10 @@ export async function upsertUser(phoneNumber: string): Promise<User> {
   if (!user) {
     throw new Error("Failed to upsert user");
   }
+
+  const totalMessages = await getDatabase().collection(COLLECTIONS.messages).countDocuments({ phoneNumber, role: "user" });
+  await collection.updateOne({ phoneNumber }, { $set: { totalMessages } });
+  user.totalMessages = totalMessages;
 
   return user;
 }
@@ -90,65 +90,37 @@ export async function setUserReplyMode(
   phoneNumber: string,
   replyMode: ReplyMode
 ): Promise<User | null> {
-  const collection = getUsersCollection();
-  const now = new Date();
-  const update =
-    replyMode === "manual"
-      ? {
-          $set: {
-            replyMode,
-            manualUntil: getManualUntil(),
-            updatedAt: now,
-          },
-        }
-      : {
-          $set: {
-            replyMode,
-            appointmentAssistantActive: false,
-            updatedAt: now,
-          },
-          $unset: {
-            manualUntil: "" as const,
-          },
-        };
+  return withConversationLock(phoneNumber, () => updateMode(phoneNumber, replyMode));
+}
 
-  return await collection.findOneAndUpdate(
-    { phoneNumber },
-    update,
-    { returnDocument: "after" }
-  );
+async function updateMode(phoneNumber: string, replyMode: ReplyMode, booking = false): Promise<User | null> {
+  return getUsersCollection().findOneAndUpdate({ phoneNumber }, {
+    $set: { replyMode, appointmentAssistantActive: booking, updatedAt: new Date(),
+      ...(booking ? { contextStartedAt: new Date() } : {}) },
+    $unset: { manualUntil: "" }, $inc: { modeVersion: 1 },
+  }, { returnDocument: "after" });
 }
 
 export async function sendStaffMessage(
   phoneNumber: string,
   message: string
 ): Promise<User | null> {
-  await sendAndStoreMessage(phoneNumber, message, "staff");
-
-  return await setUserReplyMode(phoneNumber, "manual");
+  return withConversationLock(phoneNumber, async () => {
+    const user = await updateMode(phoneNumber, "manual");
+    if (user) await sendAndStoreMessage(phoneNumber, message, "staff");
+    return user;
+  });
 }
 
 export async function startAppointmentAssistant(
   phoneNumber: string,
   message: string
 ): Promise<User | null> {
-  const now = new Date();
-  const collection = getUsersCollection();
-
-  await sendAndStoreMessage(phoneNumber, message, "staff");
-
-  return await collection.findOneAndUpdate(
-    { phoneNumber },
-    {
-      $set: {
-        replyMode: "manual",
-        manualUntil: getManualUntil(),
-        appointmentAssistantActive: true,
-        updatedAt: now,
-      },
-    },
-    { returnDocument: "after" }
-  );
+  return withConversationLock(phoneNumber, async () => {
+    const user = await updateMode(phoneNumber, "manual", true);
+    if (user) await sendAndStoreMessage(phoneNumber, message, "staff");
+    return user;
+  });
 }
 
 export async function stopAppointmentAssistant(phoneNumber: string): Promise<void> {
@@ -157,6 +129,7 @@ export async function stopAppointmentAssistant(phoneNumber: string): Promise<voi
     {
       $set: {
         appointmentAssistantActive: false,
+        contextStartedAt: new Date(),
         updatedAt: new Date(),
       },
     }
@@ -164,14 +137,5 @@ export async function stopAppointmentAssistant(phoneNumber: string): Promise<voi
 }
 
 export async function getEffectiveReplyMode(user: User): Promise<ReplyMode> {
-  if (
-    user.replyMode === "manual" &&
-    user.manualUntil &&
-    user.manualUntil.getTime() <= Date.now()
-  ) {
-    await setUserReplyMode(user.phoneNumber, "ai");
-    return "ai";
-  }
-
   return user.replyMode ?? "ai";
 }

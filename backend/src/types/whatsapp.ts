@@ -10,6 +10,7 @@ export type WhatsAppMessageType =
   | "unknown";
 
 export interface WhatsAppMessage {
+  id: string;
   from: string;
   name: string;
   text: string;

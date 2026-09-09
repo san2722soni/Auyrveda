@@ -17,6 +17,7 @@ export const config = {
   port: Number(process.env.PORT ?? 3000),
   openaiApiKey: process.env.OPENAI_API_KEY,
   whatsappToken: process.env.WHATSAPP_TOKEN,
+  metaAppSecret: process.env.META_APP_SECRET?.trim() ?? "",
   phoneNumberId: process.env.PHONE_NUMBER_ID,
   whatsappBusinessAccountId: process.env.WHATSAPP_BUSINESS_ACCOUNT_ID,
   verifyToken: requiredEnv("VERIFY_TOKEN"),

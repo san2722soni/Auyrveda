@@ -16,6 +16,7 @@ export interface DashboardTrend {
 }
 
 export interface DashboardStats {
+  failedMessages: number;
   totalUsers: number;
   newUsersThisWeek: number;
   newUsersThisMonth: number;

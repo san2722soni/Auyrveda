@@ -9,6 +9,7 @@ import {
   setUserReplyMode,
   startAppointmentAssistant,
   getUsers,
+  getUser,
 } from "../services/users";
 
 interface UserQuery extends PaginationQuery {
@@ -34,6 +35,10 @@ function parsePhoneNumber(value: string): string | null {
 }
 
 export async function userRoutes(app: FastifyInstance) {
+  app.get<{ Params: UserMessagesParams }>("/api/users/:phoneNumber", async (request, reply) => {
+    const user = await getUser(request.params.phoneNumber);
+    return user ? reply.send({ data: user }) : reply.status(404).send({ error: "User not found" });
+  });
   app.get<{ Querystring: UserQuery }>(
     API_PATHS.users,
     async (request, reply) => {

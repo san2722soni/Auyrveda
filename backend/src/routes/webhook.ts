@@ -1,14 +1,24 @@
 import { FastifyInstance } from "fastify";
 import { config } from "../config";
 import { API_PATHS } from "../constants/api";
-import { parseWhatsAppWebhook } from "../parsers/whatsapp";
-import { MetaWebhookPayload } from "../types/meta";
-import { handleConversation } from "../services/conversation";
+import { parseWhatsAppWebhooks } from "../parsers/whatsapp";
+import { enqueueMessages, startInboxWorker } from "../services/webhook-inbox";
+import { verifyWebhookSignature } from "../lib/webhook-signature";
 import { sendMessages } from "../services/whatsapp";
 import { getKnowledge } from "../services/knowledge";
 import { generateReply } from "../services/openai";
 
 export async function webhookRoutes(app: FastifyInstance) {
+  let stopWorker: (() => Promise<void>) | undefined;
+  app.addHook("onClose", async () => { await stopWorker?.(); });
+  app.removeContentTypeParser("application/json");
+  app.addContentTypeParser("application/json", { parseAs: "buffer" }, (_request, body, done) => {
+    done(null, body);
+  });
+  app.addHook("onReady", async () => {
+    if (!config.metaAppSecret) app.log.error("META_APP_SECRET is missing; webhook POST requests are disabled");
+    stopWorker = await startInboxWorker(app);
+  });
   app.get(API_PATHS.webhook, async (request, reply) => {
     const query = request.query as {
       "hub.mode"?: string;
@@ -52,21 +62,24 @@ export async function webhookRoutes(app: FastifyInstance) {
     });
   }
 
-  app.post<{ Body: MetaWebhookPayload }>(
+  app.post<{ Body: Buffer }>(
     API_PATHS.webhook,
     async (request, reply) => {
-      const incoming = parseWhatsAppWebhook(request.body);
-
-      if (!incoming) {
-        return reply.status(200).send({
-          success: true,
-        });
+      if (!config.metaAppSecret || !config.phoneNumberId) {
+        return reply.status(503).send({ error: "Webhook configuration is incomplete" });
       }
-
+      if (!Buffer.isBuffer(request.body) || !verifyWebhookSignature(request.body,
+        request.headers["x-hub-signature-256"], config.metaAppSecret)) {
+        return reply.status(401).send({ error: "Invalid webhook signature" });
+      }
+      let payload: unknown;
+      try { payload = JSON.parse(request.body.toString("utf8")); }
+      catch { return reply.status(400).send({ error: "Invalid JSON" }); }
       try {
-        await handleConversation(incoming);
+        await enqueueMessages(parseWhatsAppWebhooks(payload, config.phoneNumberId));
       } catch (error) {
-        request.log.error({ err: error }, "Conversation processing failed");
+        request.log.error({ err: error }, "Could not persist webhook");
+        return reply.status(503).send({ error: "Please retry webhook" });
       }
 
       return reply.status(200).send({

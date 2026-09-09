@@ -10,6 +10,7 @@ import { getDatabase } from "./database";
 import { Message, MessageRole, MessageSender } from "../types/message";
 
 interface CreateMessageInput {
+  externalId?: string;
   phoneNumber: string;
   role: MessageRole;
   sentBy?: MessageSender;
@@ -32,10 +33,18 @@ function getMessagesCollection(): Collection<Message> {
 export async function createMessage(data: CreateMessageInput): Promise<void> {
   const collection = getMessagesCollection();
 
-  await collection.insertOne({
-    ...data,
-    createdAt: new Date(),
-  });
+  if (data.externalId) {
+    await collection.updateOne({ externalId: data.externalId },
+      { $setOnInsert: { ...data, createdAt: new Date() } }, { upsert: true });
+  } else {
+    await collection.insertOne({ ...data, createdAt: new Date() });
+  }
+}
+
+export async function getConversationHistory(phoneNumber: string, since?: Date) {
+  return getMessagesCollection().find({ phoneNumber,
+    ...(since ? { createdAt: { $gte: since } } : {}) })
+    .sort({ createdAt: 1, _id: 1 }).toArray();
 }
 
 export async function getMessagesByPhoneNumber(
@@ -47,7 +56,7 @@ export async function getMessagesByPhoneNumber(
   const collection = getMessagesCollection();
 
   const [messages, total] = await Promise.all([
-    collection.find(query).sort({ createdAt: -1 }).skip(skip).limit(limit).toArray(),
+    collection.find(query).sort({ createdAt: -1, _id: -1 }).skip(skip).limit(limit).toArray(),
     collection.countDocuments(query),
   ]);
 

@@ -32,6 +32,7 @@ import {
   sendUserMessage,
   startAppointmentBooking,
   updateUserReplyMode,
+  getUser,
 } from "@/lib/api/users";
 import { PageHeader } from "@/components/page-header";
 import { Card } from "@/components/ui/card";
@@ -64,6 +65,7 @@ function ConversationsContent() {
   }, [debouncedSearch]);
 
   const usersQuery = useQuery({
+    refetchInterval: 5000,
     queryKey: ["users", { page: userPage, limit: USER_LIMIT, search: debouncedSearch }],
     queryFn: () =>
       getUsers({
@@ -74,6 +76,7 @@ function ConversationsContent() {
   });
 
   const messagesQuery = useInfiniteQuery({
+    refetchInterval: 3000,
     queryKey: ["messages", selectedPhoneNumber, { limit: MESSAGE_LIMIT }],
     queryFn: ({ pageParam }) =>
       getMessagesByPhoneNumber({
@@ -107,13 +110,17 @@ function ConversationsContent() {
 
   const usersPage = usersQuery.data;
   const users = usersPage?.data ?? [];
-  const selectedUser = users.find(
-    (user) => user.phoneNumber === selectedPhoneNumber
-  );
+  const selectedUserQuery = useQuery({
+    queryKey: ["users", "detail", selectedPhoneNumber],
+    queryFn: () => getUser(selectedPhoneNumber),
+    enabled: Boolean(selectedPhoneNumber),
+    refetchInterval: 3000,
+  });
+  const selectedUser = selectedUserQuery.data?.data;
   const selectedReplyMode = selectedUser?.replyMode ?? "ai";
   const controlsDisabled =
     !selectedPhoneNumber ||
-    usersQuery.isLoading ||
+    selectedUserQuery.isLoading ||
     !selectedUser;
   const messages = useMemo(
     () =>
@@ -124,6 +131,7 @@ function ConversationsContent() {
     [messagesQuery.data]
   );
   const showConversationOnMobile = Boolean(selectedPhoneNumber);
+  useEffect(() => { setManualMessage(""); }, [selectedPhoneNumber]);
 
   const replyModeMutation = useMutation({
     mutationFn: (replyMode: "ai" | "manual") =>

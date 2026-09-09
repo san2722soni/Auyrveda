@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "test": "tsx --test tests/*.test.ts",
     "dev": "tsx watch src/index.ts",
     "start": "tsx src/index.ts",
     "local": "./dev.sh",
