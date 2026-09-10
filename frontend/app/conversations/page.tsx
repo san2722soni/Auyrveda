@@ -161,10 +161,21 @@ function ConversationsContent() {
   useEffect(() => {
     const viewport = window.visualViewport;
     if (!viewport || !selectedPhoneNumber) return;
+    let followOnResize = false;
+    const observer = new ResizeObserver(() => {
+      if (followOnResize && messageList.current) {
+        messageList.current.scrollTop = messageList.current.scrollHeight;
+        followOnResize = false;
+      }
+    });
+    if (messageList.current) observer.observe(messageList.current);
     // Keep the reply box above phone keyboards that overlay the layout viewport.
     const resize = () => {
       const panel = chatPanel.current;
       if (!panel) return;
+      const list = messageList.current;
+      const wasAtBottom = list && list.scrollHeight - list.scrollTop - list.clientHeight < 80;
+      followOnResize = Boolean(wasAtBottom);
       const keyboardOpen = viewport.scale === 1 && window.innerHeight - viewport.height > 120;
       panel.dataset.keyboardOpen = String(keyboardOpen);
       panel.style.height = keyboardOpen
@@ -175,6 +186,7 @@ function ConversationsContent() {
     viewport.addEventListener("resize", resize);
     viewport.addEventListener("scroll", resize);
     return () => {
+      observer.disconnect();
       viewport.removeEventListener("resize", resize);
       viewport.removeEventListener("scroll", resize);
     };
