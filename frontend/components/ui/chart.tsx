@@ -7,7 +7,7 @@ export function ChartContainer({
 }: React.HTMLAttributes<HTMLDivElement>) {
   return (
     <div
-      className={cn("h-80 w-full rounded-md bg-background/60 p-2", className)}
+      className={cn("h-60 min-w-0 w-full sm:h-80", className)}
       {...props}
     />
   );

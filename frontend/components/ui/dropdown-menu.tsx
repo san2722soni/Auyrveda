@@ -18,7 +18,7 @@ const DropdownMenuContent = React.forwardRef<
       ref={ref}
       sideOffset={sideOffset}
       className={cn(
-        "z-50 min-w-40 overflow-hidden rounded-md border border-border bg-white p-1 text-popover-foreground shadow-xl shadow-emerald-950/25 dark:bg-popover",
+        "z-50 max-h-[var(--radix-dropdown-menu-content-available-height)] max-w-[calc(100vw-16px)] min-w-40 overflow-y-auto rounded-md border border-border bg-white p-1 text-popover-foreground shadow-xl shadow-emerald-950/25 dark:bg-popover",
         "data-[state=open]:animate-in data-[state=closed]:animate-out",
         className
       )}
@@ -38,7 +38,7 @@ const DropdownMenuItem = React.forwardRef<
   <DropdownMenuPrimitive.Item
     ref={ref}
     className={cn(
-      "relative flex cursor-default select-none items-center gap-2 rounded-sm px-2 py-2 text-sm outline-none transition-colors",
+      "relative flex min-h-11 cursor-default select-none items-center gap-2 rounded-sm px-2 py-2 text-sm outline-none transition-colors sm:min-h-0",
       "focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50",
       inset && "pl-8",
       className
@@ -56,7 +56,7 @@ const DropdownMenuCheckboxItem = React.forwardRef<
   <DropdownMenuPrimitive.CheckboxItem
     ref={ref}
     className={cn(
-      "relative flex cursor-default select-none items-center rounded-sm py-2 pl-8 pr-2 text-sm outline-none transition-colors",
+      "relative flex min-h-11 cursor-default select-none items-center rounded-sm py-2 pl-8 pr-2 text-sm outline-none transition-colors sm:min-h-0",
       "focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50",
       className
     )}

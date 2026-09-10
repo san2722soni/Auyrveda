@@ -80,23 +80,26 @@ export default function KnowledgePage() {
   }
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-4 sm:space-y-6">
       <PageHeader
         title="Knowledge"
         description="Manage the clinic information used by the AI assistant."
         actions={
-          <div className="flex flex-col gap-2 sm:flex-row">
+          <div className="flex gap-2">
             <Button
               type="button"
               variant="outline"
+              size="icon"
+              aria-label="Copy knowledge"
+              title="Copy knowledge"
               disabled={!content}
               onClick={copyKnowledge}
             >
               <Copy className="h-4 w-4" />
-              Copy
             </Button>
             <Button
               type="button"
+              className="flex-1 sm:flex-none"
               disabled={!canSave}
               onClick={() => saveMutation.mutate(content)}
             >
@@ -123,11 +126,12 @@ export default function KnowledgePage() {
 
       {knowledgeQuery.data && (
         <Card className="overflow-hidden">
-          <div className="flex flex-col gap-3 border-b p-4 sm:flex-row sm:items-center sm:justify-between">
-            <div className="flex items-center gap-2">
+          <div className="flex flex-wrap items-center justify-between gap-2 border-b p-3 sm:p-4">
+            <div role="group" aria-label="Knowledge view" className="flex items-center gap-2">
               <Button
                 type="button"
                 variant={mode === "edit" ? "default" : "outline"}
+                aria-pressed={mode === "edit"}
                 onClick={() => setMode("edit")}
               >
                 Edit
@@ -135,6 +139,7 @@ export default function KnowledgePage() {
               <Button
                 type="button"
                 variant={mode === "preview" ? "default" : "outline"}
+                aria-pressed={mode === "preview"}
                 onClick={() => setMode("preview")}
               >
                 Preview
@@ -147,13 +152,13 @@ export default function KnowledgePage() {
             )}
           </div>
 
-          <div className="p-4">
+          <div className="p-3 sm:p-4">
             {mode === "edit" && (
               <Textarea
                 aria-label="Knowledge markdown editor"
                 value={content}
                 onChange={(event) => setContent(event.target.value)}
-                className="min-h-[560px] resize-y font-mono leading-6"
+                className="h-[55dvh] min-h-[240px] resize-y font-mono leading-6 sm:min-h-[560px]"
                 placeholder="Add clinic knowledge markdown..."
               />
             )}
@@ -161,7 +166,7 @@ export default function KnowledgePage() {
             {mode === "preview" && (
               <div
                 className={cn(
-                  "min-h-[560px] rounded-md border bg-background p-5 text-sm leading-7",
+                  "min-h-[240px] text-sm leading-7 sm:min-h-[560px]",
                   "markdown-preview max-w-none"
                 )}
               >

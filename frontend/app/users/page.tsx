@@ -104,7 +104,7 @@ export default function UsersPage() {
   }
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-4 sm:space-y-6">
       <PageHeader
         title="Users"
         description="View people who have interacted with the WhatsApp assistant."
@@ -180,12 +180,14 @@ export default function UsersPage() {
               </Table>
             </div>
 
-            <div className="grid gap-3 p-4 md:hidden">
+            <div className="divide-y md:hidden">
               {users.map((user) => (
-                <div key={user.phoneNumber} className="rounded-lg border p-4">
-                  <div className="flex items-center gap-2 font-medium">
-                    <Copy className="h-4 w-4 text-muted-foreground" />
-                    {user.phoneNumber}
+                <div key={user.phoneNumber} className="min-w-0 p-3 sm:p-4">
+                  <div className="flex items-center justify-between gap-2">
+                    <span className="min-w-0 break-all font-medium">{user.phoneNumber}</span>
+                    <Button variant="ghost" size="icon" aria-label={`Copy ${user.phoneNumber}`} title="Copy number" onClick={() => handleUserAction("copy", user.phoneNumber)}>
+                      <Copy className="h-4 w-4" />
+                    </Button>
                   </div>
                   <div className="mt-3 grid gap-2 text-sm">
                     <div>
@@ -202,7 +204,10 @@ export default function UsersPage() {
                     </div>
                   </div>
                   <div className="mt-4">
-                    <UserActions phoneNumber={user.phoneNumber} />
+                    <Button variant="outline" className="w-full" onClick={() => handleUserAction("conversation", user.phoneNumber)}>
+                      <MessageSquareText className="h-4 w-4" />
+                      View Conversation
+                    </Button>
                   </div>
                 </div>
               ))}

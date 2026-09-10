@@ -39,15 +39,15 @@ import { MessageFailures } from "@/components/message-failures";
 function DashboardSkeleton() {
   return (
     <div className="space-y-6">
-      <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
+      <div className="grid grid-cols-2 gap-2 sm:gap-4 xl:grid-cols-4">
         {Array.from({ length: 4 }).map((_, index) => (
           <Card key={index}>
-            <CardHeader>
-              <Skeleton className="h-4 w-28" />
+            <CardHeader className="p-3 sm:p-5">
+              <Skeleton className="h-4 w-full max-w-28" />
             </CardHeader>
-            <CardContent>
+            <CardContent className="p-3 sm:p-5">
               <Skeleton className="h-8 w-20" />
-              <Skeleton className="mt-2 h-3 w-32" />
+              <Skeleton className="mt-2 h-3 w-full max-w-32" />
             </CardContent>
           </Card>
         ))}
@@ -90,17 +90,17 @@ function MetricChart({
 
   return (
     <Card className="shadow-lg shadow-emerald-950/10">
-      <CardHeader className="flex flex-col gap-2 sm:flex-row sm:items-start sm:justify-between">
-        <div>
+      <CardHeader className="flex flex-row items-start justify-between gap-2 p-3 sm:p-5">
+        <div className="min-w-0">
           <CardTitle className="text-base text-foreground">{title}</CardTitle>
           <p className="mt-1 text-sm text-muted-foreground">{description}</p>
         </div>
-        <div className="rounded-md border bg-background/70 px-3 py-2 text-right">
+        <div className="min-w-0 text-right">
           <div className="text-xs text-muted-foreground">Current total</div>
           <div className="text-lg font-semibold">{formatNumber(latestValue)}</div>
         </div>
       </CardHeader>
-      <CardContent>
+      <CardContent className="p-3 pt-0 sm:p-5 sm:pt-0">
         <ChartContainer>
           <ResponsiveContainer width="100%" height="100%">
             <AreaChart
@@ -125,7 +125,8 @@ function MetricChart({
                 tickLine={false}
                 axisLine={false}
                 tickMargin={8}
-                width={36}
+                width={44}
+                tickFormatter={(value) => new Intl.NumberFormat("en", { notation: "compact" }).format(value)}
                 allowDecimals={false}
                 domain={[0, chartMax]}
               />
@@ -139,6 +140,7 @@ function MetricChart({
                 }}
               />
               <Area
+                isAnimationActive={false}
                 type="monotone"
                 dataKey={dataKey}
                 stroke={color}
@@ -164,14 +166,14 @@ export default function DashboardPage() {
   });
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-4 sm:space-y-6">
       <PageHeader
         title="Overview"
         description="A quick look at your clinic's WhatsApp activity."
         actions={
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
-              <Button type="button" variant="outline" className="w-full sm:w-40">
+              <Button type="button" variant="outline" className="sm:w-40">
                 {periodLabel}
                 <ChevronDown className="h-4 w-4" />
               </Button>
@@ -211,7 +213,7 @@ export default function DashboardPage() {
               <MessageFailures />
             </div>
           )}
-          <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
+          <div className="grid grid-cols-2 gap-2 sm:gap-4 xl:grid-cols-4">
             <StatCard
               title="Total Users"
               value={statsQuery.data.totalUsers}

@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import {
   BookOpen,
   CalendarDays,
@@ -49,11 +49,12 @@ function NavLinks({
             href={item.href}
             onClick={onNavigate}
             className={cn(
-              "flex h-10 items-center gap-3 rounded-md px-3 text-sm font-medium text-muted-foreground transition-colors hover:bg-accent hover:text-accent-foreground",
+              "flex h-12 items-center gap-3 rounded-md px-3 text-sm font-medium text-muted-foreground transition-colors hover:bg-accent hover:text-accent-foreground lg:h-10",
               active && "bg-accent text-accent-foreground",
               collapsed && "justify-center px-0"
             )}
             title={collapsed ? item.label : undefined}
+            aria-current={active ? "page" : undefined}
           >
             <Icon className="h-4 w-4 shrink-0" />
             {!collapsed && <span>{item.label}</span>}
@@ -88,6 +89,23 @@ export function AppShell({ children }: { children: React.ReactNode }) {
   const [collapsed, setCollapsed] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const pathname = usePathname();
+  const mobileDialog = useRef<HTMLDialogElement>(null);
+
+  useEffect(() => {
+    if (!mobileOpen) return;
+    const dialog = mobileDialog.current;
+    dialog?.showModal();
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    const wideScreen = window.matchMedia("(min-width: 1024px)");
+    const closeOnDesktop = () => { if (wideScreen.matches) setMobileOpen(false); };
+    wideScreen.addEventListener("change", closeOnDesktop);
+    return () => {
+      dialog?.close();
+      document.body.style.overflow = previousOverflow;
+      wideScreen.removeEventListener("change", closeOnDesktop);
+    };
+  }, [mobileOpen]);
 
   if (pathname === "/login") {
     return <div className="min-h-screen bg-background">{children}</div>;
@@ -101,7 +119,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
           collapsed ? "w-20" : "w-64"
         )}
       >
-        <div className="flex h-16 items-center justify-between border-b px-4">
+        <div className="flex h-16 shrink-0 items-center justify-between border-b px-4">
           {!collapsed && (
             <div>
               <div className="text-sm font-semibold">Vishwavrinda</div>
@@ -122,10 +140,10 @@ export function AppShell({ children }: { children: React.ReactNode }) {
             )}
           </Button>
         </div>
-        <div className="flex-1 px-3 py-4">
+        <div className="min-h-0 flex-1 overflow-y-auto px-3 py-4">
           <NavLinks collapsed={collapsed} />
         </div>
-        <div className="border-t p-3">
+        <div className="shrink-0 border-t p-3">
           <div className="space-y-2">
             <ThemeToggle compact={collapsed} />
             <LogoutButton compact={collapsed} />
@@ -134,15 +152,16 @@ export function AppShell({ children }: { children: React.ReactNode }) {
       </aside>
 
       {mobileOpen && (
-        <div className="fixed inset-0 z-40 lg:hidden">
+        <dialog ref={mobileDialog} aria-label="Navigation" onCancel={() => setMobileOpen(false)}
+          className="fixed inset-0 m-0 h-dvh max-h-none w-full max-w-none bg-transparent p-0 text-foreground lg:hidden">
           <button
             type="button"
             aria-label="Close navigation"
             className="absolute inset-0 bg-background/80"
             onClick={() => setMobileOpen(false)}
           />
-          <div className="absolute inset-y-0 left-0 flex w-72 flex-col border-r bg-card">
-            <div className="flex h-16 items-center justify-between border-b px-4">
+          <div className="absolute inset-y-0 left-0 flex w-72 max-w-[85vw] flex-col border-r bg-card pb-[env(safe-area-inset-bottom)] pt-[env(safe-area-inset-top)] pl-[env(safe-area-inset-left)]">
+            <div className="flex h-16 shrink-0 items-center justify-between border-b px-4">
               <div>
                 <div className="text-sm font-semibold">Vishwavrinda</div>
                 <div className="text-xs text-muted-foreground">Ayurveda</div>
@@ -157,21 +176,21 @@ export function AppShell({ children }: { children: React.ReactNode }) {
                 <X className="h-4 w-4" />
               </Button>
             </div>
-            <div className="flex-1 px-3 py-4">
+            <div className="min-h-0 flex-1 overflow-y-auto px-3 py-4">
               <NavLinks onNavigate={() => setMobileOpen(false)} />
             </div>
-            <div className="border-t p-3">
+            <div className="shrink-0 border-t p-3">
               <div className="space-y-2">
                 <ThemeToggle />
                 <LogoutButton />
               </div>
             </div>
           </div>
-        </div>
+        </dialog>
       )}
 
       <div className={cn("transition-all duration-200", collapsed ? "lg:pl-20" : "lg:pl-64")}>
-        <header className="sticky top-0 z-20 flex h-14 items-center justify-between border-b bg-background/95 px-4 lg:hidden">
+        <header className="mobile-header sticky top-0 z-20 flex items-center justify-between border-b bg-background/95 lg:hidden">
           <Button
             type="button"
             variant="ghost"
@@ -184,7 +203,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
           <div className="text-sm font-semibold">Vishwavrinda Ayurveda</div>
           <ThemeToggle compact />
         </header>
-        <main className="mx-auto w-full max-w-none px-3 py-6 sm:px-5 lg:px-6">
+        <main className="app-main mx-auto min-w-0 w-full max-w-none py-4 pb-[max(1rem,env(safe-area-inset-bottom))] sm:py-6">
           {children}
         </main>
       </div>

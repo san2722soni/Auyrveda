@@ -58,6 +58,23 @@
       linear-gradient(135deg, hsl(155 34% 96%) 0%, hsl(43 76% 95%) 48%, hsl(180 38% 94%) 100%);
     font-family: Roboto, Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
     letter-spacing: 0;
+    overflow-wrap: anywhere;
+  }
+
+  button, a, input, select, textarea { touch-action: manipulation; }
+
+  @media (pointer: coarse) {
+    button, input, select, [role="menuitem"], [role="menuitemcheckbox"] { min-height: 44px; }
+    button { min-width: 44px; }
+    input, textarea, select { font-size: 16px !important; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
   }
 
   .dark body {
@@ -67,6 +84,49 @@
 }
 
 @layer components {
+  .app-main {
+    --page-gutter: 0.75rem;
+    padding-left: max(var(--page-gutter), env(safe-area-inset-left));
+    padding-right: max(var(--page-gutter), env(safe-area-inset-right));
+  }
+  .mobile-header {
+    height: calc(3.5rem + env(safe-area-inset-top));
+    padding-top: env(safe-area-inset-top);
+    padding-left: max(1rem, env(safe-area-inset-left));
+    padding-right: max(1rem, env(safe-area-inset-right));
+  }
+  .markdown-preview { overflow-wrap: anywhere; }
+  .markdown-preview pre { max-width: 100%; overflow-x: auto; }
+  .markdown-preview img { max-width: 100%; height: auto; }
+  .markdown-preview a { text-decoration: underline; }
+
+  .chat-workspace {
+    --chat-offset: 9.5rem;
+    height: calc(100dvh - var(--chat-offset) - env(safe-area-inset-top) - env(safe-area-inset-bottom));
+  }
+  .conversation-page:has([data-keyboard-open="true"]) .conversation-page-header { display: none; }
+  .conversation-layout:has([data-keyboard-open="true"]) { margin-top: 0 !important; }
+  @media (min-width: 640px) {
+    .app-main { --page-gutter: 1.25rem; }
+    .chat-workspace { --chat-offset: 12rem; }
+  }
+  @media (min-width: 1024px) {
+    .app-main { --page-gutter: 1.5rem; }
+    .chat-workspace { --chat-offset: 8rem; }
+  }
+  @media (max-height: 500px) {
+    .conversation-page-header { display: none; }
+    .conversation-layout { margin-top: 0 !important; }
+    .chat-workspace { --chat-offset: 5.5rem; }
+    .chat-workspace .booking-button { width: 44px; padding-inline: 0; }
+    .chat-workspace .booking-label { display: none; }
+  }
+  @media (min-width: 640px) and (max-height: 500px) {
+    .chat-workspace { --chat-offset: 6.5rem; }
+  }
+  @media (min-width: 1024px) and (max-height: 500px) {
+    .chat-workspace { --chat-offset: 3rem; }
+  }
   .markdown-preview h1,
   .markdown-preview h2,
   .markdown-preview h3 {

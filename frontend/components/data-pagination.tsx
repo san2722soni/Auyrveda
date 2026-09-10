@@ -26,23 +26,25 @@ export function DataPagination({
         Showing page {pagination.total === 0 ? 0 : pagination.page} of{" "}
         {pagination.totalPages}
       </p>
-      <div className="flex flex-wrap items-center gap-2">
+      <div className="flex flex-wrap items-center justify-between gap-2 sm:justify-start">
         <Button
           type="button"
           variant="outline"
           size="sm"
+          aria-label="Previous page"
           disabled={pagination.page <= 1 || pagination.totalPages === 0}
           onClick={() => onPageChange(pagination.page - 1)}
         >
           <ChevronLeft className="h-4 w-4" />
-          Previous
+          <span className="hidden sm:inline">Previous</span>
         </Button>
+        <span className="text-sm tabular-nums sm:hidden">{pagination.page} / {totalPages}</span>
         {pages.map((page, index) => {
           const previous = pages[index - 1];
           const showEllipsis = previous && page - previous > 1;
 
           return (
-            <span key={page} className="flex items-center gap-2">
+            <span key={page} className="hidden items-center gap-2 sm:flex">
               {showEllipsis && (
                 <span className="text-sm text-muted-foreground">...</span>
               )}
@@ -51,6 +53,7 @@ export function DataPagination({
                 variant={page === pagination.page ? "default" : "outline"}
                 size="sm"
                 aria-label={`Go to page ${page}`}
+                aria-current={page === pagination.page ? "page" : undefined}
                 onClick={() => onPageChange(page)}
               >
                 {page}
@@ -62,13 +65,14 @@ export function DataPagination({
           type="button"
           variant="outline"
           size="sm"
+          aria-label="Next page"
           disabled={
             pagination.page >= pagination.totalPages ||
             pagination.totalPages === 0
           }
           onClick={() => onPageChange(pagination.page + 1)}
         >
-          Next
+          <span className="hidden sm:inline">Next</span>
           <ChevronRight className="h-4 w-4" />
         </Button>
       </div>

@@ -5,7 +5,9 @@ import {
   Suspense,
   UIEvent,
   useEffect,
+  useLayoutEffect,
   useMemo,
+  useRef,
   useState,
 } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
@@ -58,6 +60,11 @@ function ConversationsContent() {
   const [userPage, setUserPage] = useState(1);
   const [search, setSearch] = useState("");
   const [manualMessage, setManualMessage] = useState("");
+  const messageList = useRef<HTMLDivElement>(null);
+  const chatPanel = useRef<HTMLDivElement>(null);
+  const followLatest = useRef(true);
+  const previousPhone = useRef("");
+  const olderScroll = useRef<{ height: number; top: number } | null>(null);
   const debouncedSearch = useDebouncedValue(search);
 
   useEffect(() => {
@@ -93,17 +100,19 @@ function ConversationsContent() {
   });
 
   function selectUser(phoneNumber: string) {
-    router.push(`/conversations?phoneNumber=${encodeURIComponent(phoneNumber)}`);
+    router.push(`/conversations?phoneNumber=${encodeURIComponent(phoneNumber)}`, { scroll: false });
   }
 
   function handleMessageScroll(event: UIEvent<HTMLDivElement>) {
     const target = event.currentTarget;
+    followLatest.current = target.scrollHeight - target.scrollTop - target.clientHeight < 80;
 
     if (
       target.scrollTop < 80 &&
       messagesQuery.hasNextPage &&
       !messagesQuery.isFetchingNextPage
     ) {
+      olderScroll.current = { height: target.scrollHeight, top: target.scrollTop };
       messagesQuery.fetchNextPage();
     }
   }
@@ -132,6 +141,44 @@ function ConversationsContent() {
   );
   const showConversationOnMobile = Boolean(selectedPhoneNumber);
   useEffect(() => { setManualMessage(""); }, [selectedPhoneNumber]);
+
+  useLayoutEffect(() => {
+    const list = messageList.current;
+    if (!list) return;
+    if (previousPhone.current !== selectedPhoneNumber) {
+      previousPhone.current = selectedPhoneNumber;
+      followLatest.current = true;
+      olderScroll.current = null;
+    }
+    if (olderScroll.current && !messagesQuery.isFetchingNextPage) {
+      list.scrollTop = olderScroll.current.top + list.scrollHeight - olderScroll.current.height;
+      olderScroll.current = null;
+    } else if (followLatest.current) {
+      list.scrollTop = list.scrollHeight;
+    }
+  }, [messages, selectedPhoneNumber, messagesQuery.isFetchingNextPage]);
+
+  useEffect(() => {
+    const viewport = window.visualViewport;
+    if (!viewport || !selectedPhoneNumber) return;
+    // Keep the reply box above phone keyboards that overlay the layout viewport.
+    const resize = () => {
+      const panel = chatPanel.current;
+      if (!panel) return;
+      const keyboardOpen = viewport.scale === 1 && window.innerHeight - viewport.height > 120;
+      panel.dataset.keyboardOpen = String(keyboardOpen);
+      panel.style.height = keyboardOpen
+        ? `${Math.max(0, viewport.height - panel.getBoundingClientRect().top + viewport.offsetTop - 8)}px`
+        : "";
+    };
+    resize();
+    viewport.addEventListener("resize", resize);
+    viewport.addEventListener("scroll", resize);
+    return () => {
+      viewport.removeEventListener("resize", resize);
+      viewport.removeEventListener("scroll", resize);
+    };
+  }, [selectedPhoneNumber]);
 
   const replyModeMutation = useMutation({
     mutationFn: (replyMode: "ai" | "manual") =>
@@ -183,13 +230,15 @@ function ConversationsContent() {
   }
 
   return (
-    <div className="space-y-6">
-      <PageHeader
-        title="Conversations"
-        description="Inspect stored WhatsApp conversation history."
-      />
+    <div className="conversation-page space-y-4 sm:space-y-6">
+      <div className={cn(selectedPhoneNumber && "conversation-page-header")}>
+        <PageHeader
+          title="Conversations"
+          description="Inspect stored WhatsApp conversation history."
+        />
+      </div>
 
-      <div className="grid gap-4 xl:grid-cols-[420px_1fr]">
+      <div className={cn("grid min-w-0 gap-4 xl:grid-cols-[320px_minmax(0,1fr)] 2xl:grid-cols-[380px_minmax(0,1fr)]", selectedPhoneNumber && "conversation-layout")}>
         <Card className={cn("overflow-hidden", showConversationOnMobile && "hidden xl:block")}>
           <div className="border-b p-4">
             <div className="relative">
@@ -280,9 +329,9 @@ function ConversationsContent() {
           )}
         </Card>
 
-        <Card className={cn("min-h-[680px] overflow-hidden shadow-lg", !showConversationOnMobile && "hidden xl:block")}>
+        <Card ref={chatPanel} className={cn("chat-workspace overflow-hidden", !showConversationOnMobile && "hidden xl:block")}>
           {!selectedPhoneNumber && (
-            <div className="flex h-full min-h-[680px] items-center justify-center p-6">
+            <div className="flex h-full items-center justify-center p-6">
               <EmptyState
                 icon={MessageSquareText}
                 title="No conversation selected"
@@ -292,8 +341,8 @@ function ConversationsContent() {
           )}
 
           {selectedPhoneNumber && (
-            <div className="flex min-h-[680px] flex-col">
-              <div className="flex items-center justify-between gap-3 border-b bg-gradient-to-r from-emerald-500/10 to-amber-500/10 p-4">
+            <div className="flex h-full min-h-0 flex-col">
+              <div className="flex shrink-0 items-center justify-between gap-2 border-b bg-muted/50 p-2 sm:p-4">
                 <div className="min-w-0">
                   <div className="flex items-center gap-2">
                     <Button
@@ -306,32 +355,29 @@ function ConversationsContent() {
                     >
                       <ArrowLeft className="h-4 w-4" />
                     </Button>
-                    <div>
-                      <div className="text-sm font-semibold">
+                    <div className="min-w-0">
+                      <div className="break-all text-sm font-semibold">
                         {selectedPhoneNumber}
                       </div>
-                      <div className="text-xs text-muted-foreground">
-                        Scroll upward to load older messages
-                      </div>
+                      <Badge
+                        variant={
+                          selectedUser?.appointmentAssistantActive
+                            ? "pending"
+                            : selectedReplyMode === "manual"
+                              ? "secondary"
+                              : "success"
+                        }
+                      >
+                        {selectedUser?.appointmentAssistantActive
+                          ? "Booking"
+                          : selectedReplyMode === "manual"
+                            ? "Staff Mode"
+                            : "AI Active"}
+                      </Badge>
                     </div>
                   </div>
                 </div>
-                <div className="flex flex-wrap items-center justify-end gap-2">
-                  <Badge
-                    variant={
-                      selectedUser?.appointmentAssistantActive
-                        ? "pending"
-                        : selectedReplyMode === "manual"
-                          ? "secondary"
-                          : "success"
-                    }
-                  >
-                    {selectedUser?.appointmentAssistantActive
-                      ? "Booking"
-                      : selectedReplyMode === "manual"
-                        ? "Staff Mode"
-                        : "AI Active"}
-                  </Badge>
+                <div className="shrink-0">
                   <Button
                     type="button"
                     size="sm"
@@ -349,7 +395,9 @@ function ConversationsContent() {
               </div>
 
               <div
-                className="flex max-h-[calc(100vh-230px)] min-h-[560px] flex-1 flex-col gap-4 overflow-y-auto p-4"
+                ref={messageList}
+                aria-label="Conversation messages"
+                className="flex min-h-0 flex-1 flex-col gap-3 overflow-y-auto overscroll-contain p-3 sm:p-4"
                 onScroll={handleMessageScroll}
               >
                 {messagesQuery.isFetchingNextPage && (
@@ -408,7 +456,7 @@ function ConversationsContent() {
                       )}
                       <div
                         className={cn(
-                          "max-w-[86%] rounded-2xl border px-4 py-3 shadow-sm",
+                          "min-w-0 max-w-[calc(100%-2.5rem)] rounded-lg border px-3 py-2 shadow-sm sm:max-w-[80%] sm:px-4 sm:py-3",
                           isAssistant
                             ? "bg-emerald-600 text-white"
                             : "bg-card text-foreground"
@@ -422,7 +470,7 @@ function ConversationsContent() {
                         >
                           {label}
                         </div>
-                        <div className="whitespace-pre-wrap break-words text-sm leading-6">
+                        <div className="whitespace-pre-wrap [overflow-wrap:anywhere] text-sm leading-6">
                           {message.content || "(empty message)"}
                         </div>
                         <div
@@ -444,7 +492,7 @@ function ConversationsContent() {
                 })}
               </div>
               <form
-                className="grid gap-2 border-t bg-background p-4 lg:grid-cols-[1fr_auto_auto]"
+                className="grid shrink-0 grid-cols-[minmax(0,1fr)_auto_auto] gap-2 border-t bg-background p-2 sm:p-3"
                 onSubmit={handleManualSend}
               >
                 <Input
@@ -456,6 +504,9 @@ function ConversationsContent() {
                 />
                 <Button
                   type="submit"
+                  size="icon"
+                  aria-label="Send reply"
+                  title="Send reply"
                   disabled={
                     controlsDisabled ||
                     !manualMessage.trim() ||
@@ -463,16 +514,18 @@ function ConversationsContent() {
                   }
                 >
                   <Send className="h-4 w-4" />
-                  Send
                 </Button>
                 <Button
                   type="button"
                   variant="outline"
+                  className="booking-button w-11 px-0 sm:w-auto sm:px-4"
+                  aria-label="Book Appointment"
+                  title="Book appointment"
                   disabled={controlsDisabled || appointmentMutation.isPending}
                   onClick={() => appointmentMutation.mutate()}
                 >
                   <CalendarPlus className="h-4 w-4" />
-                  Book Appointment
+                  <span className="booking-label hidden sm:inline">Book Appointment</span>
                 </Button>
               </form>
             </div>

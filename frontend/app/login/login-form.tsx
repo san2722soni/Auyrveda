@@ -46,7 +46,7 @@ export function LoginForm() {
   }
 
   return (
-    <main className="flex min-h-screen items-center justify-center px-4 py-8">
+    <main className="flex min-h-dvh items-center justify-center px-4 py-8">
       <Card className="w-full max-w-sm">
         <CardHeader className="text-center">
           <div className="mx-auto mb-3 flex h-10 w-10 items-center justify-center rounded-md bg-primary text-primary-foreground">
@@ -67,7 +67,8 @@ export function LoginForm() {
                 autoComplete="username"
                 value={username}
                 onChange={(event) => setUsername(event.target.value)}
-                placeholder="Test"
+                autoCapitalize="none"
+                autoCorrect="off"
                 required
               />
             </div>
@@ -81,7 +82,6 @@ export function LoginForm() {
                 autoComplete="current-password"
                 value={password}
                 onChange={(event) => setPassword(event.target.value)}
-                placeholder="1247"
                 required
               />
             </div>
